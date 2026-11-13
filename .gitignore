@@ -1,0 +1,44 @@
+# Dependency and package-manager caches
+node_modules/
+.pnpm-store/
+.npm/
+
+# Generated application output (build/ contains upstream source assets)
+dist/
+dist-electron/
+release/
+coverage/
+*.tsbuildinfo
+*.log
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+!.env.*.example
+.npmrc.local
+*.pem
+*.key
+.claude/settings.local.json
+
+# Runtime data and local backups; keep these outside source control
+.reviva/
+.sapere/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+/backups/
+
+# Research checkouts have their own Git histories
+/research/upstreams/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
