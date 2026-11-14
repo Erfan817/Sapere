@@ -55,7 +55,7 @@ Sapere is in **M0: engineering and desktop foundations**. Windows 11 x64 is the 
 | Materials, Q&A and creation | Local TXT/Markdown import, reading and restart recovery validated; Q&A and other formats still under validation |
 | Courses and exercises | Planned learning packages, chapter reading and exercise submission |
 | Learning records and review | Planned persistent records, due queue and spaced repetition |
-| Distribution | Windows x64 NSIS installer built and smoke-tested from the unpacked app; install/uninstall, clean-machine and signing not validated; automatic updates disabled |
+| Distribution | Windows x64 NSIS installer built; silent install/uninstall and unpacked-app smoke tests passed; clean-machine, interactive install and signing not validated; automatic updates disabled |
 | Other platforms | macOS and Linux not yet validated |
 
 The first-release goal is:

@@ -4,9 +4,9 @@
 
 ## 结论
 
-**通过：已生成 Windows x64 NSIS 安装包，打包后的 `Sapere.exe` 能在隔离数据目录启动、创建工作区并跨重启保存笔记。**
+**通过：已生成 Windows x64 NSIS 安装包；静默安装、启动与静默卸载均通过，打包后的 `Sapere.exe` 能在隔离数据目录启动、创建工作区并跨重启保存笔记。**
 
-本轮未执行安装器写入系统，也未在干净 Windows 环境验证安装；安装、卸载与 SmartScreen 体验仍属于后续验收。
+本轮安装到仓库内的隔离目录（不使用系统默认安装位置），未在干净 Windows 环境或交互式安装界面下验证；签名与 SmartScreen 体验仍属于后续验收。
 
 | 项目 | 结果 |
 | --- | --- |
@@ -24,6 +24,19 @@
 - `resources/builtin-assets/bin/officecli/officecli-win-x64.exe` 已按架构复制，arm64 二进制被移除。
 - `resources/app.asar.unpacked/node_modules/better-sqlite3/build/Release/better_sqlite3.node` 存在，原生模块未打进 asar。
 - 安装包与主程序版本信息为 `Sapere` / `1.5.0`，公司字段为 `Erfan817`。
+
+## 安装与卸载验证
+
+证据：`.sapere/m0-install/run-bjm75s/report.json`，`success=true`。
+
+1. 安装前确认本机没有 Sapere 卸载项、桌面/开始菜单快捷方式或目标目录。
+2. 使用 `Sapere-Windows-1.5.0-x64-Setup.exe /S /D=<隔离目录>` 静默安装，未出现 UAC 提示。
+3. 安装后核对：`Sapere.exe` 与 `Uninstall Sapere.exe` 存在；注册表卸载项 `Sapere 1.5.0` 的 `DisplayVersion` 为 `1.5.0`、`UninstallString` 指向安装目录并带 `/currentuser`；桌面与开始菜单快捷方式均创建；未创建公共桌面快捷方式。
+4. 从安装目录启动 `Sapere.exe`，确认 `app.isPackaged=true`、版本 1.5.0、可执行文件路径为安装目录，界面正常加载。
+5. 使用 `Uninstall Sapere.exe /S` 静默卸载；核对安装目录、桌面与开始菜单快捷方式、注册表卸载项均被移除，安装目录无残留文件。
+6. 卸载后 `%APPDATA%\Reviva` 用户 profile 保留，符合 `deleteAppDataOnUninstall=false` 的配置。
+
+说明：NSIS 未写入 `InstallLocation`，卸载项以 `UninstallString` 为准；本轮安装使用自定义隔离目录，未验证交互式选择目录、覆盖安装与卸载时的 UI。
 
 ## 打包后应用验证
 
@@ -62,11 +75,17 @@ PATH="/d/Sapere/.sapere/bin:$PATH" ELECTRON_BUILDER_CACHE="D:/Sapere/.sapere/eb-
 node scripts/m0-packaged-smoke.mjs
 ```
 
+安装与卸载验收会静默安装到 `.sapere/m0-install/app`，启动已安装程序，然后静默卸载并核对文件、快捷方式与注册表：
+
+```bash
+node scripts/m0-install-uninstall.mjs
+```
+
 脚本读取 `release/1.5.0/win-unpacked`，通过 `SAPERE_USER_DATA` 使用临时 profile，执行三次启动并输出 `M0_PACKAGED_REPORT`。
 
 ## 未完成与边界
 
-- 未运行 NSIS 安装器，因此未验证安装目录选择、开始菜单/桌面快捷方式、卸载、升级覆盖、系统重启后启动；也未在未安装开发工具的干净 Windows 环境验证。
+- 安装与卸载使用静默参数和隔离目录，未验证交互式安装界面、自定义目录选择、覆盖安装/升级、卸载保留文件选项与系统重启后启动；也未在未安装开发工具的干净 Windows 环境验证。
 - 安装包未签名，Windows SmartScreen 会提示未知发布者；公开发布前需要确定签名方案与成本。
 - 仅构建 x64；配置中仍保留 arm64 目标但本轮未构建、未验证。
 - `appId` 仍为 `com.reviva.desktop`，版本仍为 `1.5.0`，自动更新保持关闭；独立安装身份、版本号策略与发布渠道属于 M1/M4。
