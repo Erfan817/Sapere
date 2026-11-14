@@ -1,0 +1,21 @@
+{
+  "id": "sepia",
+  "name": "写作修订（Sepia）",
+  "description": "修订小说与专业文本的写作技能：从叙事结构、篇章推进到措辞节奏逐层诊断和改写，支持 write / review / refactor / recreate 四种操作，含中文句式节奏校准与分领域规则。来源 Nanako0129/sepia（MIT）。",
+  "icon": "ri-quill-pen-line",
+  "color": "#7C5C3E",
+  "category": "创作",
+  "source": "platform",
+  "allowedTools": [
+    "file_read",
+    "file_write",
+    "document_read"
+  ],
+  "outputTypes": [
+    "Markdown",
+    "TXT"
+  ],
+  "version": "0.13.0",
+  "author": "Nanako0129",
+  "license": "MIT"
+}
