@@ -42,3 +42,6 @@ coverage/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Market repo is pushed as its own standalone GitHub repository
+/market/
