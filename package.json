@@ -22,6 +22,7 @@
     "migrate-db": "node scripts/migrate-db.js",
     "postinstall": "electron-builder install-app-deps",
     "build:electron": "cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build",
+    "build:win": "node scripts/build-win.mjs",
     "test:wiki": "node --test electron/wiki/__tests__/wiki-core.test.js",
     "test:skills": "node --test electron/SkillService.test.js",
     "test:k12-agents": "node scripts/verify-k12-learning-agents.mjs",
@@ -31,6 +32,16 @@
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": []
+    },
+    "overrides": {
+      "lru-cache@6>yallist": "4.0.0"
+    },
+    "packageExtensions": {
+      "hosted-git-info@4.1.0": {
+        "dependencies": {
+          "yallist": "4.0.0"
+        }
+      }
     },
     "onlyBuiltDependencies": [
       "electron",
@@ -70,7 +81,7 @@
     "axios": "^1.16.1",
     "cross-env": "^10.1.0",
     "electron": "30.5.1",
-    "electron-builder": "^24.13.3",
+    "electron-builder": "^26.18.0",
     "highlight.js": "^11.11.1",
     "katex": "^0.17.0",
     "markdown-it": "^14.2.0",

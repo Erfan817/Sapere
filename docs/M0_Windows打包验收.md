@@ -1,6 +1,6 @@
 # M0 Windows 打包验收
 
-日期：2026-11-14。环境：Windows 11 x64；Node 24.16.0；pnpm 10.34.9；Electron 30.5.1。构建源码为提交 `8d3b0fe` 加本轮原子写入修复。
+日期：2026-11-14。环境：Windows 11 x64；Node 24.16.0；pnpm 10.34.9；Electron 30.5.1；electron-builder 26.18.0。构建源码为提交 `bacd909` 加本轮构建脚本与依赖修复。
 
 ## 结论
 
@@ -11,8 +11,8 @@
 | 项目 | 结果 |
 | --- | --- |
 | 安装包 | `release/1.5.0/Sapere-Windows-1.5.0-x64-Setup.exe` |
-| 大小 | 134,685,387 字节（约 128 MB） |
-| SHA-256 | `c838c8a05cc4a20b1321ddd6776227d1c8f247f6fcce25bf147f027b374c1283` |
+| 大小 | 134,655,574 字节（约 128 MB） |
+| SHA-256 | `46317337a1f413feba71a730ba990f0d3d96cbf6a5666a2571391566e3fa2434` |
 | 版本 / 产品名 | 1.5.0 / Sapere |
 | 签名 | `NotSigned`，未配置代码签名证书 |
 | 附带产物 | `latest.yml`、`Sapere-Windows-1.5.0-x64-Setup.exe.blockmap`、`win-unpacked/` |
@@ -50,26 +50,26 @@
 
 ## 本轮修复的打包/运行问题
 
-- **打包工具在 Windows 失败**：electron-builder 24.13.3 通过 Corepack 直接执行 `pnpm.cjs` 重建原生依赖，Windows 报“不是有效的 Win32 应用程序”；其下载的 `winCodeSign` 压缩包含 macOS 符号链接，当前用户没有创建符号链接权限，解压失败。本轮使用独立短路径安装的 electron-builder 26.18.0 完成打包，项目依赖仍为 24.13.3，未修改锁文件。
-- **NSIS 路径长度**：`pnpm dlx` 的深层缓存路径导致 NSIS 找不到 include 文件；改用短目录安装打包器后解决。
+- **打包工具在 Windows 失败**：electron-builder 24.13.3 通过 Corepack 直接执行 `pnpm.cjs` 重建原生依赖，Windows 报“不是有效的 Win32 应用程序”；其下载的 `winCodeSign` 压缩包含 macOS 符号链接，当前用户没有创建符号链接权限，解压失败。现已把项目依赖升级到 electron-builder 26.18.0，该版本不再依赖这些 macOS 符号链接，空缓存构建可自行下载 NSIS 工具并成功完成。
+- **依赖树损坏**：升级后 `hosted-git-info@4.1.0` 下的 `lru-cache@6` 与 hoisted `yallist@5` 不兼容，`postinstall` 报 `Yallist is not a constructor`。通过 `pnpm.overrides` 固定 `lru-cache@6>yallist` 为 4.0.0，并用 `pnpm.packageExtensions` 为 `hosted-git-info` 补充直接依赖，使 hoisted 布局稳定可解析。
+- **打包器找不到 pnpm**：electron-builder 通过 PATH 调用 `pnpm list`；Corepack 不提供全局 shim，收集失败后回退到慢速遍历。新增 `scripts/build-win.mjs`，在 `.sapere/tools/bin` 生成仅本次构建使用的 pnpm 命令垫片（指向当前 Corepack 的 `pnpm.cjs`），并调用本地 electron-builder。
+- **NSIS 路径长度**：`pnpm dlx` 的深层缓存路径导致 NSIS 找不到 include 文件；改为项目内安装、由 `build:win` 直接调用本地打包器后不再出现。
 - **默认 profile 启动崩溃**：`%APPDATA%\Reviva` 所在目录的 `fs.rename` 返回 `EXDEV`，工作区注册文件原子写入失败，应用启动即退出。新增 `electron/atomicFile.js`，在 `EXDEV` 时回退为复制后删除，并用于工作区注册、旧指针与备份状态写入；随后默认 profile 可正常启动。
 - **打包态数据隔离**：新增仅打包态使用的 `SAPERE_USER_DATA` 绝对路径覆盖，便于验收与便携式测试；未设置时仍使用兼容的 `Reviva` profile。
 
 ## 复现
 
-先构建 renderer / main / preload：
+在项目根目录执行一条命令，完成 renderer/main/preload 构建与 x64 NSIS 打包：
 
 ```bash
-corepack pnpm run build:electron
+corepack pnpm run build:win
 ```
 
-本轮使用短路径安装的 electron-builder 26 完成打包（示例路径，需与本机实际安装位置一致）：
+脚本 `scripts/build-win.mjs` 会生成仅本次构建使用的 pnpm 命令垫片，调用本地 electron-builder 26，由后者完成原生依赖重建、Electron 下载与 NSIS 打包。产物位于 `release/1.5.0/`。
 
-```bash
-PATH="/d/Sapere/.sapere/bin:$PATH" ELECTRON_BUILDER_CACHE="D:/Sapere/.sapere/eb-cache26/" node D:/eb26/node_modules/electron-builder/cli.js --win nsis --x64 -c.npmRebuild=false
-```
+已验证：删除 `ELECTRON_BUILDER_CACHE` 目录后从空缓存构建成功，electron-builder 自行下载 NSIS 与签名工具，无需短路径独立安装或手工替换缓存。
 
-其中 `.sapere/bin/pnpm.cmd` 只是让打包器找到 Corepack 的 pnpm；`-c.npmRebuild=false` 表示跳过重复原生重建，依赖已由 `postinstall` 的 `electron-builder install-app-deps` 按 Electron ABI 准备。构建完成后可运行：
+构建完成后可运行：
 
 ```bash
 node scripts/m0-packaged-smoke.mjs
@@ -91,4 +91,5 @@ node scripts/m0-install-uninstall.mjs
 - `appId` 仍为 `com.reviva.desktop`，版本仍为 `1.5.0`，自动更新保持关闭；独立安装身份、版本号策略与发布渠道属于 M1/M4。
 - 打包态默认 profile 仍位于 `%APPDATA%\Reviva`，用于兼容已有数据；本轮默认 profile 检查留下了空的 `workspaces.json` 与应用缓存，未包含个人工作区。
 - 未验证安装包在代理、受限权限、企业策略或非简体中文 Windows 下的行为。
-- 打包过程依赖网络下载 Electron、NSIS 与签名工具；本机缓存与环境修复步骤尚未沉淀为项目脚本，需在 M1 决定 electron-builder 升级和构建镜像方案。
+- 打包过程依赖网络下载 Electron、NSIS 与签名工具；首次构建需要可访问相应下载源，离线构建尚未验收。
+- 交互式安装、干净 Windows 环境、签名与 SmartScreen 仍未验收；这些不影响“一条命令可复现构建”的结论。
