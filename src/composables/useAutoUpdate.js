@@ -1,6 +1,7 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useMessage } from '@/components/MsMessage/useMessage'
 import { checkUpdateSources } from '@/services/updateSources'
+import { BRAND } from '@/config/brand'
 
 const checking = ref(false)
 const updateInfo = ref(null)
@@ -120,6 +121,15 @@ function setupListeners() {
 }
 
 async function checkForUpdate() {
+  if (!BRAND.updatesEnabled) {
+    checking.value = false
+    error.value = null
+    updateInfo.value = null
+    lastCheckStatus.value = 'not-available'
+    lastCheckMessage.value = BRAND.updateNotice
+    msgApi?.info(BRAND.updateNotice)
+    return null
+  }
   setChecking()
   updateInfo.value = null
   downloaded.value = false

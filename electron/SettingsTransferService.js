@@ -145,7 +145,7 @@ export function parseSettingsTransfer(payload) {
   if (!isPlainObject(payload)) throw new Error('配置文件格式无效')
 
   if (payload.format !== undefined) {
-    if (payload.format !== SETTINGS_TRANSFER_FORMAT) throw new Error('不是 Reviva 配置文件')
+    if (payload.format !== SETTINGS_TRANSFER_FORMAT) throw new Error('不是 Sapere 兼容配置文件')
     if (payload.formatVersion !== SETTINGS_TRANSFER_VERSION) {
       throw new Error(`不支持的配置文件版本：${payload.formatVersion ?? '未知'}`)
     }

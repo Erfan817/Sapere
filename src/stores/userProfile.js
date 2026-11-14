@@ -28,12 +28,12 @@ const RECHARGE_PLANS = [
 export const useUserProfileStore = defineStore('userProfile', () => {
   // Mock profile data
   const profile = ref({
-    uid: '285094',
-    nickname: '明心',
+    uid: '',
+    nickname: '本地学习者',
     avatar: '',
-    email: 'mingxin@reviva.app',
-    registeredAt: '2024-03-15',
-    bio: '专注于知识管理与 AI 应用探索',
+    email: '',
+    registeredAt: '',
+    bio: 'Sapere 本地学习工作空间',
   })
 
   // Credits balance + monthly stats

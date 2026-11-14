@@ -259,7 +259,7 @@ function exportConfig() {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = 'reviva-shortcuts.json'
+  a.download = 'sapere-shortcuts.json'
   a.click()
   window.setTimeout(() => URL.revokeObjectURL(url), 0)
 }

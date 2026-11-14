@@ -6,6 +6,24 @@
       "runtimeExecutable": "corepack",
       "runtimeArgs": ["pnpm", "dev", "--host", "127.0.0.1", "--strictPort"],
       "port": 1234
+    },
+    {
+      "name": "sapere-logo-review",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-I", "-m", "http.server", "1235", "--bind", "127.0.0.1", "--directory", "D:/Sapere/docs/brand/logo-concepts"],
+      "port": 1235
+    },
+    {
+      "name": "sapere-brand-kit",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-I", "-m", "http.server", "1236", "--bind", "127.0.0.1", "--directory", "D:/Sapere/docs/brand/sapere-logo-kit"],
+      "port": 1236
+    },
+    {
+      "name": "sapere-brand-verification",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/preview-brand.mjs"],
+      "port": 1237
     }
   ]
 }

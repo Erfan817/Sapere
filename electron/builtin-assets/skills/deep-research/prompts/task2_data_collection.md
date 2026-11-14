@@ -7,7 +7,7 @@
 - 输出前检查：我这一句是 {LANG} 吗？——不是则立即改写
 - 违规后果：整个流程降级，需重跑
 
-## Reviva 搜索提供方策略
+## Sapere 搜索提供方策略
 
 - 没有任何单一搜索提供方是必需项。`web_search_bing`、`mcp:exa`、`mcp:jina-mcp-server`、SearXNG、网页读取/抓取工具都只是可选通道。
 - 优先使用当前 Agent 实际绑定且可用的工具；如果 Exa 不可用，用 Bing；如果 Bing 不可用，用 Jina/其它网页读取或知识库；如果全部联网工具不可用，标记 `all_search_unavailable=true`，基于本地资料、知识库和模型常识完成，并说明外部信息未校验。
@@ -19,7 +19,7 @@
 
 搜索执行顺序从高优先级到低优先级：
 
-**Layer 0 — Reviva 已绑定搜索工具**：优先使用 `web_search_bing`、`mcp:exa`、`mcp:jina-mcp-server` 或其它已绑定搜索工具。多个工具可并行，但不要因为某一个不可用而失败。
+**Layer 0 — Sapere 已绑定搜索工具**：优先使用 `web_search_bing`、`mcp:exa`、`mcp:jina-mcp-server` 或其它已绑定搜索工具。多个工具可并行，但不要因为某一个不可用而失败。
 
 **Layer 1 — 大纲建议源定向搜索**：读取 {TMPDIR}/outline.json 的 `source_suggestions` 数组（如 `["noaa.gov", "ipcc.ch"]`），用当前可用搜索工具搜索 `site:{域名} {子问题关键词}`。
 
@@ -135,7 +135,7 @@ Step 2 — 多源搜索（按可用工具自适应）
 
 基于 Step 0 发现的工具执行搜索；多个可用工具可以并行，不要等待或强依赖某一个固定引擎：
 
-**Layer 0 — Reviva 搜索工具**：如果存在 `web_search_bing`、`mcp:exa`、`mcp:jina-mcp-server` 或其它搜索工具，搜索所有子问题。优先按可用性选择，不要把 Exa、Bing、Jina 或 SearXNG 视为必需项。
+**Layer 0 — Sapere 搜索工具**：如果存在 `web_search_bing`、`mcp:exa`、`mcp:jina-mcp-server` 或其它搜索工具，搜索所有子问题。优先按可用性选择，不要把 Exa、Bing、Jina 或 SearXNG 视为必需项。
 
 **Layer 1 — 大纲建议源定向搜索**：如果 outline.json 包含 `source_suggestions`，用当前可用搜索工具搜索 `site:{域名} {子问题关键词}`。
 

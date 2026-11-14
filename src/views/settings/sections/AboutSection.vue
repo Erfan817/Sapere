@@ -1,18 +1,17 @@
 <script setup>
 import { computed } from 'vue';
+import BrandLogo from '@/components/BrandLogo.vue';
 import { useRouter } from 'vue-router';
 import { useAppStore } from '@/stores/app';
 import { useAutoUpdate } from '@/composables/useAutoUpdate';
 import { getAppVersion } from '@/utils/tools';
 import { versionChangelog } from '@/config/release';
-import { useMessage } from '@/components/MsMessage/useMessage';
+import { BRAND } from '@/config/brand';
 
 const appVersion = getAppVersion();
 const router = useRouter();
 const appStore = useAppStore();
 const isDark = computed(() => appStore.isDark);
-const msg = useMessage();
-const qqGroupNumber = '1131466242';
 const { checking, updateInfo, error, lastCheckStatus, lastCheckMessage, checkForUpdate } =
   useAutoUpdate();
 
@@ -20,7 +19,7 @@ const updateNotice = computed(() => {
   if (checking.value) return '正在检查更新...';
   if (updateInfo.value?.version)
     return `发现新版本 v${updateInfo.value.version}，请在更新弹窗中继续处理。`;
-  if (error.value) return '自动更新连接失败，可稍后重试，或使用更新弹窗中的夸克网盘下载。';
+  if (error.value) return BRAND.updateNotice;
   if (lastCheckStatus.value === 'not-available')
     return lastCheckMessage.value || '当前已是最新版本。';
   return '';
@@ -48,10 +47,6 @@ function openExternal(url) {
   } else {
     window.open(url, '_blank', 'noopener,noreferrer');
   }
-}
-
-function copyQQGroup() {
-  navigator.clipboard?.writeText(qqGroupNumber).then(() => msg.success('QQ 群号已复制')).catch(() => {});
 }
 
 function toneClass(tone) {
@@ -85,11 +80,7 @@ function toneClass(tone) {
           class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0"
           :class="isDark ? 'bg-d0' : 'bg-l2'"
         >
-          <img
-            class="h-12 w-12 rounded-xl"
-            :src="isDark ? './logo-dark.png' : './logo-light.png'"
-            alt="Reviva"
-          />
+          <BrandLogo class="h-12 w-12" />
         </div>
         <div class="min-w-0 flex-1">
           <div class="flex items-start justify-between gap-3">
@@ -99,7 +90,7 @@ function toneClass(tone) {
                   class="text-[21px] font-bold"
                   :class="isDark ? 'text-wt-main' : 'text-lt-main'"
                 >
-                  Reviva
+                  Sapere · 致知
                 </h2>
                 <span
                   class="ctx-pill"
@@ -108,7 +99,7 @@ function toneClass(tone) {
                       ? 'bg-emerald-400/10 text-emerald-300 border border-emerald-400/20'
                       : 'bg-emerald-50 text-emerald-700 border border-emerald-100'
                   "
-                  >正式版</span
+                  >开发版</span
                 >
                 <span
                   class="ctx-pill font-mono"
@@ -124,7 +115,7 @@ function toneClass(tone) {
                 class="text-[12px] leading-relaxed mt-2 max-w-3xl"
                 :class="isDark ? 'text-wt-aux' : 'text-lt-aux'"
               >
-                以 Agent 为核心的本地学习工作台。资料、对话、知识库、笔记和创作输出，在同一个桌面空间里连续完成。
+                围绕你的资料，帮助你理解、实践，并记住所学的桌面学习工作空间。当前为本地开发阶段，开源来源见「关于项目」。
               </p>
             </div>
             <button
@@ -255,13 +246,13 @@ function toneClass(tone) {
             class="text-[12px] leading-relaxed mb-3"
             :class="isDark ? 'text-wt-aux' : 'text-lt-aux'"
           >
-            使用中遇到问题、有功能建议或合作意向，欢迎反馈与联系。可以提交 Issue、加入 QQ 交流群（群号 1131466242），或直接联系作者。
+            使用中遇到问题或有功能建议，请向 Sapere 项目提交 Issue。当前尚未设立官方邮箱、交流群或赞助渠道。
           </p>
           <div class="flex flex-wrap gap-2">
             <button
               class="h-8 px-3 rounded-lg text-[11px] font-semibold flex items-center gap-1.5 border transition-all"
               :class="isDark ? 'bg-brand-400/12 border-brand-400/25 text-brand-300 hover:bg-brand-400/20 hover:border-brand-400/40' : 'bg-brand-50 border-brand-200 text-brand-600 hover:bg-brand-100 hover:border-brand-300'"
-              @click="openExternal('https://www.reviva.cn/tutorial')"
+              @click="go('/settings/guide')"
             >
               <i class="ri-graduation-cap-line text-[12px]" />
               新手教程
@@ -270,31 +261,10 @@ function toneClass(tone) {
             <button
               class="h-8 px-3 rounded-lg text-[11px] font-medium flex items-center gap-1.5 border transition-colors"
               :class="isDark ? 'bg-d0 border-bdr text-wt-sub hover:border-brand-400/30' : 'bg-l2 border-bdrF text-lt-sub hover:border-brand-200'"
-              @click="openExternal('https://github.com/mingchen666/Reviva/issues')"
+              @click="openExternal(BRAND.issues)"
             >
               <i class="ri-bug-line text-[12px]" />
               提交反馈
-            </button>
-            <!-- QQ 交流群：点击查看二维码，群号可一键复制 -->
-            <button
-              class="h-8 pl-3 pr-2 rounded-lg text-[11px] font-medium flex items-center gap-1.5 border transition-colors"
-              :class="isDark ? 'bg-d0 border-bdr text-wt-sub hover:border-emerald-400/30' : 'bg-l2 border-bdrF text-lt-sub hover:border-emerald-200'"
-              @click="openExternal('https://github.com/mingchen666/Reviva/raw/main/docs/images/qq-group.jpg')"
-            >
-              <i class="ri-group-line text-[12px]" />
-              加入QQ群
-              <span
-                class="ml-0.5 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold leading-none"
-                :class="isDark ? 'bg-emerald-400/15 text-emerald-400' : 'bg-emerald-100 text-emerald-600'"
-              >{{ qqGroupNumber }}</span>
-                          <button
-              class="h-8 w-8 rounded-lg flex items-center justify-center border transition-colors"
-              :class="isDark ? 'bg-d0 border-bdr text-wt-aux hover:border-emerald-400/30 hover:text-emerald-400' : 'bg-l2 border-bdrF text-lt-aux hover:border-emerald-200 hover:text-emerald-600'"
-              title="复制群号"
-              @click.stop="copyQQGroup"
-            >
-              <i class="ri-file-copy-line text-[12px]" />
-            </button>
             </button>
 
             <button
@@ -303,7 +273,7 @@ function toneClass(tone) {
               @click="go('/settings/author')"
             >
               <i class="ri-user-heart-line text-[12px]" />
-              联系作者
+              关于项目
             </button>
           </div>
         </div>
@@ -312,7 +282,7 @@ function toneClass(tone) {
 
     <!-- ═══ Footer ═══ -->
     <p class="text-center text-[12px]" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">
-      Reviva Desktop · v{{ appVersion }} · 本地优先 · AGPL-3.0 · 持续更新
+      Sapere · 致知 · v{{ appVersion }} · 本地开发版 · 开源来源见关于项目
     </p>
   </div>
 </template>

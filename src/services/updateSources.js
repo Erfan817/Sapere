@@ -95,6 +95,7 @@ async function readSource(source) {
 }
 
 export async function checkUpdateSources(options = {}) {
+  if (RELEASE_CONFIG.updatesEnabled === false) return { updateInfo: null, latestInfo: null, errors: [] }
   const currentVersion = options.currentVersion || getAppVersion()
   const sources = configuredSources()
   const errors = []

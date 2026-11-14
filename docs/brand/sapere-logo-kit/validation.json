@@ -1,0 +1,719 @@
+{
+  "passed": true,
+  "errors": [],
+  "svg_masters": [
+    {
+      "file": "svg\\sapere-app-icon.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        256.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-bilingual-black.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        720.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-bilingual-color.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        720.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-bilingual-ink.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        720.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-bilingual-white.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        720.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-chinese-black.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        580.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-chinese-color.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        580.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-chinese-ink.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        580.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-chinese-white.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        580.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-horizontal-black.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        760.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-horizontal-color.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        760.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-horizontal-ink.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        760.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-horizontal-white.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        760.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-maskable.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        256.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-stacked-black.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        640.0,
+        480.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-stacked-color.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        640.0,
+        480.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-stacked-ink.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        640.0,
+        480.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-stacked-white.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        640.0,
+        480.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-symbol-black.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        256.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-symbol-color.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        256.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-symbol-ink.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        256.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-symbol-small-white.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        256.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-symbol-small.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        256.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-symbol-white.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        256.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-wordmark-black.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        600.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-wordmark-color.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        600.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-wordmark-ink.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        600.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    },
+    {
+      "file": "svg\\sapere-wordmark-white.svg",
+      "viewBox": [
+        0.0,
+        0.0,
+        600.0,
+        256.0
+      ],
+      "forbidden_elements": []
+    }
+  ],
+  "png_files": [
+    {
+      "file": "png\\sapere-app-icon-1024.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-app-icon-256.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-app-icon-512.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-bilingual-color-1600.png",
+      "size": [
+        1600,
+        569
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-bilingual-white-1600.png",
+      "size": [
+        1600,
+        569
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 0
+    },
+    {
+      "file": "png\\sapere-chinese-color-1200.png",
+      "size": [
+        1200,
+        530
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-horizontal-color-1600.png",
+      "size": [
+        1600,
+        539
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-stacked-color-1024.png",
+      "size": [
+        1024,
+        768
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-symbol-color-1024.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-symbol-color-2048.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-symbol-color-512.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "png\\sapere-symbol-white-1024.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 0
+    },
+    {
+      "file": "png\\sapere-symbol-white-512.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 0
+    },
+    {
+      "file": "png\\sapere-wordmark-color-1200.png",
+      "size": [
+        1200,
+        512
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\sapere-app-128.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\sapere-app-16.png",
+      "size": [
+        16,
+        16
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\sapere-app-24.png",
+      "size": [
+        24,
+        24
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\sapere-app-256.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\sapere-app-32.png",
+      "size": [
+        32,
+        32
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\sapere-app-48.png",
+      "size": [
+        48,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\sapere-app-64.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\web\\apple-touch-icon.png",
+      "size": [
+        180,
+        180
+      ],
+      "mode": "RGB",
+      "alpha_range": null,
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\web\\favicon-16.png",
+      "size": [
+        16,
+        16
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\web\\favicon-32.png",
+      "size": [
+        32,
+        32
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\web\\favicon-48.png",
+      "size": [
+        48,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\web\\icon-192.png",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGB",
+      "alpha_range": null,
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\web\\icon-512.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB",
+      "alpha_range": null,
+      "max_rgb_channel_difference": 4
+    },
+    {
+      "file": "icons\\web\\maskable-512.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB",
+      "alpha_range": null,
+      "max_rgb_channel_difference": 4
+    }
+  ],
+  "ico_files": [
+    {
+      "file": "icons\\sapere-app.ico",
+      "frames": [
+        [
+          16,
+          16
+        ],
+        [
+          24,
+          24
+        ],
+        [
+          32,
+          32
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          64,
+          64
+        ],
+        [
+          128,
+          128
+        ],
+        [
+          256,
+          256
+        ]
+      ]
+    },
+    {
+      "file": "icons\\web\\favicon.ico",
+      "frames": [
+        [
+          16,
+          16
+        ],
+        [
+          32,
+          32
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    }
+  ],
+  "contrast": [
+    {
+      "foreground": "#151918",
+      "background": "#FFFFFF",
+      "ratio": 17.73
+    },
+    {
+      "foreground": "#000000",
+      "background": "#FFFFFF",
+      "ratio": 21.0
+    },
+    {
+      "foreground": "#FFFFFF",
+      "background": "#151918",
+      "ratio": 17.73
+    },
+    {
+      "foreground": "#151918",
+      "background": "#F5F5F5",
+      "ratio": 16.27
+    }
+  ],
+  "notes": [
+    "Structural checks do not prove trademark clearance.",
+    "Outlined Latin and Chinese glyphs retain their typeface geometry; SVG audit complexity and angle warnings are reviewed, not claimed as perfect scores.",
+    "Physical print and installed application integration are not tested."
+  ]
+}

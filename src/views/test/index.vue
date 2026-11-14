@@ -473,7 +473,7 @@ async function firePrompt() {
             <i class="ri-compass-3-line text-[19px]" :class="isDark ? 'text-brand-400' : 'text-brand-600'" />
           </div>
           <div class="min-w-0 flex-1">
-            <div class="text-[14px] font-bold" :class="isDark ? 'text-wt-main' : 'text-lt-main'">欢迎使用 Reviva</div>
+            <div class="text-[14px] font-bold" :class="isDark ? 'text-wt-main' : 'text-lt-main'">欢迎使用 Sapere</div>
             <div class="text-[10.5px] mt-0.5" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">按这个顺序完成基础配置，后续对话、资料和 Agent 才能稳定工作</div>
           </div>
         </div>

@@ -132,7 +132,7 @@ async function exportConfig() {
   try {
     const result = await window.electronAPI.exportSettings()
     if (!result?.success) throw new Error(result?.error || '导出配置失败')
-    downloadJson(result.data, `reviva-settings-${new Date().toISOString().slice(0, 10)}.json`)
+    downloadJson(result.data, `sapere-settings-${new Date().toISOString().slice(0, 10)}.json`)
     msg.success('配置文件已导出', { title: '导出完成', duration: 3200 })
   } catch (err) {
     msg.error(err.message || '导出配置失败', { title: '导出失败', duration: 5000 })

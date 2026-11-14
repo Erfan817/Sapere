@@ -22,7 +22,7 @@ export const HELP_TEXT = [
 
 export const RESPONSES = {
   // —— 消息管线文案（WeChatBridgeService 用）——
-  intro: '我是你的 Reviva 学习助手，直接提问就行，也可以发文件/链接给我导入。发 /help 看更多指令。',
+  intro: '我是你的 Sapere 学习助手，直接提问就行，也可以发文件/链接给我导入。发 /help 看更多指令。',
   stillProcessing: '还在处理中，请稍等...',
   thinking: '🤔 我正在思考…',
   toolStart: (name) => '🔧 正在执行' + (name ? ('：' + name) : '') + '…',
@@ -39,7 +39,7 @@ export const RESPONSES = {
   clearConv: '已清空当前对话上下文。直接发消息即可。',
 
   // /agent
-  noAgents: '暂无可用 Agent，请先在 Reviva 中创建配置。',
+  noAgents: '暂无可用 Agent，请先在 Sapere 中创建配置。',
   agentListTitle: '【可用 Agent】',
   agentListHint: '\n\n发 /agent <关键词> 切换。',
   agentSwitched: (name) => '已切换到「' + name + '」，下次对话生效。',

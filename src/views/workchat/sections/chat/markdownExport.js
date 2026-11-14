@@ -190,7 +190,7 @@ export function deriveMessageExportTitle(message, conversation) {
   if (headingTitle) return headingTitle.slice(0, 80)
 
   const conversationTitle = String(conversation?.title || '').replace(/\s+/g, ' ').trim()
-  return (conversationTitle ? `${conversationTitle} · AI 回复` : 'Reviva AI 回复').slice(0, 80)
+  return (conversationTitle ? `${conversationTitle} · AI 回复` : 'Sapere AI 回复').slice(0, 80)
 }
 
 export function buildSingleMessageMarkdown({ message, conversation, userMessage = null, includeUserPrompt = false }) {
@@ -213,19 +213,19 @@ export function buildSingleMessageMarkdown({ message, conversation, userMessage 
   const conversationTitle = String(conversation?.title || '未命名对话').replace(/\s+/g, ' ').trim() || '未命名对话'
   const messageTime = formatExportMessageTime(message?.createdAt)
   if (lines.length && lines.at(-1) !== '') lines.push('')
-  lines.push('---', '', `> 来源：Reviva 对话「${conversationTitle}」${messageTime ? ` · ${messageTime}` : ''}`)
+  lines.push('---', '', `> 来源：Sapere 对话「${conversationTitle}」${messageTime ? ` · ${messageTime}` : ''}`)
 
   return `${lines.join('\n').trim()}\n`
 }
 
 export function sanitizeMessageMarkdownFileName(title, dateValue = new Date()) {
   const parts = localDateParts(dateValue)
-  const safeTitle = String(title || 'Reviva-AI-回复')
+  const safeTitle = String(title || 'Sapere-AI-回复')
     .replace(/[\\/:*?"<>|]/g, '_')
     .replace(/\s+/g, ' ')
     .replace(/[. ]+$/g, '')
     .trim()
-    .slice(0, 90) || 'Reviva-AI-回复'
+    .slice(0, 90) || 'Sapere-AI-回复'
   return `${safeTitle}-${parts.date}-${parts.time.replace(':', '')}.md`
 }
 
@@ -359,7 +359,7 @@ function appendOptionalMessageSections(lines, message, options) {
 
 export function buildConversationMarkdown({ conversation, messages, agents = [], exportedAt = new Date(), options = {} }) {
   const selected = (messages || []).filter(message => isMessageExportable(message, options))
-  const title = String(conversation?.title || 'Reviva 对话').replace(/\s+/g, ' ').trim() || 'Reviva 对话'
+  const title = String(conversation?.title || 'Sapere 对话').replace(/\s+/g, ' ').trim() || 'Sapere 对话'
   const exportedDate = validDate(exportedAt) || new Date()
   const exportedParts = localDateParts(exportedDate)
   const lines = [
@@ -367,12 +367,12 @@ export function buildConversationMarkdown({ conversation, messages, agents = [],
     `title: ${yamlString(title)}`,
     `exported_at: ${exportedDate.toISOString()}`,
     `message_count: ${selected.length}`,
-    'source: Reviva',
+    'source: Sapere',
     '---',
     '',
     `# ${title}`,
     '',
-    `> 从 Reviva 导出 · ${exportedParts.date} ${exportedParts.time}`,
+    `> 从 Sapere 导出 · ${exportedParts.date} ${exportedParts.time}`,
   ]
 
   selected.forEach((message, index) => {
@@ -396,11 +396,11 @@ export function buildConversationMarkdown({ conversation, messages, agents = [],
 
 export function sanitizeMarkdownFileName(title, dateValue = new Date()) {
   const date = localDateParts(dateValue).date
-  const safeTitle = String(title || 'Reviva-对话')
+  const safeTitle = String(title || 'Sapere-对话')
     .replace(/[\\/:*?"<>|]/g, '_')
     .replace(/\s+/g, ' ')
     .replace(/[. ]+$/g, '')
     .trim()
-    .slice(0, 100) || 'Reviva-对话'
+    .slice(0, 100) || 'Sapere-对话'
   return `${safeTitle}-${date}.md`
 }

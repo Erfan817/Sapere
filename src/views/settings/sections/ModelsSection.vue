@@ -28,7 +28,8 @@ const fetchingModels = ref(false)
 const fetchError = ref(null)
 const hasUnsavedChanges = ref(false)
 
-const OFFICIAL_API_KEY_DESC = 'Reviva 官方模型服务'
+const OFFICIAL_API_KEY_DESC = 'Sapere 第三方模型兼容服务'
+const LEGACY_API_KEY_DESC = 'Reviva 官方模型服务' // Existing remote key descriptions remain readable.
 
 // Fetch modal state
 const showFetchModal = ref(false)
@@ -484,7 +485,7 @@ async function loadOfficialApiKey({ silent = false } = {}) {
   if (!silent) officialKeyError.value = null
   try {
     const result = await cloudLlmApi.apiKeys()
-    const item = (result?.items || []).find(k => String(k.description || '').includes(OFFICIAL_API_KEY_DESC))
+    const item = (result?.items || []).find(k => [OFFICIAL_API_KEY_DESC, LEGACY_API_KEY_DESC].some(label => String(k.description || '').includes(label)))
     if (item?.key) {
       selectedProvider.value.apiKey = item.key
       selectedProvider.value.apiKeyId = item.id || ''
@@ -887,11 +888,11 @@ const COST_FIELDS = [
       <i class="ri-rocket-2-line text-[26px]" :class="isDark ? 'text-brand-400' : 'text-brand-500'" />
     </div>
     <p class="text-[15px] font-semibold" :class="isDark ? 'text-wt-main' : 'text-lt-main'">
-      官方模型服务即将上线
+      第三方托管服务兼容入口
     </p>
     <p class="text-[12px] max-w-[280px] text-center leading-relaxed"
       :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">
-      我们正在打磨云端模型调用、积分计费与用量统计等能力，敬请期待。
+      Sapere 不提供官方云模型或充值服务。请在其他服务商中配置自己的 API Key 或本地模型。
     </p>
     <span class="mt-1 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium"
       :class="isDark ? 'bg-amber-400/8 text-amber-400 border border-amber-400/20' : 'bg-amber-50 text-amber-600 border border-amber-200'">
@@ -1370,7 +1371,7 @@ const COST_FIELDS = [
       <div class="space-y-3">
         <div>
           <label class="text-[11px] font-medium mb-1 block" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">请输入自定义服务商名称</label>
-          <input v-model="addProviderForm.name" type="text" placeholder="例如：Reviva模型服务商" @keyup.enter="confirmAddProvider"
+          <input v-model="addProviderForm.name" type="text" placeholder="例如：我的模型服务商" @keyup.enter="confirmAddProvider"
             class="w-full h-8 rounded-md px-3 text-[13.5px] outline-none transition-colors"
             :class="isDark ? 'bg-d0 border border-d4 text-wt-sub placeholder-wt-dim focus:border-brand-400/40' : 'bg-l2 border border-bdrL text-lt-sub placeholder-lt-aux focus:border-brand-400'" />
         </div>

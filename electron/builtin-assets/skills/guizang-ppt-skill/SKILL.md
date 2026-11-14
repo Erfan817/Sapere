@@ -3,9 +3,9 @@ name: guizang-ppt-skill
 description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背景、演讲者视图、观众屏同步、讲稿备注、章节幕封、数据大字报、图片网格等模板。提供两种风格：① "电子杂志 × 电子墨水"（衬线 + 流体背景 + 暖色） ② "瑞士国际主义"（无衬线 + 网格点阵 + IKB/柠檬黄/柠檬绿/安全橙高亮）。当用户需要制作分享 / 演讲 / 发布会风格的网页 PPT，或提到"杂志风 PPT"、"瑞士风 PPT"、"Swiss Style"、"horizontal swipe deck"时使用。
 ---
 
-# Reviva / MindSpace 适配说明
+# Sapere 适配说明
 
-本 Skill 原生面向 Claude Code（有 bash/shell 权限）。在 Reviva MindSpace Desktop 的 Agent 运行时中，路径和工具调用需遵循以下适配规则：
+本 Skill 原生面向 Claude Code（有 bash/shell 权限）。在 Sapere Desktop 的 Agent 运行时中，路径和工具调用需遵循以下适配规则：
 
 - **`<SKILL_ROOT>`** → VFS 路径 `/skills/guizang-ppt-skill/`。所有 `assets/`、`references/`、`scripts/` 引用前缀均为 `/skills/guizang-ppt-skill/`
 - **读取模板** → 使用 `file_read` 工具，如 `file_read("/skills/guizang-ppt-skill/assets/template.html")`
@@ -13,7 +13,7 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 - **输出目录** → `/agents/ppt-generator/outputs/{今天日期}/`。使用 `file_write` 写入 HTML 文件
 - **创建 images 目录** → 使用 `file_write` 直接写入图片文件，不需要 `mkdir`
 - **校验脚本** → 可通过 `exec_command` 运行 `node /skills/guizang-ppt-skill/scripts/validate-swiss-deck.mjs <HTML路径>`（可选 QA 步骤）
-- **浏览器预览** → 产物 HTML 可直接在 Reviva 右侧面板预览，不需要 `open` 命令
+- **浏览器预览** → 产物 HTML 可直接在 Sapere 右侧面板预览，不需要 `open` 命令
 
 # Magazine Web Ppt
 

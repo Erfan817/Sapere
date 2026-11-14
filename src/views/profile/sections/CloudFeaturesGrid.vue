@@ -48,11 +48,8 @@ const features = CLOUD_FEATURES
       :class="isDark ? 'bg-brand-400/6 border border-brand-400/15' : 'bg-brand-50/60 border border-brand-100'">
       <i class="ri-sparkling-2-line text-[14px] mt-[1px] shrink-0" :class="isDark ? 'text-brand-400' : 'text-brand-500'" />
       <div class="flex-1 text-[11px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-lt-sub'">
-        云端能力由 <span class="font-semibold" :class="isDark ? 'text-wt-main' : 'text-lt-main'">Reviva 服务器集群</span>提供，相比本地推理：
-        <span :class="isDark ? 'text-emerald-400' : 'text-emerald-600'">效果更优</span> ·
-        <span :class="isDark ? 'text-emerald-400' : 'text-emerald-600'">速度更快</span> ·
-        <span :class="isDark ? 'text-emerald-400' : 'text-emerald-600'">不占本地资源</span>。
-        推荐用于 PPT / 播客 / 视频等重计算任务，仅在调用时扣减积分，<span class="font-semibold">没有月度上限</span>。
+        云端能力依赖你配置的第三方服务，实际可用性、速度、费用及数据处理以服务商为准。
+        Sapere 当前不提供自营服务器集群、充值或订阅服务。
       </div>
     </div>
 

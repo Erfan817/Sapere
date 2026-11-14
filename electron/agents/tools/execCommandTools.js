@@ -108,7 +108,7 @@ function createHiddenCommandCompatibilityTool(name) {
     async (input) => invokeCommandCompatibilityTool(input, name),
     {
       name,
-      description: 'Reviva 内部兼容工具。不要主动调用；命令执行请使用 exec_command。',
+      description: 'Sapere 内部兼容工具。不要主动调用；命令执行请使用 exec_command。',
       schema: commandCompatibilitySchema,
     },
   )

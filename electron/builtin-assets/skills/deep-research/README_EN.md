@@ -1,6 +1,6 @@
-# deep-research Skill for Reviva
+# deep-research Skill for Sapere
 
-This is the dedicated core skill for Reviva's built-in `deep-researcher` agent. It is adapted from the hoolulu/deep-research methodology for Reviva's built-in agent runtime. At runtime, `SKILL.md`, `RULES.md`, `TYPES.md`, `profiles.json`, `prompts/`, and the built-in agent configuration are authoritative.
+This is the dedicated core skill for Sapere's built-in `deep-researcher` agent. It is adapted from the hoolulu/deep-research methodology for Sapere's built-in agent runtime. At runtime, `SKILL.md`, `RULES.md`, `TYPES.md`, `profiles.json`, `prompts/`, and the built-in agent configuration are authoritative.
 
 ## Purpose
 
@@ -27,7 +27,7 @@ Default artifacts:
 - `research-report.md`: full Markdown research report with structure, citations, source table, and limitations.
 - `research-report.html`: self-contained HTML display page for quick review and presentation preview. It does not replace the full Markdown report.
 
-Intermediate files are kept under the workspace-authorized virtual directory `/tmp/deep-researcher/{today}/deep-research-{timestamp}/`. Reviva scans the output directory with artifact rules. Do not write reports or temporary files into the skill directory, and do not generate or refresh `reports-browser`.
+Intermediate files are kept under the workspace-authorized virtual directory `/tmp/deep-researcher/{today}/deep-research-{timestamp}/`. Sapere scans the output directory with artifact rules. Do not write reports or temporary files into the skill directory, and do not generate or refresh `reports-browser`.
 
 ## Runtime Rules
 
@@ -40,7 +40,7 @@ Intermediate files are kept under the workspace-authorized virtual directory `/t
 
 ## Maintenance
 
-This directory ships with the Reviva application. Updates should be made by developers in `electron/builtin-assets/skills/deep-research/` and released with the app, not pulled by an agent on the user's machine.
+This directory ships with the Sapere application. Updates should be made by developers in `electron/builtin-assets/skills/deep-research/` and released with the app, not pulled by an agent on the user's machine.
 
 ## Source
 

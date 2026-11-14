@@ -365,11 +365,11 @@ const allowRevivaManage = computed(() => ss.allowRevivaManage === true)
       </div>
     </section>
 
-    <!-- ======== Reviva 应用管控 ======== -->
+    <!-- ======== Sapere 应用管控 ======== -->
     <section>
       <div class="flex items-center gap-2 mb-4">
         <div class="w-1 h-4 rounded-full bg-emerald-400" />
-        <span class="fs-title font-bold" :class="isDark ? 'text-wt-main' : 'text-lt-main'">Reviva 应用管控</span>
+        <span class="fs-title font-bold" :class="isDark ? 'text-wt-main' : 'text-lt-main'">Sapere 应用管控</span>
         <span class="fs-caption ml-1" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">允许 Agent 在对话中查询和管理应用设置</span>
       </div>
 
@@ -380,12 +380,12 @@ const allowRevivaManage = computed(() => ss.allowRevivaManage === true)
           </span>
           <span class="min-w-0 flex-1">
             <span class="flex items-center gap-1.5 text-[12.5px] font-semibold" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">
-              允许 Agent 管理 Reviva 设置
+              允许 Agent 管理 Sapere 设置
               <span class="px-1.5 py-0.5 rounded text-[9px] font-medium" :class="allowRevivaManage ? (isDark ? 'bg-brand-400/12 text-brand-300' : 'bg-brand-50 text-brand-600') : (isDark ? 'bg-d0 text-wt-dim' : 'bg-l2 text-lt-aux')">{{ allowRevivaManage ? '已开启' : '已关闭' }}</span>
             </span>
             <span class="block mt-0.5 fs-caption leading-relaxed" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">开启后所有 Agent 获得查看用量统计、切换主题、管理偏好设置和创作工具等能力。</span>
           </span>
-          <button type="button" role="switch" :aria-checked="allowRevivaManage" aria-label="允许 Agent 管理 Reviva 设置" :title="(allowRevivaManage ? '关闭' : '开启')" class="w-10 h-6 rounded-full p-0.5 shrink-0 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/70 focus-visible:ring-offset-2" :class="allowRevivaManage ? 'bg-brand-500' : (isDark ? 'bg-d0 border border-d4' : 'bg-l4 border border-bdrF')" @click="ss.savePreference('allowRevivaManage', !allowRevivaManage)">
+          <button type="button" role="switch" :aria-checked="allowRevivaManage" aria-label="允许 Agent 管理 Sapere 设置" :title="(allowRevivaManage ? '关闭' : '开启')" class="w-10 h-6 rounded-full p-0.5 shrink-0 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/70 focus-visible:ring-offset-2" :class="allowRevivaManage ? 'bg-brand-500' : (isDark ? 'bg-d0 border border-d4' : 'bg-l4 border border-bdrF')" @click="ss.savePreference('allowRevivaManage', !allowRevivaManage)">
             <span class="block w-5 h-5 rounded-full bg-white shadow-sm transition-transform" :class="allowRevivaManage ? 'translate-x-4' : 'translate-x-0'" />
           </button>
         </div>

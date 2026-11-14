@@ -2,7 +2,7 @@ export const BUILTIN_THEMES = Object.freeze([
   Object.freeze({
     id: 'default',
     name: '经典',
-    description: 'Reviva 默认主题',
+    description: 'Sapere 默认主题',
     source: 'builtin',
     supports: Object.freeze(['light', 'dark']),
     accentHex: '#4A6CFF',

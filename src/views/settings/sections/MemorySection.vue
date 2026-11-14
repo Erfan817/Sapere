@@ -164,7 +164,7 @@ onMounted(loadMemories)
         <i class="ri-brain-line text-[15px]" :class="isDark ? 'text-brand-400' : 'text-brand-600'" />
       </div>
       <div>
-        <div class="text-[13px] font-semibold" :class="isDark ? 'text-brand-400' : 'text-brand-600'">Reviva Agents长期记忆</div>
+        <div class="text-[13px] font-semibold" :class="isDark ? 'text-brand-400' : 'text-brand-600'">Sapere Agents长期记忆</div>
         <div class="text-[12px] mt-1 leading-relaxed" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">
           Agent 在对话中自动学习并写入记忆，跨对话持久保留。语义记忆在每次 Agent 运行时自动注入到全局记忆文件，程序记忆按需调用，情节记忆保留对话历史。你也可以手动添加记忆条目。
         </div>

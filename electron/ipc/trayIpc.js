@@ -83,7 +83,7 @@ export function registerTrayIpc(ipcMain, deps) {
       return false
     }
     tray = new Tray(trayIcon)
-    tray.setToolTip('Reviva')
+    tray.setToolTip('Sapere · 致知')
     tray.setContextMenu(buildTrayContextMenu())
     tray.on('click', () => { const win = getWin(); if (win) { win.isVisible() ? win.focus() : win.show() } })
     return true

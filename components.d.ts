@@ -13,10 +13,10 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppLayout: typeof import('./src/components/layout/AppLayout.vue')['default']
     AppUpdateModal: typeof import('./src/components/update/AppUpdateModal.vue')['default']
+    BrandLogo: typeof import('./src/components/BrandLogo.vue')['default']
     ChartsPreview: typeof import('./src/components/preview/ChartsPreview.vue')['default']
     CheatsheetPreview: typeof import('./src/components/preview/CheatsheetPreview.vue')['default']
     CommandPalette: typeof import('./src/components/CommandPalette.vue')['default']
-    copy: typeof import('./src/components/SvgIcon copy.vue')['default']
     CreationConfigModal: typeof import('./src/components/CreationConfigModal.vue')['default']
     FlashcardPreview: typeof import('./src/components/preview/FlashcardPreview.vue')['default']
     GlossaryPreview: typeof import('./src/components/preview/GlossaryPreview.vue')['default']

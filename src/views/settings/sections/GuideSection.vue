@@ -69,7 +69,7 @@ const steps = computed(() => [
     path: '/settings/directory',
     summary: '指定一个文件夹作为工作区，用于保存文档、笔记和 Agent 产出，也是 Agent 读写文件的安全边界。',
     detail: '根目录一旦设置，Agent 的文件操作都会限制在该目录内，避免误触系统其他位置。后续导入资料、生成内容也默认存放在这里。',
-    tip: '新建一个专用文件夹（如 D:\\Reviva）专门放学习资料和产出，方便管理和备份。',
+    tip: '新建一个专用文件夹（如 D:\\Sapere）专门放学习资料和产出，方便管理和备份。',
   },
   {
     key: 'models',
@@ -80,8 +80,8 @@ const steps = computed(() => [
     ready: modelServiceReady.value,
     status: modelServiceReady.value ? '已可用' : '待配置',
     path: '/settings/models',
-    summary: '为 Reviva 接入大语言模型，可以填自己的 API Key，或使用官方云端模型按积分付费。',
-    detail: '添加服务商（如 OpenAI 兼容接口、官方云端、本地模型），填入 API Key 与 Base URL，勾选要启用的模型。每个模型可单独启用，未勾选的不会出现在选择列表里。',
+    summary: '为 Sapere 接入大语言模型，使用你自己的 API Key 或本地模型。本项目不提供官方付费模型服务。',
+    detail: '添加服务商（如 OpenAI 兼容接口或本地模型），填入 API Key 与 Base URL，勾选要启用的模型。每个模型可单独启用，未勾选的不会出现在选择列表里。',
     tip: '不确定用哪个模型？先启用一个对话模型即可，后续随时调整。embedding 模型仅在知识库检索时需要。',
   },
   {
@@ -106,7 +106,7 @@ const steps = computed(() => [
     ready: true,
     status: '可开始',
     path: '/agents',
-    summary: 'Agent 是 Reviva 的核心，负责理解资料、调用工具、遵循权限，把结果变成可复用的学习产出。',
+    summary: 'Agent 是 Sapere 的核心，负责理解资料、调用工具、遵循权限，把结果变成可复用的学习产出。',
     detail: '内置 Agent（课程助教、复习教练、文档助手等）配好模型后即可直接对话。需要更贴合自己流程时，可在 Agent 页面编辑提示词、工具权限、模型和执行限制，或创建全新的自定义 Agent。',
     tip: '新手阶段先用内置 Agent 体验完整流程，熟悉后再做个性化调整。',
   },
@@ -145,7 +145,7 @@ const faqs = [
   },
   {
     q: '自动更新失败',
-    a: '自动更新走系统通道，网络不可达时会失败。可在更新弹窗里用备用下载入口（夸克网盘）手动下载安装包覆盖安装，数据不会丢失。',
+    a: 'Sapere 目前是本地开发版，尚未启用安装包自动更新。请在项目仓库查看进度；更新前先备份工作区，不使用其他项目安装包覆盖。',
     path: '/settings/about',
     icon: 'ri-refresh-line',
   },
@@ -306,7 +306,7 @@ function btnClass(step) {
         </div>
         <div class="min-w-0">
           <div class="text-[12px] font-semibold" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">还有问题？</div>
-          <div class="text-[10.5px] leading-snug" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">在「系统版本」页提交反馈，或加入用户交流群一起探讨</div>
+          <div class="text-[10.5px] leading-snug" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">在「系统版本」页向 Sapere 项目提交问题与建议</div>
         </div>
       </div>
       <button class="h-8 px-3.5 rounded-lg text-[11px] font-medium inline-flex items-center gap-1.5 transition-colors shrink-0" :class="isDark ? 'bg-brand-400/12 text-brand-300 hover:bg-brand-400/18' : 'bg-brand-50 text-brand-600 hover:bg-brand-100'" @click="go('/settings/about')">

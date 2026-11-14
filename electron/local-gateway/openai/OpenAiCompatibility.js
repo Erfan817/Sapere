@@ -54,7 +54,7 @@ export function registerOpenAiCompatibility({ server, registry, dbService, agent
     for (const id of messageIds.filter(Boolean)) dbService?.deleteMsg?.(id)
     dbService?.deleteConv?.(conversationId)
   }
-  registry.registerResource({ id: 'openai.models', version: '1.0', description: 'List Reviva Agents as OpenAI-compatible models' })
+  registry.registerResource({ id: 'openai.models', version: '1.0', description: 'List Sapere Agents as OpenAI-compatible models' })
   registry.registerAction({ id: 'openai.chat.completions', version: '1.0', description: 'Invoke an Agent through OpenAI Chat Completions', executionMode: 'stream', riskLevel: 'high' })
 
   server.register('GET', '/v1/models', ({ response }) => {

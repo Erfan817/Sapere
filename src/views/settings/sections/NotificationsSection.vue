@@ -23,9 +23,9 @@ const notificationItems = [
 ]
 
 const startupItems = [
-  { key: 'autoStart', label: '开机自启动', desc: '系统启动时自动运行 Reviva', icon: 'ri-rocket-line', color: 'brand' },
+  { key: 'autoStart', label: '开机自启动', desc: '系统启动时自动运行 Sapere', icon: 'ri-rocket-line', color: 'brand' },
   { key: 'minimizeToTray', label: '关闭时最小化到托盘', desc: '关闭窗口时保持后台运行并在系统托盘显示图标', icon: 'ri-arrow-down-s-line', color: 'agent' },
-  { key: 'singleInstance', label: '单实例运行', desc: '禁止同时运行多个 Reviva 进程', icon: 'ri-shield-check-line', color: 'amber' },
+  { key: 'singleInstance', label: '单实例运行', desc: '禁止同时运行多个 Sapere 进程', icon: 'ri-shield-check-line', color: 'amber' },
 ]
 
 function toggle(key) {

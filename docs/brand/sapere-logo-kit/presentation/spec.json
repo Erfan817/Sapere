@@ -1,0 +1,33 @@
+{
+  "brand": "Sapere · 致知",
+  "date": "2026-11-14",
+  "deck_title": "启页 · 黑白标志套件",
+  "label": "启页 · 黑白定稿",
+  "final": true,
+  "greyscale": false,
+  "tagline": "向未知，再翻一页。",
+  "brief": "围绕资料，帮助技术自学者理解、实践，并记住所学的桌面学习工作空间。",
+  "adjectives": ["黑白", "沉静", "清晰", "求知"],
+  "criteria": "保留第二轮 B 的舒展书页轮廓与黑白气质，使用简洁无衬线中英文字标；16–24 px 使用加宽中缝的小尺寸版。",
+  "industry": "software",
+  "mockups": ["app-icon", "website", "readme", "favicon-tab", "social", "sticker"],
+  "nav": ["学习空间", "资料", "继续学习"],
+  "brand_color": "#151918",
+  "tile_color": "#151918",
+  "concepts": [{
+    "name": "启页",
+    "symbol": "../svg/sapere-symbol-color.svg",
+    "avatar": "../svg/sapere-symbol-small.svg",
+    "lockup": "../svg/sapere-bilingual-color.svg",
+    "stacked": "../svg/sapere-stacked-color.svg",
+    "symbol_on_tile": "../svg/sapere-symbol-white.svg",
+    "symbol_on_dark": "../svg/sapere-symbol-white.svg",
+    "lockup_on_dark": "../svg/sapere-bilingual-white.svg",
+    "stacked_on_tile": "../svg/sapere-stacked-white.svg",
+    "stacked_on_dark": "../svg/sapere-stacked-white.svg",
+    "idea": "不等高的两页向上展开，为继续求知留下空间。",
+    "rationale": ["保留第二轮已选 B 轮廓与 #151918 主黑，不使用绿色。", "白底黑标与黑底白标配合，灰色仅用于展示背景。", "中英文字标采用 Noto Sans SC，英文 600、中文 500，均转为路径。", "另备加宽中缝的小尺寸版和略收细的标准反白图形。"]
+  }],
+  "recommendation": "使用白底黑标作为主版本，深色背景使用反白。应用效果为品牌示意，不代表产品功能已实现。",
+  "next_steps": ["主色 #151918；另备纯黑 #000000 与白色 #FFFFFF。", "规范提供留白、最小尺寸与文件选择。", "套件独立交付，未替换应用现有图标。"]
+}

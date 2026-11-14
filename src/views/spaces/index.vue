@@ -405,7 +405,7 @@ watch(activeTab, (tab) => {
               </span>
               <span class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium"
                 :class="isDark ? 'border-white/[0.08] bg-white/[0.03] text-wt-aux' : 'border-slate-200 bg-slate-50 text-lt-aux'">
-                <i class="ri-server-line text-[12px]" />支持私有化部署
+                <i class="ri-server-line text-[12px]" />可配置外部知识源
               </span>
             </div>
           </section>
@@ -422,14 +422,14 @@ watch(activeTab, (tab) => {
              <div class="min-w-0 flex-1">
               <h3 class="text-[14px] font-bold" :class="isDark ? 'text-wt-main' : 'text-lt-main'">您还没有知识库？</h3>
                <p class="mt-1 text-[12px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">
-                如果您还没有知识库，或者需要部署搭建，可以联系作者咨询。作者可协助私有化部署个人知识库，也可接入已有的外部知识源。
+                可以先导入本地资料，或配置已有的外部知识源。Sapere 当前不提供托管云知识库和私有化部署咨询服务。
                </p>
                 <button
                   class="mt-3 h-8 px-3.5 rounded-lg text-[12px] font-semibold inline-flex items-center gap-1.5 transition-all active:scale-[0.98]"
                   :class="isDark ? 'bg-white text-slate-950 hover:bg-slate-200' : 'bg-slate-950 text-white hover:bg-slate-800 shadow-sm'"
                   @click="router.push({ name: 'SettingsAuthor' })">
                   <i class="ri-user-voice-line text-[14px]" />
-                  联系作者咨询
+                  了解 Sapere 项目
                 </button>
              </div>
            </div>

@@ -207,7 +207,7 @@ const scanSteps = ['用绑定的微信扫码', '在手机上确认登录', '确�
         </div>
         <div class="flex items-start gap-2">
           <span class="w-4 h-4 flex items-center justify-center shrink-0 mt-px" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'"><i class="ri-refresh-line text-[13px]" /></span>
-          <span class="text-[11.5px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">关闭 Reviva 后 Bot 自动停止；重启后若凭证有效则自动恢复连接，无需重新扫码。</span>
+          <span class="text-[11.5px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">关闭 Sapere 后 Bot 自动停止；重启后若凭证有效则自动恢复连接，无需重新扫码。</span>
         </div>
         <div class="flex items-start gap-2">
           <span class="w-4 h-4 flex items-center justify-center shrink-0 mt-px" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'"><i class="ri-timer-flash-line text-[13px]" /></span>

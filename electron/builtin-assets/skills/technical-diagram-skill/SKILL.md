@@ -22,13 +22,13 @@ metadata:
 
 # Technical Diagram Skill
 
-This Reviva built-in skill packages the original `dynamic-archify` renderer as a product-facing technical diagram capability.
+This Sapere built-in skill packages the original `dynamic-archify` renderer as a product-facing technical diagram capability.
 
 Create professional technical diagrams as self-contained HTML files with inline SVG, a theme toggle, and a built-in image/SVG export menu.
 
 Every diagram ships with a **dark/light theme toggle** (persists in `localStorage`, respects `prefers-color-scheme`), an **export menu** (copy PNG to clipboard; download PNG/JPEG/WebP rasterized natively at up to 4× resolution; download a **dual-theme SVG** that follows the embedding host's `prefers-color-scheme` — ideal for GitHub READMEs), and a **CSS-variable color system** that keeps both themes consistent.
 
-## Reviva Usage Notes
+## Sapere Usage Notes
 
 - Prefer renderer modes when `exec_command`/Node execution is available.
 - If command execution is unavailable or blocked by the agent permission policy, use the hand-placed SVG fallback in `assets/template.html`.

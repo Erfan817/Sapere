@@ -107,9 +107,9 @@ function resolveOfficialLlmBaseUrl() {
 
 const DEFAULT_PROVIDERS = [
   {
-    id: 'reviva', name: 'Reviva 官方服务', desc: '官方托管模型服务，登录后按账户积分余额计费', region: '官方',
-    iconName: 'reviva', logoBg: 'linear-gradient(135deg, #4A6CFF 0%, #10B981 100%)', logoChar: 'M', builtin: true,
-    official: true, recommended: true, managedKey: true,
+    id: 'reviva', name: '第三方托管服务（兼容）', desc: '继承的第三方服务接口，非 Sapere 官方服务；可改用自有模型服务商', region: '第三方',
+    iconName: 'cloud', logoBg: '#151918', logoChar: 'S', builtin: true,
+    official: true, recommended: false, managedKey: true,
     enabled: true, configured: false,
     apiKey: '', apiKeyId: '', baseUrl: resolveOfficialLlmBaseUrl(),
     models: [

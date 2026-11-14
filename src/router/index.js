@@ -7,7 +7,7 @@ const router = createRouter({
       path: '/landing',
       name: 'Landing',
       component: () => import('@/views/landing/index.vue'),
-      meta: { noLayout: true, title: 'Reviva - 智能学习工作台' },
+      meta: { noLayout: true, title: 'Sapere · 致知 - 学习工作空间' },
     },
     {
       path: '/login',
@@ -272,7 +272,7 @@ const router = createRouter({
          path: 'author',
          name: 'SettingsAuthor',
          component: () => import('@/views/settings/sections/AuthorSection.vue'),
-         meta: { title: '关于作者' },
+         meta: { title: '关于项目' },
        },
         {
           path: 'guide',
@@ -282,18 +282,18 @@ const router = createRouter({
         },
      ],
    },
-    // {
-    //   path: '/legal/user-agreement',
-    //   name: 'UserAgreement',
-    //   component: () => import('@/views/legal/UserAgreement.vue'),
-    //   meta: { title: '用户协议', icon: 'ri-file-list-3-line', layout: { iconRail: true, iconRailWidth: 48 } },
-    // },
-    // {
-    //   path: '/legal/privacy-policy',
-    //   name: 'PrivacyPolicy',
-    //   component: () => import('@/views/legal/PrivacyPolicy.vue'),
-    //   meta: { title: '隐私政策', icon: 'ri-lock-line', layout: { iconRail: true, iconRailWidth: 48 } },
-    // },
+    {
+      path: '/legal/user-agreement',
+      name: 'UserAgreement',
+      component: () => import('@/views/legal/UserAgreement.vue'),
+      meta: { title: '使用说明', noLayout: true },
+    },
+    {
+      path: '/legal/privacy-policy',
+      name: 'PrivacyPolicy',
+      component: () => import('@/views/legal/PrivacyPolicy.vue'),
+      meta: { title: '数据与隐私说明', noLayout: true },
+    },
     {
       path: '/test',
       name: 'Test',

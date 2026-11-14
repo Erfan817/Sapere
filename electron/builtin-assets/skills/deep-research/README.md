@@ -1,6 +1,6 @@
-# deep-research Skill for Reviva
+# deep-research Skill for Sapere
 
-这是 Reviva 内置 `deep-researcher` 的专属核心技能，基于 hoolulu/deep-research 方法论做了产品内适配。运行时以 `SKILL.md`、`RULES.md`、`TYPES.md`、`profiles.json`、`prompts/` 和内置 agent 配置为准。
+这是 Sapere 内置 `deep-researcher` 的专属核心技能，基于 hoolulu/deep-research 方法论做了产品内适配。运行时以 `SKILL.md`、`RULES.md`、`TYPES.md`、`profiles.json`、`prompts/` 和内置 agent 配置为准。
 
 ## 当前定位
 
@@ -27,7 +27,7 @@
 - `research-report.md`：完整 Markdown 研究报告，包含结构化论证、引用、来源表、限制说明。
 - `research-report.html`：自包含 HTML 展示页，用于快速浏览和汇报预览，不替代完整 Markdown 报告。
 
-中间文件默认放在授权根目录的 `/tmp/deep-researcher/{今天日期}/deep-research-{时间戳}/` 虚拟目录。Reviva 通过 artifact 规则扫描输出目录。不要把报告或临时文件写到 skill 目录，也不要生成或刷新 `reports-browser`。
+中间文件默认放在授权根目录的 `/tmp/deep-researcher/{今天日期}/deep-research-{时间戳}/` 虚拟目录。Sapere 通过 artifact 规则扫描输出目录。不要把报告或临时文件写到 skill 目录，也不要生成或刷新 `reports-browser`。
 
 ## 运行规则
 
@@ -40,7 +40,7 @@
 
 ## 维护说明
 
-这个目录随 Reviva 应用版本发布。升级内置 skill 时，应由开发者修改 `electron/builtin-assets/skills/deep-research/` 并随应用发布，不由运行中的 Agent 自行更新。
+这个目录随 Sapere 应用版本发布。升级内置 skill 时，应由开发者修改 `electron/builtin-assets/skills/deep-research/` 并随应用发布，不由运行中的 Agent 自行更新。
 
 ## 来源
 

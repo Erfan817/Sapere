@@ -6,7 +6,7 @@
 
 生成专业级技术图表的单文件 HTML，包含内联 SVG、暗/亮主题切换、流动动画效果、一键导出（PNG / JPEG / WebP / SVG / GIF / WebM）。接受自然语言描述或粘贴的 Mermaid 代码，从零开始布局。
 
-源自 [archify](https://github.com/Cocoon-AI/architecture-diagram-generator)（MIT），在 AI-Animation 集合中命名为 `dynamic-archify`。Reviva 内置版本使用 `technical-diagram-skill` 作为产品化名称。
+源自 [archify](https://github.com/Cocoon-AI/architecture-diagram-generator)（MIT），在 AI-Animation 集合中命名为 `dynamic-archify`。Sapere 内置版本使用 `technical-diagram-skill` 作为产品化名称。
 
 ## 支持的图表类型
 
@@ -69,7 +69,7 @@ cd electron/builtin-assets/skills/technical-diagram-skill
 npm install
 ```
 
-Reviva 内置版本不会自动安装依赖。没有安装 `ajv` 时，渲染器会跳过 schema 校验但保留布局检查；如果当前 Agent 没有命令执行权限，则使用 `assets/template.html` 手工 SVG fallback。
+Sapere 内置版本不会自动安装依赖。没有安装 `ajv` 时，渲染器会跳过 schema 校验但保留布局检查；如果当前 Agent 没有命令执行权限，则使用 `assets/template.html` 手工 SVG fallback。
 
 ## 目录结构
 
@@ -99,7 +99,7 @@ technical-diagram-skill/
 │   ├── agent-run.lifecycle.json
 │   ├── qclaw-architecture.json
 │   └── ai-api-relay.json
-└── config.json           ← Reviva 内置 skill 元数据
+└── config.json           ← Sapere 内置 skill 元数据
 ```
 
 ## License

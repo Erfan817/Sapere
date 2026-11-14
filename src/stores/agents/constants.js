@@ -249,7 +249,7 @@ export const BUILTIN_TOOLS = [
     providerConfig: {}
   },
   {
-    id: 'note_tool', name: '笔记工具', icon: 'ri-sticky-note-line', color: '#10B981', cat: 'knowledge', desc: '读取、创建和维护 Reviva 笔记，支持任意层级的嵌套目录',
+    id: 'note_tool', name: '笔记工具', icon: 'ri-sticky-note-line', color: '#10B981', cat: 'knowledge', desc: '读取、创建和维护 Sapere 笔记，支持任意层级的嵌套目录',
     permReq: 'noteRead', archCompat: ['全架构'], type: '',
     params: [
       { name: 'action', type: 'string', required: true, desc: 'list / get / create / update / delete / create_folder' },

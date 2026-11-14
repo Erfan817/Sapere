@@ -81,7 +81,7 @@ export class ReminderScheduler {
       return
     }
     if (!userCtx || userCtx.size === 0) {
-      this._logger.warn && this._logger.warn('[ReminderScheduler] push skipped: 无 context_token。提醒需用户先在微信里给 bot 发过一条消息建立 context_token，重启 Reviva 后也会从 KV 自动回填；若仍为空，请用微信给 bot 发任意一条消息。')
+      this._logger.warn && this._logger.warn('[ReminderScheduler] push skipped: 无 context_token。提醒需用户先在微信里给 bot 发过一条消息建立 context_token，重启 Sapere 后也会从 KV 自动回填；若仍为空，请用微信给 bot 发任意一条消息。')
       this._logPush(meta, '', 'skipped', '无 context_token（用户未给 bot 发过消息）')
       return
     }

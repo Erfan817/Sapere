@@ -1,4 +1,5 @@
 <script setup>
+import BrandLogo from '@/components/BrandLogo.vue';
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
@@ -212,12 +213,12 @@ onMounted(loadVersion)
         <div class="relative z-10 flex flex-col items-center justify-center w-full px-16">
           <!-- Logo -->
           <div class="float-1 mb-10">
-            <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-brand-400 via-brand-500 to-agent-400 gradient-flow mx-auto flex items-center justify-center shadow-xl shadow-brand-400/25">
-              <i class="ri-brain-line text-[40px] text-white" />
+            <div class="w-24 h-24 rounded-3xl mx-auto flex items-center justify-center" :class="isDark ? 'bg-white/5' : 'bg-black/5'">
+              <BrandLogo class="w-20 h-20" />
             </div>
           </div>
 
-          <h1 class="text-[32px] font-extrabold mb-3 tracking-tight" :class="isDark ? 'text-wt-main' : 'text-gray-800'">Reviva</h1>
+          <h1 class="text-[32px] font-extrabold mb-3 tracking-tight" :class="isDark ? 'text-wt-main' : 'text-gray-800'">Sapere · 致知</h1>
           <p class="text-[15px] leading-relaxed mb-8 text-center" :class="isDark ? 'text-wt-aux' : 'text-gray-500'">
             连接本地资料、云端知识库<br>与 Agent 工作流的桌面学习工作台
           </p>
@@ -242,7 +243,7 @@ onMounted(loadVersion)
             </div>
           </div>
 
-          <div class="absolute bottom-6 text-[10px]" :class="isDark ? 'text-wt-dim' : 'text-gray-300'">v{{version}} · Build 20240508</div>
+          <div class="absolute bottom-6 text-[10px]" :class="isDark ? 'text-wt-dim' : 'text-gray-300'">v{{version}} · Sapere 本地开发版</div>
         </div>
       </div>
 
@@ -257,7 +258,7 @@ onMounted(loadVersion)
           <!-- LOGIN -->
           <template v-if="mode === 'login'">
             <h2 class="text-[24px] font-bold mb-1" :class="isDark ? 'text-wt-main' : 'text-gray-800'">欢迎回来</h2>
-            <p class="text-[13px] mb-7" :class="isDark ? 'text-wt-aux' : 'text-gray-400'">登录你的 Reviva 账号继续使用</p>
+            <p class="text-[13px] mb-7" :class="isDark ? 'text-wt-aux' : 'text-gray-400'">连接已配置的第三方账号服务；本地学习无需登录</p>
 
             <div v-if="errorMsg" class="rounded-xl px-3.5 py-2.5 mb-4 flex items-center gap-2 bg-red-50 border border-red-100 text-red-500">
               <i class="ri-error-warning-line text-[14px]" />
@@ -304,7 +305,7 @@ onMounted(loadVersion)
           <!-- REGISTER -->
           <template v-if="mode === 'register'">
             <h2 class="text-[24px] font-bold mb-1" :class="isDark ? 'text-wt-main' : 'text-gray-800'">创建账号</h2>
-            <p class="text-[13px] mb-6" :class="isDark ? 'text-wt-aux' : 'text-gray-400'">注册 Reviva，开启高效学习</p>
+            <p class="text-[13px] mb-6" :class="isDark ? 'text-wt-aux' : 'text-gray-400'">注册所配置的第三方服务账号，非 Sapere 官方账号</p>
 
             <div v-if="errorMsg" class="rounded-xl px-3.5 py-2.5 mb-4 flex items-center gap-2 bg-red-50 border border-red-100 text-red-500">
               <i class="ri-error-warning-line text-[14px]" />
@@ -377,7 +378,7 @@ onMounted(loadVersion)
             <label class="flex items-start gap-2.5 mb-5 cursor-pointer">
               <input v-model="agreeTerms" type="checkbox" class="w-4 h-4 rounded mt-0.5 cursor-pointer" style="accent-color: #4A6CFF">
               <span class="text-[11px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-gray-400'">
-                我已阅读并同意 <a href="#" class="font-medium text-brand-500 hover:text-brand-600">服务条款</a> 和 <a href="#" class="font-medium text-brand-500 hover:text-brand-600">隐私政策</a>
+                我已了解 <router-link to="/legal/user-agreement" class="font-medium text-brand-500 hover:text-brand-600">使用说明</router-link> 和 <router-link to="/legal/privacy-policy" class="font-medium text-brand-500 hover:text-brand-600">数据与隐私说明</router-link>，第三方账号还需遵循其服务条款
               </span>
             </label>
 
@@ -450,11 +451,11 @@ onMounted(loadVersion)
 
         <!-- Bottom links -->
         <div class="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-4 text-[10px]" :class="isDark ? 'text-wt-dim' : 'text-gray-300'">
-          <a href="#" class="hover:text-brand-400 transition-colors">帮助中心</a>
+          <router-link to="/settings/guide" class="hover:text-brand-400 transition-colors">使用帮助</router-link>
           <span>·</span>
-          <a href="#" class="hover:text-brand-400 transition-colors">服务条款</a>
+          <router-link to="/legal/user-agreement" class="hover:text-brand-400 transition-colors">使用说明</router-link>
           <span>·</span>
-          <a href="#" class="hover:text-brand-400 transition-colors">隐私政策</a>
+          <router-link to="/legal/privacy-policy" class="hover:text-brand-400 transition-colors">数据与隐私</router-link>
         </div>
       </div>
     </div>

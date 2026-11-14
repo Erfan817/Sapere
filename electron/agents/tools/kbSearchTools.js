@@ -51,7 +51,7 @@ export const kbSearch = tool(
     if (!ctx.baseUrl || !ctx.token) {
       return JSON.stringify({
         status: 'unavailable',
-        message: '云端知识库未登录或未配置 baseUrl。请用户先登录 Reviva 账号。',
+        message: '云端知识库未登录或未配置 baseUrl。请用户先登录 Sapere 账号。',
       })
     }
     const hasSelectedScope = ctx.defaultKbIds.length || ctx.defaultDocIds.length

@@ -24,7 +24,7 @@ export const SHORTCUT_GROUPS = Object.freeze([
     icon: 'ri-global-line',
     color: 'brand',
     items: [
-      { key: 'global_invoke', name: '唤起应用', desc: '从任意位置呼出 Reviva 主窗口' },
+      { key: 'global_invoke', name: '唤起应用', desc: '从任意位置呼出 Sapere 主窗口' },
     ],
   },
   {

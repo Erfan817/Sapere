@@ -471,7 +471,7 @@ export class BackupService {
     const { default: JSZip } = await import('jszip')
     const zip = await JSZip.loadAsync(await fs.promises.readFile(resolvedPackage), { checkCRC32: true })
     const manifestEntry = zip.file('manifest.json')
-    if (!manifestEntry) throw new Error('不是有效的 Reviva 备份包：缺少 manifest.json')
+    if (!manifestEntry) throw new Error('不是有效的 Sapere 兼容备份包：缺少 manifest.json')
     let manifest = null
     try { manifest = JSON.parse(await manifestEntry.async('string')) }
     catch { throw new Error('备份清单格式损坏') }

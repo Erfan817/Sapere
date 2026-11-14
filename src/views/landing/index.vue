@@ -1,7 +1,14 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useAppStore } from '@/stores/app';
+import BrandLogo from '@/components/BrandLogo.vue';
+import { BRAND } from '@/config/brand';
 import { getAppVersion } from '@/utils/tools'
+
+function openExternal(url) {
+  if (window.electronAPI?.openExternal) window.electronAPI.openExternal(url).catch(console.error)
+  else window.open(url, '_blank', 'noopener,noreferrer')
+}
 
 const appVersion = getAppVersion()
 const appStore = useAppStore();
@@ -113,7 +120,7 @@ const modules = [
 ];
 
 const workflowSteps = [
-  { num: '01', title: '导入资料', desc: '拖入 PDF、笔记、文档，Reviva 自动归类到知识库' },
+  { num: '01', title: '导入资料', desc: '拖入 PDF、笔记、文档，Sapere 自动归类到知识库' },
   { num: '02', title: '创建 Agent', desc: '选择模型、绑定 Skills、设定角色提示词，打造专属助手' },
   { num: '03', title: '对话协作', desc: '基于你的资料进行问答、分析、创作，实时流式响应' },
   { num: '04', title: '产出沉淀', desc: '输出文档、闪卡、思维导图，回到知识库形成闭环' }
@@ -179,8 +186,8 @@ function scrollTo(id) {
     <header class="nav nav--solid">
       <div class="nav__inner">
         <a class="nav__brand" href="#">
-          <img class="nav__logo" src="/logo.png" alt="" />
-          <span class="nav__name">Reviva</span>
+          <BrandLogo class="nav__logo" />
+          <span class="nav__name">Sapere</span>
         </a>
         <nav class="nav__links" :class="{ 'nav__links--open': mobileOpen }">
           <button @click="scrollTo('features')">功能</button>
@@ -198,7 +205,7 @@ function scrollTo(id) {
           >
             <i :class="isDark ? 'ri-sun-line' : 'ri-moon-line'" />
           </button>
-          <a class="nav__gh" href="https://github.com" target="_blank" rel="noopener">
+          <a class="nav__gh" :href="BRAND.repository" target="_blank" rel="noopener">
             <i class="ri-github-fill" />
           </a>
           <button class="nav__cta" @click="scrollTo('download')">下载</button>
@@ -223,7 +230,7 @@ function scrollTo(id) {
             在桌面上觉醒
           </h1>
           <p class="hero__p">
-            Reviva 是一个
+            Sapere 是一个
             <strong>本地学习工作平台</strong>
             ——将资料管理、知识库、AI Agent、笔记、文档整合在一个桌面应用里。
             不是又一个聊天窗口，而是一个让知识真正流动起来的学习知识库。
@@ -262,7 +269,7 @@ function scrollTo(id) {
               <span class="mockup__dot mockup__dot--r" />
               <span class="mockup__dot mockup__dot--y" />
               <span class="mockup__dot mockup__dot--g" />
-              <span class="mockup__title">Reviva — 学习台</span>
+              <span class="mockup__title">Sapere — 学习台</span>
             </div>
             <div class="mockup__body">
               <aside class="mockup__side">
@@ -338,7 +345,7 @@ function scrollTo(id) {
         <p class="statement__text">
           大多数 AI 工具只给你一个对话框。
           <br />
-          <strong>Reviva 给你一整个本地学习工作知识库。</strong>
+          <strong>Sapere 给你一整个本地学习工作知识库。</strong>
         </p>
       </div>
     </section>
@@ -352,7 +359,7 @@ function scrollTo(id) {
             不只是聊天，是完整的学习链路
           </h2>
           <p class="sec__p" :class="{ 'fade-up': vis('f-head') }">
-            从资料导入到知识产出，Reviva 覆盖学习的每一个环节
+            从资料导入到知识产出，Sapere 覆盖学习的每一个环节
           </p>
         </div>
 
@@ -522,31 +529,31 @@ function scrollTo(id) {
     <!-- ===== DOWNLOAD ===== -->
     <section id="download" class="sec sec--cta">
       <div class="sec__inner" data-a-id="cta" :class="{ 'fade-up': vis('cta') }">
-        <h2 class="cta__h2">开始你的智能学习之旅</h2>
-        <p class="cta__p">免费、开源、跨平台。你的数据永远留在本地。</p>
+        <h2 class="cta__h2">从一份资料，开始求知</h2>
+        <p class="cta__p">Sapere 正在开发中，尚无已验收的安装包。模型服务按你的配置联网。</p>
 
         <div class="dl-grid">
-          <button class="dl-card">
+          <button class="dl-card" @click="openExternal(BRAND.repository)">
             <i class="ri-windows-fill dl-card__icon" />
             <div>
               <span class="dl-card__os">Windows</span>
-              <span class="dl-card__info">64-bit · 95 MB</span>
+              <span class="dl-card__info">Windows 11 x64 · 本地开发验证</span>
             </div>
             <i class="ri-download-2-line dl-card__arrow" />
           </button>
-          <button class="dl-card">
+          <button class="dl-card" @click="openExternal(BRAND.repository)">
             <i class="ri-apple-fill dl-card__icon" />
             <div>
               <span class="dl-card__os">macOS</span>
-              <span class="dl-card__info">Apple Silicon · 88 MB</span>
+              <span class="dl-card__info">尚未验收</span>
             </div>
             <i class="ri-download-2-line dl-card__arrow" />
           </button>
-          <button class="dl-card">
+          <button class="dl-card" @click="openExternal(BRAND.repository)">
             <i class="ri-ubuntu-fill dl-card__icon" />
             <div>
               <span class="dl-card__os">Linux</span>
-              <span class="dl-card__info">AppImage · 92 MB</span>
+              <span class="dl-card__info">尚未验收</span>
             </div>
             <i class="ri-download-2-line dl-card__arrow" />
           </button>
@@ -564,38 +571,37 @@ function scrollTo(id) {
       <div class="foot__inner">
         <div class="foot__top">
           <div class="foot__brand">
-            <img class="foot__logo" src="/logo.png" alt="" />
-            <span>Reviva</span>
+            <BrandLogo class="foot__logo" />
+            <span>Sapere</span>
           </div>
           <div class="foot__cols">
             <div class="foot__col">
-              <h4>产品</h4>
-              <a href="#">功能介绍</a>
-              <a href="#">更新日志</a>
-              <a href="#">路线图</a>
+              <h4>项目</h4>
+              <router-link to="/">学习空间</router-link>
+              <router-link to="/settings/about">项目记录</router-link>
+              <router-link to="/settings/author">关于项目</router-link>
             </div>
             <div class="foot__col">
               <h4>资源</h4>
-              <a href="#/docs">文档</a>
-              <a href="#">GitHub</a>
-              <a href="#">API 参考</a>
+              <router-link to="/settings/guide">使用帮助</router-link>
+              <a :href="BRAND.repository" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <router-link to="/settings/local-gateway">本地网关</router-link>
             </div>
             <div class="foot__col">
-              <h4>社区</h4>
-              <a href="#">Discord</a>
-              <a href="#">讨论区</a>
-              <a href="#">反馈</a>
+              <h4>参与</h4>
+              <a :href="BRAND.issues" target="_blank" rel="noopener noreferrer">问题与建议</a>
+              <a :href="BRAND.documentation" target="_blank" rel="noopener noreferrer">项目文档</a>
             </div>
             <div class="foot__col">
-              <h4>法律</h4>
-              <a href="#">隐私政策</a>
-              <a href="#">用户协议</a>
-              <a href="#">开源许可</a>
+              <h4>说明</h4>
+              <router-link to="/legal/privacy-policy">数据与隐私</router-link>
+              <router-link to="/legal/user-agreement">使用与许可</router-link>
+              <router-link to="/settings/author">开源来源</router-link>
             </div>
           </div>
         </div>
         <div class="foot__bottom">
-          <span>&copy; 2025 Reviva. 本地优先的智能学习工作平台。</span>
+          <span>Sapere · 致知 · 本地开发版 · 来源与许可见「关于项目」。</span>
         </div>
       </div>
     </footer>
@@ -706,9 +712,8 @@ function scrollTo(id) {
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: var(--accent);
-  display: grid;
-  place-items: center;
+  background: transparent;
+  display: block;
   color: #fff;
   font-size: 15px;
 }
@@ -1513,9 +1518,8 @@ function scrollTo(id) {
   width: 28px;
   height: 28px;
   border-radius: 7px;
-  background: var(--accent);
-  display: grid;
-  place-items: center;
+  background: transparent;
+  display: block;
   color: #fff;
   font-size: 14px;
 }

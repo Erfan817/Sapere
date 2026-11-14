@@ -78,7 +78,7 @@ export class PptxExportService {
 
     const pptx = new PptxGenJS()
     pptx.layout = 'LAYOUT_WIDE' // 13.33 x 7.5 inches
-    pptx.author = 'Reviva'
+    pptx.author = 'Sapere'
     pptx.subject = 'Presentation'
     const rectShape = pptx.ShapeType?.rect || 'rect'
 

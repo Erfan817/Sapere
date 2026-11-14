@@ -160,7 +160,7 @@ const permList = [
   { key: 'fileWrite', label: '文件写入', icon: 'ri-edit-line', desc: '在授权目录内创建或修改文件' },
   { key: 'fileDelete', label: '文件删除', icon: 'ri-delete-bin-line', desc: '删除授权目录内 outputs/ 下的文件' },
   { key: 'fileRename', label: '文件重命名', icon: 'ri-price-tag-3-line', desc: '在授权目录内重命名文件' },
-  { key: 'noteRead', label: '笔记读取', icon: 'ri-sticky-note-line', desc: '读取 Reviva 笔记和笔记目录' },
+  { key: 'noteRead', label: '笔记读取', icon: 'ri-sticky-note-line', desc: '读取 Sapere 笔记和笔记目录' },
   { key: 'noteWrite', label: '笔记写入', icon: 'ri-sticky-note-add-line', desc: '创建、更新、移动笔记或将笔记移入回收站' },
   { key: 'execCommand', label: '执行命令', icon: 'ri-terminal-box-line', desc: '在沙盒环境中执行 shell 命令' },
 ]

@@ -1,6 +1,6 @@
 ---
 name: deep-research
-description: "Deep research report generation for Reviva's built-in deep-researcher agent. Use for learning and education research, teacher preparation research, document-based synthesis, literature/source reviews, office research, industry analysis, competitor scans, policy interpretation, and any request for a cited long-form research report."
+description: "Deep research report generation for Sapere's built-in deep-researcher agent. Use for learning and education research, teacher preparation research, document-based synthesis, literature/source reviews, office research, industry analysis, competitor scans, policy interpretation, and any request for a cited long-form research report."
 allowed-tools: file_read, file_write, document_read, kb_search, web_search_bing
 version: 3.0.0
 updated: 2026-06-08
@@ -15,22 +15,22 @@ repository: https://github.com/hoolulu/deep-research
 生成对标券商/第三方研究机构标准的深度调研报告。
 
 - **架构**：主 agent 调度 4 个子 agent Task（大纲/数据/预检/装配）+ 1 轮主控并行派发章节，中间数据走临时文件
-- **数据源**：在线模式 → 根据 Reviva 当前可用工具自适应使用 `web_search_bing`、`mcp:exa`、`mcp:jina-mcp-server`、SearXNG 或其他搜索/网页读取工具 → 按质量触发来源补强；离线模式 → 用户指定的本地文件（md/txt/pdf/docx/pptx/xlsx）
+- **数据源**：在线模式 → 根据 Sapere 当前可用工具自适应使用 `web_search_bing`、`mcp:exa`、`mcp:jina-mcp-server`、SearXNG 或其他搜索/网页读取工具 → 按质量触发来源补强；离线模式 → 用户指定的本地文件（md/txt/pdf/docx/pptx/xlsx）
 - **安装**：见下方「安装与配置」
 - **输出**：`$TMPDIR/outline.json`（临时，非最终报告）
-- **最终报告**：Reviva 中保存到 `/agents/deep-researcher/outputs/{今天日期}/`
+- **最终报告**：Sapere 中保存到 `/agents/deep-researcher/outputs/{今天日期}/`
 - **参考文件**：`RULES.md`（硬约束/反模式）、`TYPES.md`（分类标准/编号规范）、**`profiles.json`（三档模式参数，修改后重启软件即全局生效）**
 - **容错原则**：调研不阻塞。所有脚本/命令调用必须有兜底路径。主路径失败 → 自动尝试替代方案（换 `sys.executable`/检查路径/直接 Python 实现）→ 三次失败后向用户报告具体问题。详见「容错原则」。
 
 ---
 
-## Reviva 内置适配规则
+## Sapere 内置适配规则
 
-本 skill 在 Reviva 中作为 `deep-researcher` 的专属核心技能使用。执行时优先遵循这些规则：
+本 skill 在 Sapere 中作为 `deep-researcher` 的专属核心技能使用。执行时优先遵循这些规则：
 
 - `/skills/deep-research/` 是只读技能目录，只能读取 `SKILL.md`、`RULES.md`、`TYPES.md`、`profiles.json`、`prompts/`、`tools/` 等参考资源；不要在 skill 目录内写入、删除、更新 `reports/` 或 `reports-browser/`。
-- 默认输出目录是 `/agents/deep-researcher/outputs/{今天日期}/`。这是当前工作空间授权根目录下的 Reviva 虚拟路径，不是真实磁盘根目录。Markdown、HTML 等最终产物必须写到当前 Agent 的授权输出目录内。
-- 默认临时目录是 `/tmp/deep-researcher/{今天日期}/deep-research-{时间戳}/`。`/tmp/...` 是当前工作空间授权根目录下的 Reviva 虚拟路径，不是真实系统临时目录。中间文件写到这里，不要构造宿主系统盘符路径、系统临时目录或平台特定绝对路径。
+- 默认输出目录是 `/agents/deep-researcher/outputs/{今天日期}/`。这是当前工作空间授权根目录下的 Sapere 虚拟路径，不是真实磁盘根目录。Markdown、HTML 等最终产物必须写到当前 Agent 的授权输出目录内。
+- 默认临时目录是 `/tmp/deep-researcher/{今天日期}/deep-research-{时间戳}/`。`/tmp/...` 是当前工作空间授权根目录下的 Sapere 虚拟路径，不是真实系统临时目录。中间文件写到这里，不要构造宿主系统盘符路径、系统临时目录或平台特定绝对路径。
 - 联网必须服从用户消息中的 `[联网搜索]` 开关。未启用联网时，不要调用搜索、网页读取、浏览器或抓取工具，并在报告中说明外部时效信息未校验。
 - `web_search_bing`、`mcp:exa`、`mcp:jina-mcp-server`、SearXNG、Scrapling、Python 辅助脚本都只是可选增强路线；没有任何单一搜索提供方是必需项。优先使用当前 Agent 实际绑定且可用的工具，不可用时改用其它搜索工具、`kb_search`、用户本地资料和模型已有知识完成研究，并明确标注覆盖范围。
 - 默认不要安装 Python 包、ASR 模型、浏览器自动化组件或抓取依赖。只有用户明确同意、当前 Agent 开启 `exec_command` 且工具可用时，才运行本 skill 附带的 Python 辅助脚本。
@@ -198,7 +198,7 @@ repository: https://github.com/hoolulu/deep-research
        - todowrite 标记每章 completed
        - 向用户报告最终章节完成情况（使用 $LANG 语言）
      8. ══ Task 4 — 验证 + 装配 + QA（**主 agent 直接执行**） ══
-     → **Step 0 — 输出目录准备**：确定 `REVIVA_OUTPUT_DIR=/agents/deep-researcher/outputs/{今天日期}/`，并确定 `TMPDIR=/tmp/deep-researcher/{今天日期}/deep-research-{时间戳}/`。两者都是 Reviva 工作空间虚拟路径。不要清理或写入 `{SKILLDIR}/reports/`，不要使用宿主系统盘符路径。
+     → **Step 0 — 输出目录准备**：确定 `REVIVA_OUTPUT_DIR=/agents/deep-researcher/outputs/{今天日期}/`，并确定 `TMPDIR=/tmp/deep-researcher/{今天日期}/deep-research-{时间戳}/`。两者都是 Sapere 工作空间虚拟路径。不要清理或写入 `{SKILLDIR}/reports/`，不要使用宿主系统盘符路径。
      → **Step 1 — 批量验证**：`python {TOOLSDIR}/dr_tools.py validate-all-chapters --chapters-dir {TMPDIR}/chapters/ --chapters {chapter_count}`，内部 ThreadPoolExecutor 并行验证所有章节。从输出 JSON 的 `failed_chapters` 中找到失败章节，逐个重新生成（重新派发章节 agent → 重新验证该章）。
      → **Step 1b — 章节深度均衡检查**：`python {TOOLSDIR}/dr_tools.py depth-balance --chapters-dir {TMPDIR}/chapters/ --chapters {chapter_count}`。如果某章行数 < 平均值的 50%，标记告警（not blocking，仅提示）。
      → Step 1 或 Step 2 失败时，**先删除本次已写入的产物**（报告文件、中间文件等），再重新执行对应步骤，避免残留文件干扰下次运行
@@ -222,7 +222,7 @@ repository: https://github.com/hoolulu/deep-research
     → **Step 4 — 引用处理**：`python {TOOLSDIR}/dr_tools.py convert-citations --datapool {TMPDIR}/data-pool.json "$REPORT" --lang $LANG`（从 data-pool 构建参考章节，验证正文 `[N]` 引用均有对应条目）
     → **Step 4b — 货币符号转义**：`python {TOOLSDIR}/dr_tools.py escape-currency "$REPORT"`（将 `$` 转义为 `\$`，避免被知乎/Obsidian/Typora 等渲染器错误解析为 LaTeX math mode）
       → **Step 5 — QA**：`python {TOOLSDIR}/dr_tools.py qa-report "$REPORT" --mode {depth_mode} --target-year {target_year} --lang $LANG`，解析 JSON 输出，从 `checks.word_count.count` 取字数，从 `checks.word_count.limit` 取上限
-     → **Step 6 — Reviva 产物交付**：不要运行 `generate_pages.py --local` 更新 skill 内的 `reports-browser/`；最终 Markdown/HTML 文件留在 `/agents/deep-researcher/outputs/{今天日期}/`，由 Reviva artifact 规则扫描
+     → **Step 6 — Sapere 产物交付**：不要运行 `generate_pages.py --local` 更新 skill 内的 `reports-browser/`；最终 Markdown/HTML 文件留在 `/agents/deep-researcher/outputs/{今天日期}/`，由 Sapere artifact 规则扫描
      → todowrite 标记完成
     → ⏱ **强制计算总耗时**（读取 start_time.txt + 当前时间算差值）
     → 从 outline.json + task2_manifest.json + qa-report 中提取数据，使用 $LANG 语言汇报最终结果。
@@ -371,8 +371,8 @@ repository: https://github.com/hoolulu/deep-research
 
 最终报告保存路径按以下优先级判定：
 
-1. **Reviva 默认路径** — `/agents/deep-researcher/outputs/{今天日期}/`
-2. **用户自定义子路径** — 仅当用户指定的是当前授权工作空间内、且文件工具允许写入的 Reviva 虚拟路径时才使用；如果用户给出真实磁盘路径或未授权路径，说明无法直接写入，并改写到默认输出目录。
+1. **Sapere 默认路径** — `/agents/deep-researcher/outputs/{今天日期}/`
+2. **用户自定义子路径** — 仅当用户指定的是当前授权工作空间内、且文件工具允许写入的 Sapere 虚拟路径时才使用；如果用户给出真实磁盘路径或未授权路径，说明无法直接写入，并改写到默认输出目录。
 
 装配阶段（Step 3）根据实际使用的路径写入，文件名格式不变：`<主题>-YYYYMMDD-HHmmss.md`。
 
@@ -399,7 +399,7 @@ Task 4 装配 + QA 通过后：
 
 | 工具 | 用途 | 免费？ | 国内源？ |
 |:----|:-----|:-----:|:--------:|
-| `web_search_bing` | Reviva 内置 Bing 搜索，适合通用联网检索 | 取决于配置 | ✅ |
+| `web_search_bing` | Sapere 内置 Bing 搜索，适合通用联网检索 | 取决于配置 | ✅ |
 | `mcp:exa` | 可选 Exa MCP 搜索，适合英文/国际资料 | 取决于用户配置 | ❌ |
 | `mcp:jina-mcp-server` | 可选网页读取/搜索增强，适合读取网页内容 | 取决于用户配置 | 取决于目标站 |
 | `searxng` / `websearch` / 其它搜索工具 | 可选补充搜索通道，运行时探测 | 取决于环境 | 取决于引擎 |
@@ -411,7 +411,7 @@ Task 4 装配 + QA 通过后：
 
 **搜索链路**：
 ```
-Layer 0 — Reviva 已绑定搜索工具探测（扫描可用工具集）
+Layer 0 — Sapere 已绑定搜索工具探测（扫描可用工具集）
   │
   ├─ 发现 Bing/Exa/Jina/其它搜索工具 → 使用可用工具检索
   └─ 未发现 → 跳过联网搜索，转本地资料/知识库/模型常识
@@ -433,7 +433,7 @@ Layer 2 — 补充全网搜索 + 反方关键词搜索（用当前可用搜索�
 
 ## 8. 可选增强与配置
 
-Reviva 默认不要求用户安装 SearXNG、Scrapling、Playwright 或额外 Python 包。
+Sapere 默认不要求用户安装 SearXNG、Scrapling、Playwright 或额外 Python 包。
 
 - 如果用户已配置 `mcp:exa`，可以把 Exa 作为搜索来源之一。
 - 如果用户已配置 `mcp:jina-mcp-server`，可以把 Jina 作为网页读取/搜索增强之一。

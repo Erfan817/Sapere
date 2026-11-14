@@ -62,7 +62,7 @@ export async function dispatch(action, domain, params, opts) {
   if (dbService?.getSetting?.('allowRevivaManage') !== true) {
     return errorResponse('PERMISSION_DENIED', action, domain, {
       message: 'Agent 自管理功能未开启',
-      hint: '请在设置 > 沙箱与限流中打开"允许 Agent 管理 Reviva 设置"',
+      hint: '请在设置 > 沙箱与限流中打开"允许 Agent 管理 Sapere 设置"',
     })
   }
 
@@ -159,7 +159,7 @@ export function createRevivaManageTool(opts) {
     {
       name: 'reviva_manage',
       description: [
-        'Reviva 桌面应用自管理工具。',
+        'Sapere 桌面应用自管理工具。',
         '查询用量、管理主题/偏好/创作工具/快捷输入/系统状态/Agent清单/学习画像。',
         '首次使用先调用 action="help" 获取可用操作。',
       ].join(' '),

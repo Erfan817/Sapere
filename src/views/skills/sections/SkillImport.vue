@@ -137,7 +137,7 @@ function confirmImport() {
           </div>
 
           <div v-else class="rounded-lg p-3 text-[11px] leading-relaxed" :class="isDark ? 'bg-d0 border border-d4 text-wt-aux' : 'bg-l3 border border-bdrF text-lt-aux'">
-            只要求包含 <code class="font-mono text-brand-400">SKILL.md</code>。缺少 config.json 时，Reviva 会根据内容自动生成完整配置。
+            只要求包含 <code class="font-mono text-brand-400">SKILL.md</code>。缺少 config.json 时，Sapere 会根据内容自动生成完整配置。
           </div>
 
           <div v-if="error" class="rounded-lg px-3 py-2 text-[11px] text-red-400" :class="isDark ? 'bg-red-400/8 border border-red-400/20' : 'bg-red-50 border border-red-200'">{{ error }}</div>

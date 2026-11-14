@@ -6,21 +6,21 @@ allowed-tools: office_read, office_write
 
 # OfficeCLI
 
-OfficeCLI is the unified Office skill for `.docx`, `.pptx`, and `.xlsx` work. It covers reading, creating, and editing Office files through Reviva's controlled tools and the local `officecli` runtime.
+OfficeCLI is the unified Office skill for `.docx`, `.pptx`, and `.xlsx` work. It covers reading, creating, and editing Office files through Sapere's controlled tools and the local `officecli` runtime.
 
 This is the top-level router skill. Do not load every reference file by default. Load only the reference files needed for the current task.
 
 ## Runtime Setup
 
-Use the shared Reviva OfficeCLI runtime:
+Use the shared Sapere OfficeCLI runtime:
 
-- Reviva on Windows prefers the bundled `officecli` binary.
-- If the bundled binary is missing or unavailable, Reviva falls back to system `officecli` from PATH.
+- Sapere on Windows prefers the bundled `officecli` binary.
+- If the bundled binary is missing or unavailable, Sapere falls back to system `officecli` from PATH.
 - Check availability in `设置 > 环境检测 > OfficeCLI`.
 - Do not run install commands automatically unless the user explicitly asks.
 - When a property, path, enum, or element name is uncertain, ask `officecli help <format> <element> --json` before guessing.
 
-Reference files may contain legacy standalone Setup sections copied from their original skills. Treat this section as authoritative inside Reviva.
+Reference files may contain legacy standalone Setup sections copied from their original skills. Treat this section as authoritative inside Sapere.
 
 Reference files may also keep their original YAML frontmatter names, such as `officecli-docx` or `officecli-xlsx`. Treat those names as source metadata only. The recommended top-level skill to bind is this unified `officecli-skills` skill.
 
@@ -109,7 +109,7 @@ Cross-source data ingestion uses `office_write(operation="import_data")` (xlsx o
 
 After editing a docx that contains a TOC or PAGE/NUMPAGES fields, call `office_write(operation="refresh")` once to recalculate page numbers and cross-references. This requires Windows + Word; on other platforms it is a no-op that still returns success.
 
-Inside Reviva, `office_write` exposes common actions plus format shortcuts:
+Inside Sapere, `office_write` exposes common actions plus format shortcuts:
 
 - Word: paragraphs, headings, tables, pictures, comments, fields, headers, footers, form controls.
 - PowerPoint: slides, shapes, text boxes, pictures, charts, speaker notes, connectors.
@@ -119,7 +119,7 @@ For uncommon elements or uncertain props, call `office_write(operation="help", f
 
 Use `useBatch=true` when applying many stable actions, especially Excel formulas/ranges, PPT layout construction, and form field batches. The Agent may decide this per task. Avoid batch for exploratory edits where individual warning output is important.
 
-Use `raw_set` only for documented OfficeCLI fallback cases such as SDT dropdown items, date formats, field cache patches, workbook activeTab, or targeted XML cleanup. The Agent may decide this when typed actions cannot express the change, but must set `allowRawXml=true` and `confirm=true` on each raw action. Prefer typed `set` when a dotted property exists. Reviva forces post-write issues/validate checks for batch and raw_set.
+Use `raw_set` only for documented OfficeCLI fallback cases such as SDT dropdown items, date formats, field cache patches, workbook activeTab, or targeted XML cleanup. The Agent may decide this when typed actions cannot express the change, but must set `allowRawXml=true` and `confirm=true` on each raw action. Prefer typed `set` when a dotted property exists. Sapere forces post-write issues/validate checks for batch and raw_set.
 
 ## QA Expectations
 

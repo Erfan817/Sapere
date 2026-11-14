@@ -25,7 +25,7 @@ export class AgentRunner {
     const providers = AgentRunner._parseJSON(this._db.getSetting('providers')) || []
     const defaults = AgentRunner._parseJSON(this._db.getSetting('defaultModels')) || {}
     const ref = String((agent && agent.model) || defaults.chat || defaults.agent || '')
-    if (!ref) throw new Error('该 Agent 未绑定模型，且 Reviva 未设默认对话模型。请在 Agent 编辑页绑定模型，或在「设置 > 模型」配置默认对话模型。')
+    if (!ref) throw new Error('该 Agent 未绑定模型，且 Sapere 未设默认对话模型。请在 Agent 编辑页绑定模型，或在「设置 > 模型」配置默认对话模型。')
     const sep = ref.indexOf('::')
     const providerId = sep > 0 ? ref.slice(0, sep) : ''
     const modelId = sep > 0 ? ref.slice(sep + 2) : ref
@@ -33,7 +33,7 @@ export class AgentRunner {
       ? providers.find(p => p.id === providerId && p.enabled !== false)
       : providers.find(p => p.enabled !== false && p.models && p.models.some(m => m.id === modelId && m.enabled !== false))
     const model = provider && provider.models ? provider.models.find(m => m.id === modelId && m.enabled !== false) : null
-    if (!provider || !model || !provider.apiKey) throw new Error('模型「' + ref + '」未在 Reviva 找到可用配置（provider 或 apiKey 缺失）。请在「设置 > 模型」中配置。')
+    if (!provider || !model || !provider.apiKey) throw new Error('模型「' + ref + '」未在 Sapere 找到可用配置（provider 或 apiKey 缺失）。请在「设置 > 模型」中配置。')
     return {
       providerId: provider.id,
       apiFormat: provider.apiFormat || (provider.id === 'anthropic' ? 'anthropic' : 'openai'),

@@ -38,7 +38,7 @@ description: >-
 计算核心 `lib/geometry_kernel.py` 依赖 **sympy**。运行脚本前先确认有一个能 import sympy 的
 `python3`：跑 `python3 -c "import sympy"`。
 
-**缺库时的处理（Reviva 内置默认）**：若 import 报错（sympy 或后续用到的任何库都同理），
+**缺库时的处理（Sapere 内置默认）**：若 import 报错（sympy 或后续用到的任何库都同理），
 可以自动尝试安装（`python3 -m pip install <库名>`），或换一个已装该库的解释器。
 下文命令里的 `python3` 均指这个能跑通依赖的解释器。
 

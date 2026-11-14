@@ -71,10 +71,13 @@ export const MAIN_DIST = path.join(process.env.APP_ROOT, 'dist-electron')
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, 'dist')
 process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, 'public') : RENDERER_DIST
 
-const APP_NAME = 'Reviva'
+const APP_NAME = 'Sapere'
 const APP_ID = 'com.reviva.desktop'
 const WORKSPACE_POINTER_FILE = 'workspace-root.json'
 
+// Preserve the existing packaged profile while changing the visible app name.
+// Workspaces and saved settings must not disappear during a branding update.
+if (app.isPackaged) app.setPath('userData', path.join(app.getPath('appData'), 'Reviva'))
 app.setName(APP_NAME)
 // Keep development data separate from installed applications and real workspaces.
 if (!app.isPackaged) {
@@ -235,7 +238,8 @@ function createWindow() {
   win = new BrowserWindow({
     width: 1280, height: 800,
     minWidth: 960, minHeight: 600,
-    icon: path.join(__dirname, '..', 'build', 'icon.png'),
+    title: 'Sapere · 致知',
+    icon: path.join(process.env.VITE_PUBLIC, 'logo.png'),
     frame: isMac,
     titleBarStyle: isMac ? 'default' : 'hidden',
     backgroundColor: '#0e0e12',
@@ -545,7 +549,7 @@ app.whenReady().then(async () => {
 }).catch((error) => {
   console.error('[Startup] Application initialization failed:', error)
   try {
-    dialog.showErrorBox('Reviva \u542f\u52a8\u5931\u8d25', error?.message || String(error))
+    dialog.showErrorBox('Sapere \u542f\u52a8\u5931\u8d25', error?.message || String(error))
   } catch { /* the app may already be shutting down */ }
   app.quit()
 })

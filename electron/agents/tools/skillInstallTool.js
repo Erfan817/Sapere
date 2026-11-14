@@ -252,8 +252,8 @@ export const skillInstall = tool(
          }
           const needsAttention = results.some(r => r.adaptation?.needsAttention)
           let adaptHint = ''
-          if (needsAttention) adaptHint = ' 部分安装的 Skill 引用了非 Reviva 工具或平台路径，可能需要适配后才能正常使用。'
-          return JSON.stringify({ success: true, results, message: `安装了 ${results.length} 个 Skill。建议关闭并重新打开 Reviva 使新 Skill 完全生效，或在 Agent 设置中手动绑定。${adaptHint}` })
+          if (needsAttention) adaptHint = ' 部分安装的 Skill 引用了非 Sapere 工具或平台路径，可能需要适配后才能正常使用。'
+          return JSON.stringify({ success: true, results, message: `安装了 ${results.length} 个 Skill。建议关闭并重新打开 Sapere 使新 Skill 完全生效，或在 Agent 设置中手动绑定。${adaptHint}` })
         }
         case 'install_path': {
           const sourcePath = String(input.sourcePath || input.path || '').trim()
@@ -272,8 +272,8 @@ export const skillInstall = tool(
          _dbService?.createSkill?.(dbPayload)
           let adaptation = null
           try { adaptation = await _skillService.adaptExternalSkill(skillId) } catch (e) { console.warn('[skillInstall] Adaptation scan failed:', e.message) }
-          let adaptHint = adaptation?.needsAttention ? ` 该 Skill 可能引用了非 Reviva 工具或平台路径，检查 adaptation 报告中的警告。` : ''
-          return JSON.stringify({ success: true, skillId, name: result.config?.name || skillId, description: result.config?.description || '', spec: result.spec, adaptation, message: `Skill "${skillId}" 安装成功。建议关闭并重新打开 Reviva 使新 Skill 完全生效，或在 Agent 设置中手动绑定。${adaptHint}` })
+          let adaptHint = adaptation?.needsAttention ? ` 该 Skill 可能引用了非 Sapere 工具或平台路径，检查 adaptation 报告中的警告。` : ''
+          return JSON.stringify({ success: true, skillId, name: result.config?.name || skillId, description: result.config?.description || '', spec: result.spec, adaptation, message: `Skill "${skillId}" 安装成功。建议关闭并重新打开 Sapere 使新 Skill 完全生效，或在 Agent 设置中手动绑定。${adaptHint}` })
         }
         case 'create': {
           const skillId = _skillService.normalizeSkillId(input.skillId || input.id || '')
@@ -297,7 +297,7 @@ export const skillInstall = tool(
           const promptResult = await _skillService.readSkillFile(skillId, 'SKILL.md')
           const promptContent = promptResult.success ? promptResult.data : ''
           _dbService?.createSkill?.(_skillDbPayload(skillId, result.config, promptContent))
-          return JSON.stringify({ success: true, skillId, name: result.config?.name || skillId, description: result.config?.description || '', spec: result.spec, message: `Skill "${skillId}" 创建成功。建议关闭并重新打开 Reviva 使新 Skill 完全生效，或在 Agent 设置中手动绑定。` })
+          return JSON.stringify({ success: true, skillId, name: result.config?.name || skillId, description: result.config?.description || '', spec: result.spec, message: `Skill "${skillId}" 创建成功。建议关闭并重新打开 Sapere 使新 Skill 完全生效，或在 Agent 设置中手动绑定。` })
         }
         case 'validate': {
           const skillId = _skillService.normalizeSkillId(input.skillId || '')
@@ -369,8 +369,8 @@ export const skillInstall = tool(
            _dbService?.updateSkill?.(skillId, dbPayload)
             let adaptation = null
             try { adaptation = await _skillService.adaptExternalSkill(skillId) } catch (e) { console.warn('[skillInstall] Adaptation scan failed:', e.message) }
-            let adaptHint = adaptation?.needsAttention ? ' 该 Skill 可能引用了非 Reviva 工具或平台路径，检查 adaptation 报告中的警告。' : ''
-            return JSON.stringify({ success: true, skillId, name: result.config?.name || skillId, description: result.config?.description || '', spec: result.spec, adaptation, message: 'Skill "' + skillId + '" 更新成功。建议关闭并重新打开 Reviva 使更新完全生效。' + adaptHint })
+            let adaptHint = adaptation?.needsAttention ? ' 该 Skill 可能引用了非 Sapere 工具或平台路径，检查 adaptation 报告中的警告。' : ''
+            return JSON.stringify({ success: true, skillId, name: result.config?.name || skillId, description: result.config?.description || '', spec: result.spec, adaptation, message: 'Skill "' + skillId + '" 更新成功。建议关闭并重新打开 Sapere 使更新完全生效。' + adaptHint })
           } catch (err) {
             await fs.promises.rm(tempDir, { recursive: true, force: true }).catch(() => {})
             return JSON.stringify({ success: false, error: '更新失败: ' + err.message })
@@ -386,7 +386,7 @@ export const skillInstall = tool(
   {
     name: 'skill_install',
     description: [
-      '安装、创建和管理 Reviva Skills。当用户说"安装 skill""帮我安装 xxx""我下载了 skill""创建一个 skill"时使用。',
+      '安装、创建和管理 Sapere Skills。当用户说"安装 skill""帮我安装 xxx""我下载了 skill""创建一个 skill"时使用。',
       '操作：list=列出已安装和可用内置 Skills；install_url=从 GitHub URL 克隆安装（自动 clone，无 git 时自动下载 ZIP）；install_path=从本地文件夹/ZIP 导入；create=从名称和内容创建新 Skill；validate=验证 Skill 结构；info=读取 Skill 文件；uninstall=删除自定义 Skill。；update=从 GitHub URL 重新拉取并更新已安装的 Skill。',
     ].join('\n'),
     schema: z.object({

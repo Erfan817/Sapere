@@ -83,8 +83,8 @@ const defaultModelsReady = computed(() =>
 )
 
 const modelServiceText = computed(() => {
-  if (!modelServiceReady.value) return '可填写自己的 API Key，或使用官方云端模型按积分付费'
-  if (officialProviderReady.value && readyProviders.value.length === 1) return '官方云端模型服务已可用'
+  if (!modelServiceReady.value) return '使用自己的 API Key 或本地模型，Sapere 不提供官方付费模型服务'
+  if (officialProviderReady.value && readyProviders.value.length === 1) return '已配置第三方托管模型服务'
   const names = readyProviders.value.slice(0, 2).map((provider) => provider.name).join('、')
   const more = readyProviders.value.length > 2 ? ` 等 ${readyProviders.value.length} 个服务商` : ''
   return `已配置 ${names}${more}`
@@ -220,7 +220,7 @@ function statusClass(step) {
         </div>
         <div class="min-w-0 flex-1">
           <div class="text-[14px] font-bold" :class="isDark ? 'text-wt-main' : 'text-lt-main'">
-            欢迎使用 Reviva
+            欢迎使用 Sapere · 致知
           </div>
           <div class="text-[10.5px] mt-0.5" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">
             按这个顺序完成基础配置，后续对话、资料和 Agent 才能稳定工作
@@ -310,7 +310,7 @@ function statusClass(step) {
         <div class="text-[10.5px] leading-relaxed">
           内置 Agent 配好模型后即可使用；需要更贴合自己流程时，可以在 Agent 页面编辑工具权限、提示词、模型和执行限制。<a class="inline-flex items-center gap-1 ml-1 px-2 py-0.5 rounded-md text-[10px] font-medium cursor-pointer transition-all"
           :class="isDark ? 'bg-brand-400/12 text-brand-300 hover:bg-brand-400/20 border border-brand-400/20' : 'bg-brand-50 text-brand-600 hover:bg-brand-100 border border-brand-100'"
-          @click="openExternal('https://www.reviva.cn/tutorial')">
+          @click="go('/settings/guide')">
           <i class="ri-graduation-cap-line text-[10px]" />新手教程<i class="ri-arrow-right-up-line text-[8px] opacity-60" />
         </a>
         </div>

@@ -3,6 +3,8 @@ const { autoUpdater } = pkg
 import { app, ipcMain } from 'electron'
 
 let win = null
+// No verified Sapere installable release feed yet. Never fall back to upstream builds.
+const UPDATES_ENABLED = false
 
 function initAutoUpdater(mainWindow) {
   win = mainWindow
@@ -53,6 +55,7 @@ function initAutoUpdater(mainWindow) {
 
   // IPC handlers
   ipcMain.handle('update:check', () => {
+    if (!UPDATES_ENABLED) return { skipped: true, reason: 'sapere-development', message: 'Sapere 尚未启用安装包自动更新，请查看项目仓库。' }
     if (process.env.NODE_ENV === 'development' || !app.isPackaged) {
       return {
         skipped: true,
@@ -80,6 +83,7 @@ function initAutoUpdater(mainWindow) {
     }
   })
   ipcMain.handle('update:download', () => {
+    if (!UPDATES_ENABLED) return { skipped: true, reason: 'sapere-development' }
     try {
       return autoUpdater.downloadUpdate()
     } catch (e) {
@@ -88,12 +92,13 @@ function initAutoUpdater(mainWindow) {
   })
 
   ipcMain.handle('update:install', () => {
+    if (!UPDATES_ENABLED) return { skipped: true, reason: 'sapere-development' }
     // setImmediate 让 IPC response 先回去，再退出安装
     setImmediate(() => autoUpdater.quitAndInstall())
   })
 
   // 启动后延迟 3s 自动检查一次
-  if (process.env.NODE_ENV !== 'development' && app.isPackaged) {
+  if (UPDATES_ENABLED && process.env.NODE_ENV !== 'development' && app.isPackaged) {
     setTimeout(() => {
       autoUpdater.checkForUpdates().catch(() => {})
     }, 3000)

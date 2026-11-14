@@ -231,7 +231,7 @@ onMounted(() => { checkAll() })
         <div class="flex-1 min-w-0">
           <div class="text-[12px] font-semibold mb-0.5" :class="isDark ? 'text-emerald-400' : 'text-emerald-600'">系统环境检测</div>
           <p class="text-[11px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">
-            Reviva 部分能力（视频处理、公式动画、Office 操作、文档转换等）依赖系统级工具。此处检测本机环境，未安装项可通过"安装指南"快速获取下载链接。
+            Sapere 部分能力（视频处理、公式动画、Office 操作、文档转换等）依赖系统级工具。此处检测本机环境，未安装项可通过"安装指南"快速获取下载链接。
           </p>
         </div>
       </div>

@@ -3,7 +3,7 @@
 // Keep in sync with the source file.
 
 export const BUILTIN_THEMES = Object.freeze([
-  { id: 'default', name: '经典', description: 'Reviva 默认主题', source: 'builtin' },
+  { id: 'default', name: '经典', description: 'Sapere 默认主题', source: 'builtin' },
   { id: 'clarity', name: '冷杉', description: '冷静紧凑的专业工作台', source: 'builtin' },
   { id: 'serene', name: '暮樱', description: '柔和舒展的阅读界面', source: 'builtin' },
   { id: 'contrast', name: '石墨', description: '高可读性与明确边界', source: 'builtin' },

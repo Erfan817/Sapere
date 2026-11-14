@@ -1,6 +1,6 @@
 ---
 name: research-brief-skill
-description: "Lightweight source-backed research and synthesis for normal Reviva agents. Use when the user asks to summarize materials, compare sources, verify claims, collect evidence, create a short research brief, prepare slide/document inputs, or produce a Markdown/HTML brief without running the full deep-researcher pipeline."
+description: "Lightweight source-backed research and synthesis for normal Sapere agents. Use when the user asks to summarize materials, compare sources, verify claims, collect evidence, create a short research brief, prepare slide/document inputs, or produce a Markdown/HTML brief without running the full deep-researcher pipeline."
 allowed-tools: file_read, file_write, document_read, kb_search, web_search_bing, mcp:exa
 ---
 

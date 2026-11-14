@@ -72,7 +72,7 @@ function resolveAgentModel(dbService, agent) {
     ? providers.find(item => item.id === providerId && item.enabled !== false)
     : providers.find(item => item.enabled !== false && item.models?.some(model => model.id === modelId && model.enabled !== false))
   const model = provider?.models?.find(item => item.id === modelId && item.enabled !== false)
-  if (!provider || !model || !provider.apiKey) throw new GatewayError(GATEWAY_ERROR_CODES.SERVICE_DISABLED, 'Agent model is not configured in Reviva', { status: 503 })
+  if (!provider || !model || !provider.apiKey) throw new GatewayError(GATEWAY_ERROR_CODES.SERVICE_DISABLED, 'Agent model is not configured in Sapere', { status: 503 })
   return { providerId: provider.id, apiFormat: provider.apiFormat || (provider.id === 'anthropic' ? 'anthropic' : 'openai'), apiKey: provider.apiKey, baseUrl: provider.baseUrl || '', model: model.id, modelHasVision: !!model.capabilities?.vision }
 }
 

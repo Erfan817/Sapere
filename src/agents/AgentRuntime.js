@@ -405,7 +405,7 @@ function _appendContinuityContext(msg, content) {
     .map(tc => `- [error] ${tc.name || 'tool'}`)
 
   const note = [
-    '[Reviva 上轮任务状态]',
+    '[Sapere 上轮任务状态]',
     msg.status === 'cancelled' || msg.status === 'error'
       ? '上一轮任务没有完整结束。用户如果表达“继续/接着/往下做”，先沿用已有进度和未完成项继续；不要重新生成一套无关计划。'
       : '上一轮任务仍有可延续事项。用户如果要求继续，应优先从未完成项继续；若用户明确提出新方向，则按新方向处理。',

@@ -2,13 +2,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
   "appId": "com.reviva.desktop",
-  "productName": "Reviva",
+  "productName": "Sapere",
   "icon": "build/icon",
   "publish": [
     {
       "provider": "github",
-      "owner": "mingchen666",
-      "repo": "Reviva"
+      "owner": "Erfan817",
+      "repo": "Sapere"
     }
   ],
   "directories": {
@@ -57,10 +57,10 @@
     "perMachine": false,
     "allowToChangeInstallationDirectory": true,
     "deleteAppDataOnUninstall": false,
-    "shortcutName": "Reviva",
+    "shortcutName": "Sapere",
     "createDesktopShortcut": true,
     "createStartMenuShortcut": true,
-    "uninstallDisplayName": "Reviva ${version}",
+    "uninstallDisplayName": "Sapere ${version}",
     "allowElevation": true,
     "runAfterFinish": true
   },

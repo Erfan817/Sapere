@@ -13,7 +13,7 @@ allowed-tools: exec_command, file_read, file_write
 
 # web-access Skill
 
-## Reviva 适配说明
+## Sapere 适配说明
 
 这是脚本型浏览器自动化 skill。要真正启动 CDP Proxy 或执行脚本，当前 Agent 必须同时满足：
 
@@ -25,7 +25,7 @@ allowed-tools: exec_command, file_read, file_write
 
 如果 `exec_command` 不可用，不要声称已经打开网页、读取登录态页面或启动 CDP Proxy；只能说明需要开启命令执行权限，或改用当前 Agent 已有的普通搜索/读取工具。
 
-在 Reviva 中运行脚本时优先使用虚拟路径 `/skills/web-access/scripts/...`，不要假定存在 `${CLAUDE_SKILL_DIR}`。下面原始示例里的 `${CLAUDE_SKILL_DIR}` 应替换为 `/skills/web-access`，并优先使用结构化 `exec_command`，例如：
+在 Sapere 中运行脚本时优先使用虚拟路径 `/skills/web-access/scripts/...`，不要假定存在 `${CLAUDE_SKILL_DIR}`。下面原始示例里的 `${CLAUDE_SKILL_DIR}` 应替换为 `/skills/web-access`，并优先使用结构化 `exec_command`，例如：
 
 ```json
 {

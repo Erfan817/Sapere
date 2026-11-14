@@ -85,7 +85,7 @@ const {
         <div class="text-[11px] leading-relaxed space-y-1" :class="isDark ? 'text-wt-aux' : 'text-lt-sub'">
           <div class="font-semibold" :class="isDark ? 'text-wt-sub' : 'text-lt-main'">这是什么？</div>
           <div>
-            Reviva 把所有文档、笔记、Agent 产出、技能配置都保存在一个统一的工作目录中，称为
+            Sapere 把所有文档、笔记、Agent 产出、技能配置都保存在一个统一的工作目录中，称为
             <span class="font-semibold" :class="isDark ? 'text-brand-400' : 'text-brand-500'">「授权根目录（工作空间）」</span>
             。它同时是 Agent 文件读写的安全沙箱——Agent 只能在此目录范围内操作，无法访问外部文件。
           </div>

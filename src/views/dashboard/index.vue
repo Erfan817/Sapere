@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import { useTasksStore } from '@/stores/tasks'
 import { useOutputsStore } from '@/stores/outputs'
+import { BRAND } from '@/config/brand'
 
 const appStore = useAppStore()
 const tasksStore = useTasksStore()
@@ -23,19 +24,14 @@ function openExternal(url) {
 }
 
 const isDark = computed(() => appStore.isDark)
-// 作者可在此替换为自己的赞赏 / 爱发电页面链接
-const GITHUB_URL = 'https://github.com/mingchen666/Reviva'
-const WEBSITE_URL = 'https://www.reviva.cn'
-const SPONSOR_URL = 'https://www.reviva.cn'
-const QQ_GROUP_URL =
-  'https://qun.qq.com/universal-share/share?ac=1&authKey=Xc02LYUkVIYM2c3M2rZMZoZfMCWAN1gUoWsIIkW7wnvRWa9TW8vsmm1f0m7EHCsN&busi_data=eyJncm91cENvZGUiOiIxMTMxNDY2MjQyIiwidG9rZW4iOiJxOVhhRFVvelozTU8xeTdFYjBjR0JIT2UrL2JEbVdPTVVFQ2JBWlljMFozL3FOZnFUNERPcUNzTE50enZSMFpPIiwidWluIjoiMzA5MDc5Nzg2MSJ9&data=DYeYI4Up27h5UGp0bZ_gp8_ebh9Xgbem1TkZZM1qjioukBWtwYKdfBW6IygtMMzHPL48U6HL-1yza5NzYW-z7g&svctype=4&tempid=h5_group_info'
-const QQ_GROUP_ID = '1131466242'
+const GITHUB_URL = BRAND.repository
+const WEBSITE_URL = BRAND.repository
 
 // 复制推荐链接的反馈状态：'idle' | 'copied'
 const shareToast = ref('idle')
 
 async function copyShareLink() {
-  const text = `Reviva —— 以 Agent 为核心的本地 AI 学习工作台：${WEBSITE_URL}`
+  const text = `Sapere · 致知 —— 本地优先的桌面学习工作空间：${WEBSITE_URL}`
   try {
     await navigator.clipboard.writeText(text)
   } catch {
@@ -213,8 +209,8 @@ function formatTime(value) {
             你的本地 Agent 学习工作空间。<button
               class="welcome-note__link"
               type="button"
-              :title="`遇到问题或想交流？加交流群（群号 ${QQ_GROUP_ID}）`"
-              @click="openExternal(QQ_GROUP_URL)">遇到问题可以加群交流<i class="ri-arrow-right-line" aria-hidden="true" /></button>
+              title="向 Sapere 项目提交问题或建议"
+              @click="openExternal(BRAND.issues)">提交问题与建议<i class="ri-arrow-right-line" aria-hidden="true" /></button>
           </p>
         </div>
         <div class="welcome-actions">
@@ -228,7 +224,7 @@ function formatTime(value) {
             @click="copyShareLink">
             <i :class="shareToast === 'copied' ? 'ri-check-line text-20px' : 'ri-share-forward-line text-20px'" aria-hidden="true" />
           </button>
-          <button class="icon-action icon-action--heart" type="button" title="支持作者" @click="openExternal(SPONSOR_URL)">
+          <button class="icon-action icon-action--heart" type="button" title="了解 Sapere 项目" @click="router.push('/settings/author')">
             <i class="ri-heart-3-line text-20px" aria-hidden="true" />
           </button>
         </div>
@@ -236,10 +232,10 @@ function formatTime(value) {
 
       <section class="hero-section" aria-labelledby="dashboard-hero-title">
         <div class="hero-copy reveal" v-reveal>
-          <h1 id="dashboard-hero-title">Reviva——<em>以Agent为核心的AI学习工作台</em>。</h1>
+          <h1 id="dashboard-hero-title">Sapere · 致知——<em>理解、实践，并记住所学</em>。</h1>
           <p>
-            Reviva 将资料库、Wiki 知识库、Agent、技能与创作工具放进同一个本地工作空间。不是又一个聊天框——Agent
-            理解你的资料、调用工具，把结果变成可复习、可复用的成果。
+            把资料、笔记、问答与实践放进同一个本地学习工作空间。先从一份资料、一个问题开始，
+            记录思考与产出，再继续下一步。
           </p>
           <div class="hero-actions">
             <button class="hero-cta hero-cta--primary" type="button" @click="router.push(ROUTE_STUDY)">
@@ -250,7 +246,7 @@ function formatTime(value) {
               <i class="ri-upload-cloud-2-line" aria-hidden="true" />
               导入资料
             </button>
-            <button class="hero-cta hero-cta--tutorial" type="button" @click="openExternal('https://www.reviva.cn/tutorial')">
+            <button class="hero-cta hero-cta--tutorial" type="button" @click="router.push('/settings/guide')">
               <i class="ri-graduation-cap-line" aria-hidden="true" />
               新手教程
               <i class="ri-arrow-right-up-line hero-cta__ext" aria-hidden="true" />
@@ -258,7 +254,7 @@ function formatTime(value) {
           </div>
         </div>
 
-        <ol class="workflow-path reveal" v-reveal :style="{ '--reveal-delay': '140ms' }" aria-label="Reviva 学习路径">
+        <ol class="workflow-path reveal" v-reveal :style="{ '--reveal-delay': '140ms' }" aria-label="Sapere 学习路径">
           <li v-for="(step, index) in workflowSteps" :key="step.label" class="workflow-step">
             <div class="workflow-marker">
               <span class="workflow-index">{{ String(index + 1).padStart(2, '0') }}</span>

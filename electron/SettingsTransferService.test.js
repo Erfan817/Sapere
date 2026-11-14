@@ -48,7 +48,7 @@ test('parses legacy exports but only returns settings', () => {
 
 test('rejects unsupported and malformed transfers', () => {
   assert.throws(() => parseSettingsTransfer([]), /格式无效/)
-  assert.throws(() => parseSettingsTransfer({ format: 'other', formatVersion: 1, data: { settings: {} } }), /不是 Reviva/)
+  assert.throws(() => parseSettingsTransfer({ format: 'other', formatVersion: 1, data: { settings: {} } }), { message: '不是 Sapere 兼容配置文件' })
   assert.throws(() => parseSettingsTransfer({ format: SETTINGS_TRANSFER_FORMAT, formatVersion: 99, data: { settings: {} } }), /不支持/)
   assert.throws(() => parseSettingsTransfer({ format: SETTINGS_TRANSFER_FORMAT, formatVersion: 1, data: {} }), /缺少 settings/)
 })

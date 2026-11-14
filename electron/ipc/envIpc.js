@@ -421,10 +421,10 @@ export function registerEnvIpc(ipcMain, deps) {
     try {
       if (!backupService) throw new Error('备份服务未就绪')
       const result = await dialog.showOpenDialog(getWin(), {
-        title: '选择 Reviva 备份包',
+        title: '选择 Sapere 备份包',
         defaultPath: app.getPath('documents'),
         properties: ['openFile'],
-        filters: [{ name: 'Reviva Backup', extensions: ['zip'] }],
+        filters: [{ name: 'Sapere Backup', extensions: ['zip'] }],
       })
       if (result.canceled || !result.filePaths?.[0]) return { success: false, canceled: true }
       return await backupService.prepareRestore({ packagePath: result.filePaths[0] })

@@ -6,7 +6,7 @@ allowed-tools: office_read, office_write, file_read
 
 # PPTX Deck Skill
 
-This skill is the design and template layer for **native editable PPTX** decks in Reviva.
+This skill is the design and template layer for **native editable PPTX** decks in Sapere.
 
 It does not teach every OfficeCLI command. For Office operations, inherit `officecli-skills` and its `references/pptx.md`. This skill decides:
 

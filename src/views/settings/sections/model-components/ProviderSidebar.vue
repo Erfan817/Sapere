@@ -79,7 +79,7 @@ const filteredProviders = computed(() => {
           <div class="flex items-center gap-1 mt-0.5">
             <span class="text-[11px]" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">{{ provider.models.length }} 模型</span>
             <span v-if="provider.official || provider.builtin || provider.custom" class="text-[11px]" :class="isDark ? 'text-wt-dim/70' : 'text-lt-aux/70'">·</span>
-            <span v-if="provider.official" class="text-[11px]" :class="isDark ? 'text-brand-400' : 'text-brand-600'">官方</span>
+            <span v-if="provider.official" class="text-[11px]" :class="isDark ? 'text-brand-400' : 'text-brand-600'">第三方兼容</span>
             <span v-else-if="provider.builtin" class="text-[11px]" :class="isDark ? 'text-wt-dim/70' : 'text-lt-aux/70'">内置</span>
             <span v-else-if="provider.custom" class="text-[11px]" :class="isDark ? 'text-violet-400' : 'text-violet-600'">自定义</span>
           </div>

@@ -17,7 +17,7 @@ const props = defineProps({
 const emit = defineEmits(['update:show', 'check', 'download', 'install'])
 
 const fallbackUrl = computed(() => props.updateInfo?.fallbackUrl || RELEASE_CONFIG.downloadUrl || '')
-const fallbackLabel = computed(() => RELEASE_CONFIG.fallbackLabel || '夸克网盘下载')
+const fallbackLabel = computed(() => RELEASE_CONFIG.fallbackLabel || 'Sapere 项目发布页')
 const safeProgress = computed(() => Math.max(0, Math.min(100, Number(props.downloadProgress) || 0)))
 
 function setShow(value) {

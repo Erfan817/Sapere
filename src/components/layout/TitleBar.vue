@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import { useAppStore } from '@/stores/app'
+import BrandLogo from '@/components/BrandLogo.vue'
 
 const appStore = useAppStore()
 const isDark = computed(() => appStore.isDark)
@@ -41,9 +42,9 @@ function close() {
     :class="isDark ? 'bg-d0 border-b border-bdr' : 'bg-l0 border-b border-bdrL'">
     <!-- Brand -->
     <div class="flex items-center gap-2 p-2">
-      <img class="h-6 w-6" :src="isDark ? './logo-dark.png' : './logo-light.png'" alt="Reviva" />
+      <BrandLogo class="h-6 w-6" />
       <span class="fs-title font-semibold tracking-wide" :class="isDark ? 'text-wt-main' : 'text-lt-main'">
-        Reviva
+        Sapere
       </span>
     </div>
 

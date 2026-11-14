@@ -1,6 +1,6 @@
 ---
 name: skill-installer
-description: 安装和管理 Reviva Skills。支持从 GitHub URL 克隆、本地路径/ZIP 导入、以及从描述创建新 Skill。当用户说"安装 skill""帮我安装 xxx""我下载了 skill""创建一个 skill"时触发。
+description: 安装和管理 Sapere Skills。支持从 GitHub URL 克隆、本地路径/ZIP 导入、以及从描述创建新 Skill。当用户说"安装 skill""帮我安装 xxx""我下载了 skill""创建一个 skill"时触发。
 ---
 
 # Skill 安装助手
@@ -52,7 +52,7 @@ description: 安装和管理 Reviva Skills。支持从 GitHub URL 克隆、本�
 
 ### 关键行为
 
-- frontmatter 的 `allowed-tools` 会被自动映射为 Reviva 工具 ID 并写入 config.json 的 allowedTools
+- frontmatter 的 `allowed-tools` 会被自动映射为 Sapere 工具 ID 并写入 config.json 的 allowedTools
 - 更新时 config.json 被重新生成覆盖；如果源文件没有 config.json，之前手动编辑的字段会丢失
 - 内置 Skill 的 config.json 在应用启动时按版本刷新：工作区副本仍为 source=platform 时，仅当内置 version 变更或副本 spec 校验无效才覆盖刷新；被用户改为自定义（source 非 platform）的不刷新，保护用户修改
 - config.json 和 DB 记录同步更新，确保 Agent 绑定工具时读到正确的 allowedTools
@@ -163,7 +163,7 @@ skill_install({
 
 每次安装或创建 Skill 后，告知用户：
 1. Skill 已安装的位置
-2. 建议关闭并重新打开 Reviva，使新 Skill 完全生效
+2. 建议关闭并重新打开 Sapere，使新 Skill 完全生效
 3. 也可以在 Agent 设置中手动绑定该 Skill
 4. 如果返回了 adaptation 报告且 needsAttention=true，告知用户该 Skill 可能需要适配（见下文）
 5. 告知用户 config.json 已自动生成（含映射后的工具列表），无需手动创建
@@ -182,9 +182,9 @@ skill_install({
 
 ### 自动工具映射
 
-安装时自动将以下外部工具名映射为 Reviva 工具 ID（写入 config.json 的 allowedTools）：
+安装时自动将以下外部工具名映射为 Sapere 工具 ID（写入 config.json 的 allowedTools）：
 
-| 外部工具名 | Reviva 工具 ID |
+| 外部工具名 | Sapere 工具 ID |
 |---|---|
 | Bash, Shell, Execute, Command, Terminal | exec_command |
 | Read, read_file | file_read |
@@ -208,13 +208,13 @@ skill_install({
 
 ### 如何处理适配问题
 
-1. `unmappedTools` 非空：告知用户这些工具名无法自动映射，询问是否知道对应的 Reviva 工具，或建议忽略
-2. `warnings` 含系统路径（/home/、~/.claude/、C:\\Users\\）：告知用户该 Skill 引用了其他平台路径，可能需要手动修改 SKILL.md 中的路径为 Reviva 虚拟路径
-3. `warnings` 含 pip/npm install：告知用户该 Skill 依赖自动安装，Reviva 不允许自动安装，需要用户手动准备环境
-4. `warnings` 含 localhost：告知用户该 Skill 引用了本地服务，可能无法在 Reviva 中直接使用
+1. `unmappedTools` 非空：告知用户这些工具名无法自动映射，询问是否知道对应的 Sapere 工具，或建议忽略
+2. `warnings` 含系统路径（/home/、~/.claude/、C:\\Users\\）：告知用户该 Skill 引用了其他平台路径，可能需要手动修改 SKILL.md 中的路径为 Sapere 虚拟路径
+3. `warnings` 含 pip/npm install：告知用户该 Skill 依赖自动安装，Sapere 不允许自动安装，需要用户手动准备环境
+4. `warnings` 含 localhost：告知用户该 Skill 引用了本地服务，可能无法在 Sapere 中直接使用
 5. 复杂适配：可读取同目录下的 `SKILL_ADAPTATION_WORKFLOW.md`（如果存在）了解完整适配工作流
 
-### Reviva 关键路径规则
+### Sapere 关键路径规则
 
 - 最终文件输出：`/agents/{当前Agent英文名}/outputs/{系统日期}/文件名.ext`
 - 临时文件：`/tmp/{当前Agent英文名}/{系统日期}/中间文件.ext`

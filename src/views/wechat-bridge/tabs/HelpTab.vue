@@ -20,7 +20,7 @@ const cmds = [
   { c: '/doc <文件名>', d: '引用指定文件，标记为当前对话重点参考' },
 ]
 const types = [{ i: 'ri-font-line', c: 'blue', t: '文本' }, { i: 'ri-image-line', c: 'amber', t: '图片' }, { i: 'ri-file-3-line', c: 'amber', t: '文件' }, { i: 'ri-mic-line', c: 'amber', t: '语音' }, { i: 'ri-link', c: 'brand', t: '链接' }]
-const faqs = ref([{ q: '会话多久过期？过期后怎么办？', a: '会话有效期约 24 小时，过期后需等待约 1 小时暂停窗口才能重新扫码。扫码后凭证自动持久化，重启 Reviva 无需重新扫码。', open: true }, { q: '关闭 Reviva 后 Bot 还能用吗？', a: '不能。Bot 运行在 Reviva 主进程内，关闭后自动停止。重新打开后若有有效凭证则自动恢复连接。', open: false }, { q: '连续发多条消息会怎样？', a: '15 秒内连续发送的消息会自动合并为一条发给 Agent（防抖聚合），避免多次调用浪费 Token。', open: false }, { q: 'Agent 处理时微信会显示什么？', a: '处理期间微信显示「正在输入...」状态（typing 保活），每 8-15 秒刷新，上限 5 分钟。', open: false }, { q: '图片会被保存吗？', a: '不会。图片直接作多模态输入给 Agent，不存到微信bot文件目录。只有文件和链接才会导入。', open: false }, { q: '支持群聊吗？', a: '目前不支持。Bot 是 1:1 绑定到你的微信号，只能私聊。群聊功能将在未来版本中验证和加入。', open: false }])
+const faqs = ref([{ q: '会话多久过期？过期后怎么办？', a: '会话有效期约 24 小时，过期后需等待约 1 小时暂停窗口才能重新扫码。扫码后凭证自动持久化，重启 Sapere 无需重新扫码。', open: true }, { q: '关闭 Sapere 后 Bot 还能用吗？', a: '不能。Bot 运行在 Sapere 主进程内，关闭后自动停止。重新打开后若有有效凭证则自动恢复连接。', open: false }, { q: '连续发多条消息会怎样？', a: '15 秒内连续发送的消息会自动合并为一条发给 Agent（防抖聚合），避免多次调用浪费 Token。', open: false }, { q: 'Agent 处理时微信会显示什么？', a: '处理期间微信显示「正在输入...」状态（typing 保活），每 8-15 秒刷新，上限 5 分钟。', open: false }, { q: '图片会被保存吗？', a: '不会。图片直接作多模态输入给 Agent，不存到微信bot文件目录。只有文件和链接才会导入。', open: false }, { q: '支持群聊吗？', a: '目前不支持。Bot 是 1:1 绑定到你的微信号，只能私聊。群聊功能将在未来版本中验证和加入。', open: false }])
 function toggleFaq(f) { f.open = !f.open }
 </script>
 <template>
@@ -39,7 +39,7 @@ function toggleFaq(f) { f.open = !f.open }
       <div class="mt-4 pt-4 border-t" :class="isDark ? 'border-d4' : 'border-bdrF'">
         <div class="text-[12.5px] font-semibold mb-2" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">Bot 首条自动回复</div>
         <div class="rounded-md p-3.5" :class="isDark ? 'bg-d3' : 'bg-l3'">
-          <div class="text-[13.5px] leading-relaxed" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">我是你的 Reviva 学习助手，直接提问就行，也可以发文件 / 链接给我导入。发 /help 看更多指令。</div>
+          <div class="text-[13.5px] leading-relaxed" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">我是你的 Sapere 学习助手，直接提问就行，也可以发文件 / 链接给我导入。发 /help 看更多指令。</div>
         </div>
         <div class="text-[13px] mt-2" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">扫码登录后用户发第一条消息时，Bot 会自动回复这段引导语。</div>
       </div>

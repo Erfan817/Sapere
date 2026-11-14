@@ -25,7 +25,7 @@ const serviceAddress = computed(() => status.value?.address || `http://127.0.0.1
 const maskedKey = computed(() => keyConfigured.value ? `msk_••••••••••••••••••••••••••••${status.value?.apiKey?.hint || ''}` : '尚未创建')
 const displayedKey = computed(() => showKey.value && visibleKey.value ? visibleKey.value : maskedKey.value)
 
-const DOCS_URL = 'https://www.reviva.cn'
+const DOCS_URL = 'https://github.com/Erfan817/Sapere#readme'
 
 const endpointGroups = [
   {
@@ -54,7 +54,7 @@ const endpointGroups = [
       },
       {
         id: 'chat', method: 'POST', path: '/v1/chat/completions', name: '对话调用（推荐）', auth: true,
-        desc: 'OpenAI 兼容的 Agent 调用入口。请求中的 model 填 Reviva 的 agentId，支持标准 messages 与 stream 字段。',
+        desc: 'OpenAI 兼容的 Agent 调用入口。请求中的 model 填 Sapere 的 agentId，支持标准 messages 与 stream 字段。',
         requestTitle: '请求体', requestLang: 'json',
         request: `{
   "model": "agent_123",
@@ -70,7 +70,7 @@ const endpointGroups = [
 
 data: [DONE]`,
         notes: [
-          'model 填 Reviva 的 agentId，而非供应商模型名',
+          'model 填 Sapere 的 agentId，而非供应商模型名',
           'messages[].content 支持多模态（text + image_url），单张图片约 10 MB',
           '默认临时会话，传入 conversationId 才会长期保留对话',
           '推理内容在 reasoning_content，不混入正文 content',
@@ -392,8 +392,8 @@ onBeforeUnmount(() => {
       <div class="flex items-start gap-2.5">
         <i class="ri-server-line text-brand-400 text-[15px] mt-[1px]" />
         <div class="flex-1 min-w-0">
-          <div class="text-[12px] font-semibold mb-0.5" :class="isDark ? 'text-brand-400' : 'text-brand-600'">Reviva 网关服务</div>
-          <p class="text-[11px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">允许浏览器扩展、IDE、CLI 和其他服务通过 HTTP 调用 Reviva 已公开的能力。局域网 HTTP 为明文传输，只应在可信网络中开启。</p>
+          <div class="text-[12px] font-semibold mb-0.5" :class="isDark ? 'text-brand-400' : 'text-brand-600'">Sapere 网关服务</div>
+          <p class="text-[11px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">允许浏览器扩展、IDE、CLI 和其他服务通过 HTTP 调用 Sapere 已公开的能力。局域网 HTTP 为明文传输，只应在可信网络中开启。</p>
         </div>
       </div>
     </div>
@@ -505,7 +505,7 @@ onBeforeUnmount(() => {
 
         <!-- 引导文案 -->
         <p class="text-[11px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">
-          以下 5 个是最常用的核心接口，点击任意一行查看请求 / 响应示例。完整接口列表、参数说明与错误码请查阅官方文档。
+          以下 5 个是最常用的核心接口，点击任意一行查看请求 / 响应示例。完整接口列表、参数说明与错误码请查阅项目文档。
         </p>
 
         <!-- 基础地址 -->
@@ -535,11 +535,11 @@ onBeforeUnmount(() => {
           </div>
         </div>
 
-        <!-- 官方文档 -->
+        <!-- 项目文档 -->
         <div class="flex items-center justify-between gap-3 pt-3 border-t" :class="isDark ? 'border-d4' : 'border-bdrF'">
           <span class="text-[11px]" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">以上为核心接口，更多接口与错误码见文档</span>
           <button class="flex items-center gap-1 text-[11.5px] font-semibold text-brand-400 transition-colors" :class="isDark ? 'hover:text-brand-300' : 'hover:text-brand-500'" @click="openDocs">
-            查看官方文档 <i class="ri-external-link-line text-[12px]" />
+            查看项目文档 <i class="ri-external-link-line text-[12px]" />
           </button>
         </div>
       </div>
@@ -616,7 +616,7 @@ onBeforeUnmount(() => {
             <div class="shrink-0 px-5 py-3.5 border-t flex items-center justify-between gap-3" :class="isDark ? 'border-bdr' : 'border-bdrF'">
               <span class="text-[11px]" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">更多接口、参数与错误码</span>
               <button class="flex items-center gap-1 text-[11.5px] font-semibold text-brand-400 transition-colors" :class="isDark ? 'hover:text-brand-300' : 'hover:text-brand-500'" @click="openDocs">
-                查看官方文档 <i class="ri-external-link-line text-[12px]" />
+                查看项目文档 <i class="ri-external-link-line text-[12px]" />
               </button>
             </div>
           </div>

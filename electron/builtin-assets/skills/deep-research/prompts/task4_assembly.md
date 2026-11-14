@@ -11,16 +11,16 @@
 - QA 工具：`{TOOLSDIR}/dr_tools.py`（可选；已有命令包括 `assemble-report`, `convert-citations`, `qa-report`, `check-encoding`, `check-headers`, `check-chapter-numbers`, `check-metadata`, `check-toc`, `check-tail`, `word-count`, `year-density`）
 - 数据受限标记：`{data_limited}`（true 时数据来源不足，需降低质量预期并显式说明）
 
-## Reviva 路径规则
+## Sapere 路径规则
 
 - `/skills/deep-research/` 是只读技能目录，禁止在 skill 目录内写入 `reports/`、`reports-browser/` 或任何运行结果。
-- `/agents/...` 和 `/tmp/...` 是 Reviva 当前工作空间授权根目录下的虚拟路径，不是真实磁盘根目录；写文件时不要转换成宿主系统盘符路径、系统临时目录或平台特定绝对路径。
+- `/agents/...` 和 `/tmp/...` 是 Sapere 当前工作空间授权根目录下的虚拟路径，不是真实磁盘根目录；写文件时不要转换成宿主系统盘符路径、系统临时目录或平台特定绝对路径。
 - 默认输出目录为 `/agents/deep-researcher/outputs/{今天日期}/`；默认临时目录为 `/tmp/deep-researcher/{今天日期}/deep-research-{时间戳}/`。
-- 用户显式指定输出位置时，只有当前文件工具允许写入的 Reviva 虚拟路径才可使用；如果用户给出真实磁盘路径或未授权路径，改写到默认输出目录并说明原因。
+- 用户显式指定输出位置时，只有当前文件工具允许写入的 Sapere 虚拟路径才可使用；如果用户给出真实磁盘路径或未授权路径，改写到默认输出目录并说明原因。
 - 最终产物至少包含：
   - Markdown 完整报告：`research-report.md`
   - HTML 展示页：`research-report.html`
-- 不运行 `generate_pages.py --local`，Reviva 会通过 artifact 规则扫描输出目录。
+- 不运行 `generate_pages.py --local`，Sapere 会通过 artifact 规则扫描输出目录。
 
 ## 工具使用原则
 
@@ -101,7 +101,7 @@ python {TOOLSDIR}/dr_tools.py qa-report /agents/deep-researcher/outputs/{今天�
 - 章节完整，标题层级连续。
 - 每个关键判断至少有本地资料、知识库、搜索来源或明确的“不确定”说明支撑。
 - 资料互相矛盾时明确标注冲突，不强行合并。
-- 路径属于 `/agents/deep-researcher/outputs/{今天日期}/` 或当前文件工具明确允许的 Reviva 虚拟路径。
+- 路径属于 `/agents/deep-researcher/outputs/{今天日期}/` 或当前文件工具明确允许的 Sapere 虚拟路径。
 - 没有把临时文件路径暴露成最终交付路径。
 
 年份密度检查：如果 `time_anchor.mode == "relaxed"`，跳过严格年份密度要求。年份密度不达标但其它项目通过时，加说明继续。
@@ -110,7 +110,7 @@ python {TOOLSDIR}/dr_tools.py qa-report /agents/deep-researcher/outputs/{今天�
 
 ## Step 5 - 生成 HTML 展示页
 
-HTML 主要负责展示，不替代 Markdown 完整报告。它应当是一个可直接打开的自包含页面，用于快速浏览、汇报预览或在 Reviva artifact 中查看。
+HTML 主要负责展示，不替代 Markdown 完整报告。它应当是一个可直接打开的自包含页面，用于快速浏览、汇报预览或在 Sapere artifact 中查看。
 
 HTML 内容建议：
 

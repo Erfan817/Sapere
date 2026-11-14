@@ -44,10 +44,10 @@ const sectionMap = {
   shortcuts: { name: '系统快捷键', icon: 'ri-keyboard-line', color: 'brand', hint: '全局与应用内键盘快捷键' },
   'quick-inputs': { name: '快捷输入', icon: 'ri-at-line', color: 'brand', hint: '管理聊天中的 @ 快捷输入' },
   notifications: { name: '通知与启动', icon: 'ri-notification-3-line', color: 'amber', hint: '声音通知、托盘与开机自启' },
-  'local-gateway': { name: '网关服务', icon: 'ri-router-line', color: 'brand', hint: '通过 HTTP 对外开放 Reviva 能力' },
+  'local-gateway': { name: '网关服务', icon: 'ri-router-line', color: 'brand', hint: '通过 HTTP 对外开放 Sapere 能力' },
   data: { name: '数据与备份', icon: 'ri-database-2-line', color: 'emerald', hint: '导出导入配置、缓存清理与数据迁移' },
   about: { name: '系统版本', icon: 'ri-information-line', color: 'rose', hint: '版本、更新日志与系统信息' },
-  author: { name: '关于作者', icon: 'ri-user-heart-line', color: 'brand', hint: '作者、开发意图与联系信息' },
+  author: { name: '关于项目', icon: 'ri-user-heart-line', color: 'brand', hint: 'Sapere 定位、项目进展与开源来源' },
   guide: { name: '新手教程', icon: 'ri-compass-3-line', color: 'brand', hint: '从零配置：根目录、模型、默认模型与 Agent' },
 }
 
@@ -119,7 +119,7 @@ const currentSectionInfo = computed(() => sectionMap[activeSection.value])
       <!-- Footer -->
       <div class="px-4 py-2 flex items-center justify-between" :class="isDark ? 'border-t border-d4' : 'border-t border-bdrL'">
         <span class="text-[12.5px]" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">v{{appVersion}}</span>
-        <span class="text-[12.5px]" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">© Reviva</span>
+        <span class="text-[12.5px]" :class="isDark ? 'text-wt-dim' : 'text-lt-aux'">Sapere · 致知</span>
       </div>
     </LeftPanel>
 

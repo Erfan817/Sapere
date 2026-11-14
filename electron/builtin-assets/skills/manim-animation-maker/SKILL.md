@@ -53,7 +53,7 @@ Optional:
 
 Use raw shell commands only if the controlled tools are unavailable and the user still needs a command to run manually. Never use raw shell commands to delete files or operate outside the workspace.
 
-Never use the DeepAgents `execute` tool for this skill. In Reviva, Manim rendering is done through `manim_tool`; `execute({ "path": ... })` is invalid and will fail because `execute` is a shell-command tool, not a file/media router.
+Never use the DeepAgents `execute` tool for this skill. In Sapere, Manim rendering is done through `manim_tool`; `execute({ "path": ... })` is invalid and will fail because `execute` is a shell-command tool, not a file/media router.
 
 ## Dependencies
 
