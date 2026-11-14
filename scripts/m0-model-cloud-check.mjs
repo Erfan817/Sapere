@@ -110,14 +110,17 @@ try {
   await activeWorkspace()
   await page.evaluate(() => { location.hash = '/settings/models' })
   await page.getByText('模型服务商列表', { exact: true }).waitFor()
-  await page.getByRole('button').filter({ hasText: /^\s*Ollama\s*$/ }).first().click()
+  await page.getByRole('button').filter({ hasText: 'Ollama' }).first().click()
   const keyInput = page.locator('input[placeholder="本地服务可填写任意值，例如 ollama"]')
   await keyInput.waitFor()
   await keyInput.fill('local-placeholder-key')
   const baseUrlInput = page.locator('div.rounded-xl').filter({ hasText: 'Base URL' }).locator('input').last()
   await baseUrlInput.fill('http://127.0.0.1:9/v1')
   await page.waitForTimeout(2200)
-  const savedProviders = await page.evaluate(async () => JSON.parse(await window.electronAPI.db.settings.get('providers')))
+  const savedProviders = await page.evaluate(async () => {
+    const value = await window.electronAPI.db.settings.get('providers')
+    return typeof value === 'string' ? JSON.parse(value) : value
+  })
   const ollama = savedProviders.find(item => item.id === 'custom')
   assert.equal(ollama.apiKey, 'local-placeholder-key')
   assert.equal(ollama.baseUrl, 'http://127.0.0.1:9/v1')
@@ -126,16 +129,16 @@ try {
   await shot('01-model-config.png')
 
   // The connection test targets a closed loopback port; no provider is contacted externally.
+  await page.getByText('全部启用', { exact: true }).click()
+  await page.waitForTimeout(2000)
   await page.getByRole('button', { name: '测试连接' }).click()
   await page.getByText('测试模型连接', { exact: true }).waitFor()
-  await page.locator('.ms-modal-card').getByText('选择一个已启用的模型').click()
-  await page.getByText('Qwen2.5 7B', { exact: true }).click()
   await page.getByRole('button', { name: '开始测试' }).click()
   await page.getByText('连接失败', { exact: true }).waitFor({ timeout: 30_000 })
   const failureText = await page.locator('.ms-modal-card').innerText()
   assert.ok(/ECONNREFUSED|fetch failed|连接|refused/i.test(failureText))
   await shot('02-connection-error.png')
-  await page.getByRole('button', { name: '关闭', exact: true }).click()
+  await page.getByRole('button', { name: '关闭', exact: true }).last().click()
   report.checks.push('Local provider config saved without an account; connection failure on a closed loopback port is reported in the UI')
 
   // Account, guide, gateway and update pages must work and stay account-free/offline.

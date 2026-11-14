@@ -60,7 +60,7 @@ The first-release goal is:
 
 **Choose a learning package → read and ask → submit an exercise → save progress → review → restart and continue.**
 
-See the [project brief](docs/Sapere_致知_项目立项书_v0.2_Reviva二开版.md), [persistence acceptance record](docs/M0_工作区与重启持久化验收.md), [local import acceptance record](docs/M0_本地资料导入验收.md) and [M0 acceptance matrix](docs/M0_功能验收矩阵.md) for scope and evidence.
+See the [project brief](docs/Sapere_致知_项目立项书_v0.2_Reviva二开版.md), [persistence acceptance record](docs/M0_工作区与重启持久化验收.md), [local import acceptance record](docs/M0_本地资料导入验收.md), [model and cloud dependency check](docs/M0_模型与云依赖检查.md) and [M0 acceptance matrix](docs/M0_功能验收矩阵.md) for scope and evidence.
 
 ## Getting started
 
