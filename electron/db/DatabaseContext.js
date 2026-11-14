@@ -1,4 +1,5 @@
 import { createRequire } from 'node:module'
+import { createSecretCodec } from './SecretCodec.js'
 
 const require = createRequire(import.meta.url)
 let BetterSqlite3 = null
@@ -14,9 +15,14 @@ export function getDatabaseDriver() {
 }
 
 export class DatabaseContext {
-  constructor() {
+  constructor(options = {}) {
     this._db = null
     this._dbPath = null
+    this._secretCodec = createSecretCodec(options?.secretStore || null)
+  }
+
+  get secretCodec() {
+    return this._secretCodec
   }
 
   get db() {

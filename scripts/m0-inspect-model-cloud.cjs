@@ -19,17 +19,23 @@ try {
   const ollama = providers.find(item => item.id === 'custom')
   assert.ok(ollama, 'custom local provider must be saved')
   assert.equal(ollama.baseUrl, 'http://127.0.0.1:9/v1')
-  assert.equal(ollama.apiKey, 'local-placeholder-key')
-  // The current implementation stores provider keys in the workspace SQLite settings JSON.
-  const plaintextKeyInDb = row.value.includes('local-placeholder-key')
-  assert.equal(plaintextKeyInDb, true)
+  // The typed table keeps the credential encrypted; the compatibility row never carries it.
+  assert.equal(ollama.apiKey, '')
+  assert.equal(row.value.includes('local-placeholder-key'), false)
+  const secretRow = db.prepare('SELECT api_key FROM llm_provider_profiles WHERE id = ?').get('custom')
+  assert.ok(secretRow.api_key.startsWith('safe:'), 'provider key must be encrypted at rest')
+  assert.equal(secretRow.api_key.includes('local-placeholder-key'), false)
+  assert.equal(report.exportRedacted, true)
+  assert.equal(report.importPreservedKey, true)
   const registry = JSON.parse(fs.readFileSync(path.join(report.userData, 'workspaces.json'), 'utf8'))
   assert.equal(registry.pendingWorkspaceId, null)
   assert.equal(registry.workspaces.length, 1)
   console.log(JSON.stringify({
     success: true, dbPath, integrity: 'ok', foreignKeys: 'ok',
-    providerCount: providers.length, providerKeysStored: 'workspace SQLite settings JSON (plaintext)',
-    plaintextKeyInDb, externalRequests: report.externalRequests.length,
+    providerCount: providers.length, providerKeysStored: 'encrypted with safeStorage in typed provider table',
+    encryptedAtRest: true, plaintextKeyInDb: false,
+    exportRedacted: true, importPreservedKey: true,
+    externalRequests: report.externalRequests.length,
   }, null, 2))
 } finally {
   db.close()

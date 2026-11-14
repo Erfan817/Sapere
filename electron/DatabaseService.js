@@ -55,8 +55,8 @@ export class DatabaseService {
     }
   }
 
-  constructor() {
-    this._context = new DatabaseContext()
+  constructor(options = {}) {
+    this._context = new DatabaseContext(options)
     this._settingsRepository = new SettingsRepository(this._context)
     this._memoryRepository = new MemoryRepository(this._context)
     this._learningMemoryRepository = new LearningMemoryRepository(this._context)
@@ -110,6 +110,7 @@ export class DatabaseService {
     this._migrateTables()
     this._runVersionedMigrations()
     this._seedBuiltinData()
+    this._migrateSecrets()
     return this._db
   }
 
@@ -153,6 +154,7 @@ export class DatabaseService {
       this._migrateTables()
       this._runVersionedMigrations()
       this._seedBuiltinData()
+      this._migrateSecrets()
       this.setSetting('workdir_root', path.resolve(rootPath))
       console.log(workspaceDbExists ? '[DB] Switched to workspace database:' : '[DB] Created workspace database:', newDbPath)
       return true
@@ -490,6 +492,19 @@ export class DatabaseService {
 
   _ensureCreationCenterAgentPrompts() { return this._legacyMigrationManager._ensureCreationCenterAgentPrompts() }
   _runVersionedMigrations() { return this._versionedMigrationManager._runVersionedMigrations() }
+
+  _migrateSecrets() {
+    if (!this._context.secretCodec.available) return { skipped: true, reason: 'encryption-unavailable' }
+    try {
+      const result = this._settingsRepository.encryptStoredSecrets()
+      const total = Object.values(result).reduce((sum, value) => sum + (Number(value) || 0), 0)
+      if (total) console.log(`[DB] Protected ${total} stored credential field(s) with the local key store`)
+      return result
+    } catch (error) {
+      console.error('[DB] Secret migration failed:', error.message)
+      return { failed: true, error: error.message }
+    }
+  }
   _migrateTables() { return this._legacyMigrationManager._migrateTables() }
   _createTables() { return this._schemaManager._createTables() }
   _seedBuiltinData() { return this._seedManager._seedBuiltinData() }

@@ -8,10 +8,15 @@ import {
   serializeTransferredSetting,
 } from './SettingsTransferService.js'
 
-test('creates a versioned settings transfer and excludes workspace root', () => {
+test('creates a versioned settings transfer with credentials redacted', () => {
   const result = createSettingsTransfer({
     themeMode: 'dark',
-    providers: [{ id: 'openai', apiKey: 'kept-by-product-decision' }],
+    providers: [{ id: 'openai', apiKey: 'sk-must-not-export', baseUrl: 'https://api.openai.com/v1' }],
+    imageModels: [{ id: 'images', apiKey: 'image-key-must-not-export' }],
+    webImportSettings: { providers: { jina: { apiKey: 'jina-must-not-export', baseUrl: 'https://r.jina.ai' } } },
+    proxyPass: 'proxy-secret',
+    localGatewayApiKeyValue: 'gateway-secret',
+    localGatewayApiKeyHash: 'hash',
     defaultSttModelRef: 'local_asr::whisper-1',
     workdir_root: 'D:\\old-workspace',
   }, { appVersion: '1.2.3' })
@@ -19,10 +24,29 @@ test('creates a versioned settings transfer and excludes workspace root', () => 
   assert.equal(result.format, SETTINGS_TRANSFER_FORMAT)
   assert.equal(result.formatVersion, SETTINGS_TRANSFER_VERSION)
   assert.equal(result.appVersion, '1.2.3')
+  assert.equal(result.secretsRedacted, true)
   assert.equal(result.data.settings.themeMode, 'dark')
-  assert.equal(result.data.settings.providers[0].apiKey, 'kept-by-product-decision')
+  assert.equal(result.data.settings.providers[0].apiKey, '')
+  assert.equal(result.data.settings.providers[0].apiKeyRedacted, true)
+  assert.equal(result.data.settings.imageModels[0].apiKey, '')
+  assert.equal(result.data.settings.webImportSettings.providers.jina.apiKey, '')
+  const serialized = JSON.stringify(result)
+  for (const secret of ['sk-must-not-export', 'image-key-must-not-export', 'jina-must-not-export', 'proxy-secret', 'gateway-secret']) {
+    assert.equal(serialized.includes(secret), false, secret)
+  }
   assert.equal(Object.hasOwn(result.data.settings, 'defaultSttModelRef'), false)
   assert.equal(Object.hasOwn(result.data.settings, 'workdir_root'), false)
+  assert.equal(Object.hasOwn(result.data.settings, 'proxyPass'), false)
+  assert.equal(Object.hasOwn(result.data.settings, 'localGatewayApiKeyValue'), false)
+})
+
+test('import parsing keeps redaction markers for the database merge step', () => {
+  const parsed = parseSettingsTransfer({
+    format: SETTINGS_TRANSFER_FORMAT,
+    formatVersion: SETTINGS_TRANSFER_VERSION,
+    data: { settings: { providers: [{ id: 'openai', apiKey: '', apiKeyRedacted: true }] } },
+  })
+  assert.equal(parsed.settings.providers[0].apiKeyRedacted, true)
 })
 
 test('parses the current transfer format', () => {

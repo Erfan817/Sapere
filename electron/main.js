@@ -362,7 +362,7 @@ app.whenReady().then(async () => {
     await workspaceRegistryService.cancelPending()
   }
 
-  dbService = new DatabaseService()
+  dbService = new DatabaseService({ secretStore: safeStorage })
   if (startupWorkspace) dbService.init(DatabaseService.workspaceDbPath(startupWorkspace.rootPath))
   else dbService.init()
   const singleInstance = dbService.getSetting('singleInstance') !== false

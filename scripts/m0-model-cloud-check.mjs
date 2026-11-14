@@ -128,6 +128,24 @@ try {
   report.providerConfig = { id: ollama.id, baseUrl: ollama.baseUrl, apiKey: '[local placeholder]' }
   await shot('01-model-config.png')
 
+  // Settings export must not contain credentials; importing it back keeps this device's key.
+  const exported = await page.evaluate(() => window.electronAPI.exportSettings())
+  assert.equal(exported.success, true)
+  const exportedCustom = exported.data.data.settings.providers.find(item => item.id === 'custom')
+  assert.equal(exportedCustom.apiKey, '')
+  assert.equal(exportedCustom.apiKeyRedacted, true)
+  assert.equal(JSON.stringify(exported).includes('local-placeholder-key'), false)
+  const imported = await page.evaluate(data => window.electronAPI.importSettings(data), exported.data.data)
+  assert.equal(imported.success, true)
+  const providersAfterImport = await page.evaluate(async () => {
+    const value = await window.electronAPI.db.settings.get('providers')
+    return typeof value === 'string' ? JSON.parse(value) : value
+  })
+  assert.equal(providersAfterImport.find(item => item.id === 'custom').apiKey, 'local-placeholder-key')
+  report.exportRedacted = true
+  report.importPreservedKey = true
+  report.checks.push('Settings export contains no provider key; re-importing the redacted export keeps the locally stored key')
+
   // The connection test targets a closed loopback port; no provider is contacted externally.
   await page.getByText('全部启用', { exact: true }).click()
   await page.waitForTimeout(2000)

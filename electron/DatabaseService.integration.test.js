@@ -200,7 +200,11 @@ test('legacy LLM providers migrate without changing provider, model, key, or def
       { provider_id: 'deepseek', model_id: 'deepseek-v4-flash' },
     ])
     assert.ok(service.db.prepare('SELECT 1 FROM schema_migrations WHERE version = 7').get())
-    assert.deepEqual(JSON.parse(service.db.prepare("SELECT value FROM settings WHERE key = 'providers'").get().value), LEGACY_PROVIDERS)
+    // The compatibility settings copy keeps the catalog but never the credentials.
+    const compatibility = JSON.parse(service.db.prepare("SELECT value FROM settings WHERE key = 'providers'").get().value)
+    assert.deepEqual(compatibility.map(provider => provider.id), ['deepseek', 'custom'])
+    assert.equal(compatibility.every(provider => provider.apiKey === ''), true)
+    assert.equal(JSON.stringify(compatibility).includes('legacy-deepseek-key'), false)
     assert.ok(service.db.prepare("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'tts_provider_profiles'").get())
   } finally {
     service.close()
@@ -247,7 +251,9 @@ test('LLM provider compatibility CRUD and settings import persist through the ex
     service.importSettings({ providers: LEGACY_PROVIDERS, importedFlag: true })
     assert.deepEqual(service.getSetting('providers'), LEGACY_PROVIDERS)
     assert.equal(service.getSetting('importedFlag'), true)
-    assert.deepEqual(JSON.parse(service.db.prepare("SELECT value FROM settings WHERE key = 'providers'").get().value), LEGACY_PROVIDERS)
+    const compatibilityProviders = JSON.parse(service.db.prepare("SELECT value FROM settings WHERE key = 'providers'").get().value)
+    assert.deepEqual(compatibilityProviders.map(item => ({ ...item, apiKey: '' })), LEGACY_PROVIDERS.map(item => ({ ...item, apiKey: '' })))
+    assert.equal(JSON.stringify(compatibilityProviders).includes('legacy-deepseek-key'), false)
 
     const duplicateProviders = structuredClone(LEGACY_PROVIDERS)
     duplicateProviders.push(structuredClone(duplicateProviders[0]))

@@ -59,8 +59,8 @@ export class AgentHealthService {
 
   _getProviders() {
     try {
-      const raw = this._db._db.prepare("SELECT value FROM settings WHERE key = 'providers'").get()
-      return raw ? (parseJSON(raw.value) || []) : []
+      const providers = this._db.getSetting('providers')
+      return Array.isArray(providers) ? providers : []
     } catch { return [] }
   }
 

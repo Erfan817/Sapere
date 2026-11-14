@@ -1,5 +1,6 @@
 import { parseJSON, stringifyJSON } from '../helpers.js'
 import { BaseRepository } from './BaseRepository.js'
+import { withoutProviderSecrets } from '../SecretCodec.js'
 
 function assertPlainObject(value, message) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(message)
@@ -41,15 +42,15 @@ function jsonObject(value) {
   return value && typeof value === 'object' && !Array.isArray(value) ? value : {}
 }
 
-export function providerToRow(provider, sortOrder) {
-  const config = Object.fromEntries(Object.entries(provider).filter(([key]) => key !== 'models'))
+export function providerToRow(provider, sortOrder, codec = null) {
+  const config = Object.fromEntries(Object.entries(provider).filter(([key]) => key !== 'models' && key !== 'apiKey' && key !== 'apiKeyRedacted'))
   return {
     id: provider.id,
     name: String(provider.name || ''),
     description: String(provider.desc || ''),
     region: String(provider.region || ''),
     api_format: String(provider.apiFormat || 'openai'),
-    api_key: String(provider.apiKey || ''),
+    api_key: codec ? codec.encrypt(provider.apiKey) : String(provider.apiKey || ''),
     api_key_id: String(provider.apiKeyId || ''),
     base_url: String(provider.baseUrl || ''),
     enabled: provider.enabled ? 1 : 0,
@@ -73,12 +74,12 @@ export function modelToRow(providerId, model, sortOrder) {
   }
 }
 
-export function providerFromRows(providerRow, modelRows) {
+export function providerFromRows(providerRow, modelRows, codec = null) {
   const providerConfig = jsonObject(parseJSON(providerRow.config_json))
   const provider = { ...providerConfig, id: providerRow.id }
   const providerColumns = [
     ['name', 'name'], ['desc', 'description'], ['region', 'region'], ['apiFormat', 'api_format'],
-    ['apiKey', 'api_key'], ['apiKeyId', 'api_key_id'], ['baseUrl', 'base_url'],
+    ['apiKeyId', 'api_key_id'], ['baseUrl', 'base_url'],
     ['enabled', 'enabled'], ['builtin', 'builtin'], ['local', 'local'],
   ]
   for (const [field, column] of providerColumns) {
@@ -87,6 +88,9 @@ export function providerFromRows(providerRow, modelRows) {
       ? Boolean(providerRow[column])
       : providerRow[column]
   }
+  // Older rows may only carry the key inside config_json; the encrypted column wins.
+  const storedKey = providerRow.api_key || providerConfig.apiKey || ''
+  provider.apiKey = codec ? codec.decrypt(storedKey) : storedKey
   provider.models = modelRows.map(modelRow => {
     const modelConfig = jsonObject(parseJSON(modelRow.config_json))
     const model = { ...modelConfig, id: modelRow.model_id }
@@ -113,7 +117,7 @@ export class ModelProviderRepository extends BaseRepository {
     if (!this.isAvailable()) return []
     const providers = this.db.prepare('SELECT * FROM llm_provider_profiles ORDER BY sort_order, id').all()
     const models = this.db.prepare('SELECT * FROM llm_model_profiles WHERE provider_id = ? ORDER BY sort_order, model_id')
-    return providers.map(provider => providerFromRows(provider, models.all(provider.id)))
+    return providers.map(provider => providerFromRows(provider, models.all(provider.id), this.context.secretCodec))
   }
 
   replaceProviders(value) {
@@ -136,15 +140,34 @@ export class ModelProviderRepository extends BaseRepository {
       `)
 
       providers.forEach((provider, providerIndex) => {
-        insertProvider.run(providerToRow(provider, providerIndex))
+        insertProvider.run(providerToRow(provider, providerIndex, this.context.secretCodec))
         provider.models.forEach((model, modelIndex) => insertModel.run(modelToRow(provider.id, model, modelIndex)))
       })
 
-      this.db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)').run('providers', JSON.stringify(providers))
+      // Compatibility copy for older readers; credentials stay only in the encrypted column.
+      this.db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)').run('providers', JSON.stringify(withoutProviderSecrets(providers)))
     })
 
     replace()
     return this.listProviders()
+  }
+
+  encryptStoredKeys() {
+    if (!this.isAvailable() || !this.context.secretCodec?.available) return 0
+    const rows = this.db.prepare('SELECT id, api_key, config_json FROM llm_provider_profiles').all()
+    const update = this.db.prepare('UPDATE llm_provider_profiles SET api_key = ?, config_json = ? WHERE id = ?')
+    let changed = 0
+    for (const row of rows) {
+      const config = jsonObject(parseJSON(row.config_json))
+      const hadConfigKey = Object.prototype.hasOwnProperty.call(config, 'apiKey')
+      const storedKey = row.api_key || config.apiKey || ''
+      const encrypted = this.context.secretCodec.encrypt(storedKey)
+      if (!hadConfigKey && encrypted === row.api_key) continue
+      delete config.apiKey
+      update.run(encrypted, stringifyJSON(config), row.id)
+      changed += 1
+    }
+    return changed
   }
 
   migrateLegacyProviders(value) {

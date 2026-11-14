@@ -9,7 +9,10 @@ const EXCLUDED_SETTING_KEYS = new Set([
   'defaultTtsModelRef',
   'mediaBilibiliCookieValue',
   'mediaBilibiliCookieStatus',
+  'proxyPass',
 ])
+// The local gateway key belongs to this device; exports never carry it.
+const EXCLUDED_SETTING_PREFIXES = ['localGatewayApiKey']
 const UNSAFE_SETTING_KEYS = new Set(['__proto__', 'prototype', 'constructor'])
 const BOOLEAN_SETTING_KEYS = new Set([
   'animations', 'reducedMotion', 'proxyAuth', 'loopGuard', 'pathRedact',
@@ -109,14 +112,42 @@ function validateKnownSetting(key, value) {
   }
 }
 
-function portableSettings(settings) {
+function redactProviders(providers) {
+  if (!Array.isArray(providers)) return providers
+  return providers.map(provider => {
+    if (!isPlainObject(provider)) return provider
+    if (!Object.prototype.hasOwnProperty.call(provider, 'apiKey')) return { ...provider }
+    const redacted = { ...provider, apiKey: '' }
+    if (String(provider.apiKey || '')) redacted.apiKeyRedacted = true
+    return redacted
+  })
+}
+
+function redactWebImportSettings(value) {
+  if (!isPlainObject(value) || !isPlainObject(value.providers)) return value
+  const providers = {}
+  for (const [id, config] of Object.entries(value.providers)) {
+    if (!isPlainObject(config)) { providers[id] = config; continue }
+    providers[id] = { ...config, apiKey: '' }
+    if (String(config.apiKey || '')) providers[id].apiKeyRedacted = true
+  }
+  return { ...value, providers }
+}
+
+// Exports never contain credentials. Provider keys are marked so that importing
+// the file on the same device keeps the keys already stored there.
+function portableSettings(settings, { redact = false } = {}) {
   if (!isPlainObject(settings)) throw new Error('配置内容必须是 JSON 对象')
   const result = {}
   for (const [key, value] of Object.entries(settings)) {
     if (EXCLUDED_SETTING_KEYS.has(key)) continue
+    if (EXCLUDED_SETTING_PREFIXES.some(prefix => key.startsWith(prefix))) continue
     if (UNSAFE_SETTING_KEYS.has(key)) throw new Error(`配置项名称无效：${key}`)
     validateKnownSetting(key, value)
-    result[key] = value
+    if (!redact) result[key] = value
+    else if (key === 'providers' || key === 'imageModels') result[key] = redactProviders(value)
+    else if (key === 'webImportSettings') result[key] = redactWebImportSettings(value)
+    else result[key] = value
   }
   return result
 }
@@ -135,8 +166,9 @@ export function createSettingsTransfer(settings, { appVersion = '' } = {}) {
     formatVersion: SETTINGS_TRANSFER_VERSION,
     appVersion: String(appVersion || ''),
     exportedAt: new Date().toISOString(),
+    secretsRedacted: true,
     data: {
-      settings: portableSettings(settings),
+      settings: portableSettings(settings, { redact: true }),
     },
   }
 }
