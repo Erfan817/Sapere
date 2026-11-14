@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 
-export function usePdfProcessing({ processingSettings, status, settings, media }) {
+export function usePdfProcessing({ processingSettings, status, settings, media, msg = null }) {
   const api = () => window.electronAPI
 
   const {
@@ -140,8 +140,25 @@ export function usePdfProcessing({ processingSettings, status, settings, media }
         if (item.status === 'fulfilled') applyProcessingStatus(paths[index], pdfProcessingStatusFromResult(item.value))
       })
       const failed = results.filter(item => item.status === 'rejected' || item.value?.success === false)
-      if (failed.length) console.warn('[Docs] PDF preflight failed:', failed)
+      if (!failed.length) return
+      console.warn('[Docs] PDF preflight failed:', failed)
+      const messages = [...new Set(failed.map(pdfFailureMessage))]
+      msg?.error?.(messages.join(' '), { duration: 10000 })
+    }).catch((error) => {
+      console.error('[Docs] PDF preflight crashed:', error)
+      msg?.error?.(`PDF 预检失败：${error?.message || '未知错误'}`, { duration: 10000 })
     })
+  }
+
+  function pdfFailureMessage(result) {
+    const value = result?.status === 'rejected' ? result.reason : result?.value
+    const code = value?.code || value?.error_code || ''
+    if (isLocalParserMissingResult(value)) {
+      return '本地 PDF 解析依赖未安装（Python + PyMuPDF）。请先在“解析设置”安装，或配置文档智能解析服务。'
+    }
+    const detail = value?.message || value?.error || value?.reason?.message || (typeof value?.reason === 'string' ? value.reason : '')
+    if (code) return `PDF 解析失败（${code}）：${detail || '未知原因'}`
+    return detail ? `PDF 解析失败：${detail}` : 'PDF 解析失败，请检查解析设置后重试。'
   }
 
   function runPdfParseForUploads(paths = pendingPdfUploads.value, engine = pdfUploadEngine.value) {
@@ -149,7 +166,16 @@ export function usePdfProcessing({ processingSettings, status, settings, media }
     Promise.allSettled(paths.map(filePath => parsePdfByStrategy(filePath, selectedEngine, 'docs_upload_full_parse'))).then((results) => {
       loadDocumentProcessingStatuses()
       const failed = results.filter(item => item.status === 'rejected' || item.value?.success === false)
-      if (failed.length) console.warn('[Docs] PDF full parse failed:', failed)
+      if (!failed.length) {
+        msg?.success?.(`已开始解析 ${results.length} 个 PDF`)
+        return
+      }
+      console.warn('[Docs] PDF full parse failed:', failed)
+      const messages = [...new Set(failed.map(pdfFailureMessage))]
+      msg?.error?.(messages.join(' '), { duration: 10000 })
+    }).catch((error) => {
+      console.error('[Docs] PDF full parse crashed:', error)
+      msg?.error?.(`PDF 解析启动失败：${error?.message || '未知错误'}`, { duration: 10000 })
     })
   }
 
