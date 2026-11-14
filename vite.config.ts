@@ -16,6 +16,9 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 1234,
+    watch: {
+      ignored: ['**/.sapere/**', '**/research/upstreams/**', '**/release/**']
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:8000',
@@ -29,9 +32,10 @@ export default defineConfig({
   },
   resolve: {
     // 2. 配置别名
-    alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
+    alias: [
+      { find: /^@\/stores\/settings$/, replacement: path.resolve(__dirname, 'src/stores/settings/index.js') },
+      { find: '@', replacement: path.resolve(__dirname, 'src') }
+    ]
   },
 
   optimizeDeps: {

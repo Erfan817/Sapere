@@ -6,6 +6,10 @@
   "description": "Reviva是AI 学习工作台，围绕你的资料完成问答、笔记、复习和创作输出。是一个面向学习、研究和知识工作的本地桌面 Agent。它把对话、文档、知识库、笔记、复习工具和创作输出放在同一个工作台里。",
   "version": "1.5.0",
   "type": "module",
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": "24.16.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build && electron-builder",
@@ -52,19 +56,20 @@
     "markdown-docx": "^1.7.0",
     "mathjs": "^15.2.0",
     "pptxgenjs": "^4.0.1",
+    "qrcode": "^1.5.4",
     "sanitize-html": "^2.13.0",
     "ws": "^8.18.0",
-    "zod": "^4.4.3",
-    "qrcode": "^1.5.4"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@antv/g6": "^5.1.1",
     "@electron/rebuild": "^4.0.4",
+    "@types/qrcode": "^1.5.6",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vueuse/core": "^14.3.0",
     "axios": "^1.16.1",
     "cross-env": "^10.1.0",
-    "electron": "^30.0.1",
+    "electron": "30.5.1",
     "electron-builder": "^24.13.3",
     "highlight.js": "^11.11.1",
     "katex": "^0.17.0",
@@ -74,6 +79,7 @@
     "naive-ui": "^2.43.2",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
+    "playwright-core": "1.65.0",
     "remixicon": "^4.9.1",
     "sass": "^1.97.3",
     "simple-mind-map": "0.14.0-fix.2",
@@ -89,8 +95,7 @@
     "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.5.34",
     "vue-router": "^5.0.7",
-    "vue-tsc": "^2.0.26",
-    "@types/qrcode": "^1.5.6"
+    "vue-tsc": "^2.0.26"
   },
   "main": "dist-electron/main.js"
 }

@@ -76,6 +76,18 @@ const APP_ID = 'com.reviva.desktop'
 const WORKSPACE_POINTER_FILE = 'workspace-root.json'
 
 app.setName(APP_NAME)
+// Keep development data separate from installed applications and real workspaces.
+if (!app.isPackaged) {
+  const devDataPath = process.env.SAPERE_DEV_USER_DATA
+  if (devDataPath && !path.isAbsolute(devDataPath)) {
+    throw new Error('SAPERE_DEV_USER_DATA must be an absolute path')
+  }
+  const userDataPath = devDataPath || path.join(process.env.APP_ROOT, '.sapere', 'dev-user-data')
+  const sessionDataPath = path.join(userDataPath, 'session')
+  fs.mkdirSync(sessionDataPath, { recursive: true })
+  app.setPath('userData', userDataPath)
+  app.setPath('sessionData', sessionDataPath)
+}
 if (process.platform === 'win32') app.setAppUserModelId(APP_ID)
 
 // --- Shared mutable state (accessed by IPC modules via deps) ---
@@ -151,6 +163,7 @@ async function writeWorkspaceRootPointer(rootPath) {
 }
 
 function applyStartupSetting(enabled) {
+  if (!app.isPackaged) return
   app.setLoginItemSettings({ openAtLogin: !!enabled, path: process.execPath })
 }
 
