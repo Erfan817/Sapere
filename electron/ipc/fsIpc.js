@@ -136,17 +136,17 @@ export function registerFsIpc(ipcMain, { validateFsPath, validateShellPath, pdfL
     }
   })
 
-  ipcMain.handle('fs:copyFile', async (event, src, dest) => {
+  ipcMain.handle('fs:copyFile', async (event, src, dest, options = {}) => {
     try {
       const vDest = validateFsPath(dest)
       const dir = path.dirname(vDest)
       if (!fs.existsSync(dir)) {
         await fs.promises.mkdir(dir, { recursive: true })
       }
-      await fs.promises.copyFile(src, vDest)
+      await fs.promises.copyFile(src, vDest, options?.overwrite === false ? fs.constants.COPYFILE_EXCL : 0)
       return { success: true }
     } catch (err) {
-      return { success: false, error: err.message }
+      return { success: false, error: err.message, code: err.code }
     }
   })
 

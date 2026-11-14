@@ -20,6 +20,12 @@
       "port": 1236
     },
     {
+      "name": "sapere-m0-import",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/preview-m0-import.mjs"],
+      "port": 1238
+    },
+    {
       "name": "sapere-brand-verification",
       "runtimeExecutable": "node",
       "runtimeArgs": ["scripts/preview-brand.mjs"],

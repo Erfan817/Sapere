@@ -30,7 +30,7 @@ const api = {
   deleteFile: (filePath) => ipcRenderer.invoke('fs:deleteFile', filePath),
   mkdir: (dirPath, options) => ipcRenderer.invoke('fs:mkdir', dirPath, options),
   removeDir: (dirPath) => ipcRenderer.invoke('fs:removeDir', dirPath),
-  copyFile: (src, dest) => ipcRenderer.invoke('fs:copyFile', src, dest),
+  copyFile: (src, dest, options) => ipcRenderer.invoke('fs:copyFile', src, dest, options),
   exists: (filePath) => ipcRenderer.invoke('fs:exists', filePath),
   stat: (filePath) => ipcRenderer.invoke('fs:stat', filePath),
   pdf: {

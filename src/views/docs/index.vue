@@ -365,14 +365,30 @@ async function handleUploadSubmit({ type, files, url, includeHtml, title, source
   if (type !== 'local' || !files?.length) return
   const targetDir = getAbsolutePath(dir.currentPath.value)
   const copiedPdfPaths = []; const copiedMediaItems = []
+  const conflicts = []; const failures = []
+  let importedCount = 0
   for (const f of files) {
     const dest = targetDir + '/' + f.name
-    await api()?.copyFile?.(f.path, dest)
-    const ext = (f.name || '').split('.').pop()?.toLowerCase()
-    if (ext === 'pdf') copiedPdfPaths.push(dest)
-    if (MEDIA_PARSE_EXTS.has(ext)) copiedMediaItems.push({ name: f.name, path: dest, ext })
+    try {
+      // The filesystem enforces exclusivity, including concurrent imports.
+      const result = await api()?.copyFile?.(f.path, dest, { overwrite: false })
+      if (!result?.success) {
+        if (result?.code === 'EEXIST') conflicts.push(f.name)
+        else failures.push(f.name)
+        continue
+      }
+      importedCount += 1
+      const ext = (f.name || '').split('.').pop()?.toLowerCase()
+      if (ext === 'pdf') copiedPdfPaths.push(dest)
+      if (MEDIA_PARSE_EXTS.has(ext)) copiedMediaItems.push({ name: f.name, path: dest, ext })
+    } catch {
+      failures.push(f.name)
+    }
   }
-  dir.loadDirectory(dir.currentPath.value); dir.loadFolderTree()
+  await dir.loadDirectory(dir.currentPath.value); await dir.loadFolderTree()
+  if (importedCount) msg.success(`已导入 ${importedCount} 个文件`)
+  if (conflicts.length) msg.warning(`未导入同名文件，已保留原文件：${conflicts.join('、')}`, { duration: 8000 })
+  if (failures.length) msg.error(`导入失败：${failures.join('、')}。请检查源文件是否存在以及目录读写权限后重试。`, { duration: 8000 })
   if (copiedPdfPaths.length) handlePdfUploadProcessing(copiedPdfPaths)
   if (copiedMediaItems.length) handleMediaUploadProcessing(copiedMediaItems)
 }
