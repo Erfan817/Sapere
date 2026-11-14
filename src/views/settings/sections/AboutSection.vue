@@ -115,7 +115,7 @@ function toneClass(tone) {
                 class="text-[12px] leading-relaxed mt-2 max-w-3xl"
                 :class="isDark ? 'text-wt-aux' : 'text-lt-aux'"
               >
-                围绕你的资料，帮助你理解、实践，并记住所学的桌面学习工作空间。当前为本地开发阶段，开源来源见「关于项目」。
+                {{ BRAND.description }}当前为本地开发阶段，开源来源见「关于项目」。
               </p>
             </div>
             <button

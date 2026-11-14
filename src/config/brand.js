@@ -2,7 +2,7 @@
 export const BRAND = Object.freeze({
   name: 'Sapere',
   displayName: 'Sapere · 致知',
-  description: '围绕你的资料，帮助你理解、实践，并记住所学的桌面学习工作空间。',
+  description: '本地优先的 AI 工作台：围绕你的资料，帮助你学习、写作与创作。',
   repository: 'https://github.com/Erfan817/Sapere',
   issues: 'https://github.com/Erfan817/Sapere/issues',
   releases: 'https://github.com/Erfan817/Sapere/releases',

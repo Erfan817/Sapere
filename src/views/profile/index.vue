@@ -71,7 +71,7 @@ watch(() => userStore.isLoggedIn, (v) => {
           :class="isDark ? 'bg-d3 border border-bdr' : 'bg-l3 border border-bdrF'">
           <i class="ri-user-settings-line text-[28px]" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'" />
         </div>
-        <h2 class="text-[16px] font-bold mb-2" :class="isDark ? 'text-wt-main' : 'text-lt-main'">Sapere 本地学习空间</h2>
+        <h2 class="text-[16px] font-bold mb-2" :class="isDark ? 'text-wt-main' : 'text-lt-main'">Sapere 本地学习与创作空间</h2>
         <p class="text-[12px] leading-relaxed" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">
           当前无需 Sapere 账号。本地资料、模型配置和数据备份可在设置中管理；本项目不提供充值、订阅或官方云端配额。
         </p>

@@ -4,11 +4,11 @@
 
 # Sapere · 致知
 
-**Understand, practice, and remember what you learn.**
+**Learn, and create.**
 
-A desktop workspace for continuous learning around your own materials.
+A local-first AI workbench around your own materials: reading, asking, notes, practice and writing in one place.
 
-Local-first · Bring your own models · Materials and notes · Continuous learning
+Local-first · Bring your own models · Materials and notes · Learning and creation
 
 [中文](README.md) · [Getting started](#getting-started) · [Development status](#development-status) · [Issues](https://github.com/Erfan817/Sapere/issues)
 
@@ -21,6 +21,8 @@ Local-first · Bring your own models · Materials and notes · Continuous learni
 Self-study often stops at “I have read it.” Tutorials pile up, ideas seem clear, and a few days later it is hard to pick up where you left off.
 
 Sapere aims to connect reading, questions, notes, practice and review in one local-first desktop workspace. The goal is a learning process you can return to, with records of what you understood, tried and need to revisit.
+
+Learning is not only input. Understanding becomes durable when it turns into a note, a handout, a report or a story. Sapere is therefore also a writing and making workbench: the same materials can be asked about, and written from.
 
 **Sapere aude — dare to know.** The Chinese name is 致知. Our monochrome open-page symbol represents turning another page toward the unknown.
 

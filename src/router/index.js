@@ -7,7 +7,7 @@ const router = createRouter({
       path: '/landing',
       name: 'Landing',
       component: () => import('@/views/landing/index.vue'),
-      meta: { noLayout: true, title: 'Sapere · 致知 - 学习工作空间' },
+      meta: { noLayout: true, title: 'Sapere · 致知 - 学习与创作工作台' },
     },
     {
       path: '/login',

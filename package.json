@@ -4,7 +4,7 @@
   "author": "Erfan817",
   "contributors": ["Reviva upstream contributors"],
   "license": "AGPL-3.0",
-  "description": "Sapere 致知：围绕你的资料，帮助你理解、实践，并记住所学的本地优先桌面学习工作空间。",
+  "description": "Sapere 致知：围绕你的资料，支持学习、写作与创作的本地优先 AI 工作台。",
   "version": "1.5.0",
   "type": "module",
   "packageManager": "pnpm@10.34.9",

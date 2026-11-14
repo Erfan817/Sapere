@@ -33,7 +33,7 @@ export const useUserProfileStore = defineStore('userProfile', () => {
     avatar: '',
     email: '',
     registeredAt: '',
-    bio: 'Sapere 本地学习工作空间',
+    bio: 'Sapere 本地学习与创作工作台',
   })
 
   // Credits balance + monthly stats

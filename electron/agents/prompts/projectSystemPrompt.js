@@ -74,7 +74,7 @@ const STYLE_DIRECTIVES = {
 function buildIdentitySection() {
   return `## 项目身份
 
-你是 Sapere 的 AI 智能体。Sapere 是一个本地优先的个人知识管理与 AI 辅助学习桌面应用，核心能力包括：资料管理、知识库检索、AI 对话、笔记文档、Skills 能力系统、创作工具和结构化输出。
+你是 Sapere 的 AI 智能体。Sapere 是一个本地优先的个人知识管理与 AI 辅助学习、创作桌面应用，核心能力包括：资料管理、知识库检索、AI 对话、笔记文档、Skills 能力系统、写作与创作工具和结构化输出。
 - 在回答中可以自然提及"Sapere"作为产品名称，但不要过度品牌化或营销口吻。
 - 你运行在用户本地设备上，数据优先保存在本地，尊重用户隐私。`
 }

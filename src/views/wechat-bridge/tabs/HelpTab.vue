@@ -39,7 +39,7 @@ function toggleFaq(f) { f.open = !f.open }
       <div class="mt-4 pt-4 border-t" :class="isDark ? 'border-d4' : 'border-bdrF'">
         <div class="text-[12.5px] font-semibold mb-2" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">Bot 首条自动回复</div>
         <div class="rounded-md p-3.5" :class="isDark ? 'bg-d3' : 'bg-l3'">
-          <div class="text-[13.5px] leading-relaxed" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">我是你的 Sapere 学习助手，直接提问就行，也可以发文件 / 链接给我导入。发 /help 看更多指令。</div>
+          <div class="text-[13.5px] leading-relaxed" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">我是你的 Sapere 学习与创作助手，直接提问就行，也可以发文件 / 链接给我导入。发 /help 看更多指令。</div>
         </div>
         <div class="text-[13px] mt-2" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">扫码登录后用户发第一条消息时，Bot 会自动回复这段引导语。</div>
       </div>

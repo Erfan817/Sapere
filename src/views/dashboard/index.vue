@@ -31,7 +31,7 @@ const WEBSITE_URL = BRAND.repository
 const shareToast = ref('idle')
 
 async function copyShareLink() {
-  const text = `Sapere · 致知 —— 本地优先的桌面学习工作空间：${WEBSITE_URL}`
+  const text = `Sapere · 致知 —— 本地优先的学习与创作工作台：${WEBSITE_URL}`
   try {
     await navigator.clipboard.writeText(text)
   } catch {
@@ -206,7 +206,7 @@ function formatTime(value) {
             {{ greeting }}，<span class="welcome-date">{{ todayLabel }}</span>
           </p>
           <p class="welcome-note">
-            你的本地 Agent 学习工作空间。<button
+            你的本地 Agent 学习与创作工作空间。<button
               class="welcome-note__link"
               type="button"
               title="向 Sapere 项目提交问题或建议"
@@ -232,9 +232,9 @@ function formatTime(value) {
 
       <section class="hero-section" aria-labelledby="dashboard-hero-title">
         <div class="hero-copy reveal" v-reveal>
-          <h1 id="dashboard-hero-title">Sapere · 致知——<em>理解、实践，并记住所学</em>。</h1>
+          <h1 id="dashboard-hero-title">Sapere · 致知——<em>学习，也创作</em>。</h1>
           <p>
-            把资料、笔记、问答与实践放进同一个本地学习工作空间。先从一份资料、一个问题开始，
+            把资料、笔记、问答、练习与写作放进同一个本地工作空间。先从一份资料、一个问题开始，
             记录思考与产出，再继续下一步。
           </p>
           <div class="hero-actions">

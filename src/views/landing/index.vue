@@ -231,9 +231,9 @@ function scrollTo(id) {
           </h1>
           <p class="hero__p">
             Sapere 是一个
-            <strong>本地学习工作平台</strong>
-            ——将资料管理、知识库、AI Agent、笔记、文档整合在一个桌面应用里。
-            不是又一个聊天窗口，而是一个让知识真正流动起来的学习知识库。
+            <strong>本地学习与创作平台</strong>
+            ——将资料管理、知识库、AI Agent、笔记、文档与写作整合在一个桌面应用里。
+            不是又一个聊天窗口，而是一个让知识真正流动起来的学习与创作空间。
           </p>
           <div class="hero__actions">
             <button class="btn btn--primary" @click="scrollTo('download')">
@@ -345,7 +345,7 @@ function scrollTo(id) {
         <p class="statement__text">
           大多数 AI 工具只给你一个对话框。
           <br />
-          <strong>Sapere 给你一整个本地学习工作知识库。</strong>
+          <strong>Sapere 给你一整个本地学习与创作空间。</strong>
         </p>
       </div>
     </section>
@@ -356,10 +356,10 @@ function scrollTo(id) {
         <div class="sec__head" data-a-id="f-head">
           <div class="sec__tag" :class="{ 'fade-up': vis('f-head') }">核心功能</div>
           <h2 class="sec__h2" :class="{ 'fade-up': vis('f-head') }">
-            不只是聊天，是完整的学习链路
+            不只是聊天，是完整的学习与创作链路
           </h2>
           <p class="sec__p" :class="{ 'fade-up': vis('f-head') }">
-            从资料导入到知识产出，Sapere 覆盖学习的每一个环节
+            从资料导入到写作产出，Sapere 覆盖学习与创作的每一个环节
           </p>
         </div>
 

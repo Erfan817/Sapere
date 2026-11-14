@@ -24,7 +24,7 @@ function open(url) {
       </div>
       <p class="text-sm leading-relaxed mt-5" :class="isDark ? 'text-wt-sub' : 'text-lt-sub'">{{ BRAND.description }}</p>
       <p class="text-sm leading-relaxed mt-3" :class="isDark ? 'text-wt-aux' : 'text-lt-aux'">
-        由 Erfan817 维护的个人学习项目。当前处于本地开发阶段：先让资料和笔记可靠保存，再逐步建设课程、练习、学习记录与复习。
+        由 Erfan817 维护的个人学习与创作项目。当前处于本地开发阶段：先让资料和笔记可靠保存，再逐步建设课程、练习、学习记录与复习，以及写作与创作能力。
       </p>
       <div class="flex flex-wrap gap-3 mt-5">
         <button class="px-4 py-2 rounded-lg text-sm border" :class="isDark ? 'border-bdr text-wt-main' : 'border-bdrF text-lt-main'" @click="open(BRAND.repository)">项目仓库</button>
@@ -35,7 +35,7 @@ function open(url) {
       <h2 class="font-semibold mb-3">项目进展</h2>
       <ul class="list-disc pl-5 space-y-2">
         <li>已验证：Windows 本机启动、独立工作区、笔记关闭重启后恢复、黑白标志接入。</li>
-        <li>建设中：精选学习包、持久学习记录、练习反馈与间隔复习。</li>
+        <li>建设中：精选学习包、持久学习记录、练习反馈与间隔复习；写作修订与创作类技能持续接入。</li>
         <li>目前没有已验收的 Sapere 安装包、官方账号、付费云模型、交流群或赞助渠道。</li>
       </ul>
     </section>
