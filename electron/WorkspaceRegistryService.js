@@ -1,6 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs'
 import crypto from 'node:crypto'
+import { writeFileAtomic } from './atomicFile.js'
 
 const REGISTRY_FILE = 'workspaces.json'
 const LEGACY_POINTER_FILE = 'workspace-root.json'
@@ -144,21 +145,12 @@ export class WorkspaceRegistryService {
   }
 
   async _writeJsonAtomic(filePath, data) {
-    const tempPath = `${filePath}.tmp-${process.pid}-${Date.now()}`
-    await fs.promises.mkdir(path.dirname(filePath), { recursive: true })
-    try {
-      await fs.promises.writeFile(tempPath, JSON.stringify(data, null, 2), 'utf-8')
-      await fs.promises.rename(tempPath, filePath)
-    } finally {
-      await fs.promises.rm(tempPath, { force: true }).catch(() => {})
-    }
+    await writeFileAtomic(filePath, JSON.stringify(data, null, 2))
   }
 
   async _writeLegacyPointer(rootPath) {
     if (!rootPath) return
-    const tempPath = `${this._legacyPointerPath}.tmp-${process.pid}-${Date.now()}`
-    await fs.promises.writeFile(tempPath, JSON.stringify({ rootPath, updatedAt: nowIso() }, null, 2), 'utf-8')
-    await fs.promises.rename(tempPath, this._legacyPointerPath)
+    await writeFileAtomic(this._legacyPointerPath, JSON.stringify({ rootPath, updatedAt: nowIso() }, null, 2))
   }
 
   async readWorkspaceConfig(rootPath) {

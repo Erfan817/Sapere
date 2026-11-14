@@ -77,7 +77,16 @@ const WORKSPACE_POINTER_FILE = 'workspace-root.json'
 
 // Preserve the existing packaged profile while changing the visible app name.
 // Workspaces and saved settings must not disappear during a branding update.
-if (app.isPackaged) app.setPath('userData', path.join(app.getPath('appData'), 'Reviva'))
+if (app.isPackaged) {
+  // QA/portable launches may isolate packaged data; normal launches keep the legacy profile.
+  const packagedDataPath = process.env.SAPERE_USER_DATA
+  if (packagedDataPath) {
+    if (!path.isAbsolute(packagedDataPath)) throw new Error('SAPERE_USER_DATA must be an absolute path')
+    app.setPath('userData', packagedDataPath)
+  } else {
+    app.setPath('userData', path.join(app.getPath('appData'), 'Reviva'))
+  }
+}
 app.setName(APP_NAME)
 // Keep development data separate from installed applications and real workspaces.
 if (!app.isPackaged) {

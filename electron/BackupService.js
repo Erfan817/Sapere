@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import crypto from 'node:crypto'
 import { createRequire } from 'node:module'
+import { replaceFile, writeFileAtomic } from './atomicFile.js'
 
 const require = createRequire(import.meta.url)
 let BetterSqlite3 = null
@@ -100,13 +101,7 @@ async function removeDirSafe(dirPath) {
 }
 
 async function writeJsonAtomic(filePath, value) {
-  await fs.promises.mkdir(path.dirname(filePath), { recursive: true })
-  const tempPath = `${filePath}.tmp-${process.pid}-${Date.now()}`
-  await fs.promises.writeFile(tempPath, JSON.stringify(value, null, 2), 'utf-8')
-  await fs.promises.rename(tempPath, filePath).catch(async error => {
-    await fs.promises.rm(filePath, { force: true })
-    await fs.promises.rename(tempPath, filePath).catch(() => { throw error })
-  })
+  await writeFileAtomic(filePath, JSON.stringify(value, null, 2))
 }
 
 function safeArchivePath(value) {
@@ -130,10 +125,7 @@ async function copyRestoredFile(sourcePath, targetPath) {
   await fs.promises.mkdir(path.dirname(targetPath), { recursive: true })
   const tempPath = `${targetPath}.restore-new-${process.pid}-${Date.now()}`
   await fs.promises.copyFile(sourcePath, tempPath)
-  await fs.promises.rename(tempPath, targetPath).catch(async error => {
-    await fs.promises.rm(targetPath, { force: true })
-    await fs.promises.rename(tempPath, targetPath).catch(() => { throw error })
-  })
+  await replaceFile(tempPath, targetPath)
 }
 
 export async function applyPendingBackupRestore({ stateRoot } = {}) {
