@@ -296,6 +296,8 @@ M0 先重现上游基线；M1 再单独升级并测试，避免将运行时升�
 
 ### 7.6 可选学习小组：MVP后的教学交互试点
 
+**理论依据与对照实现：**本节设计对应 ICAP 学习框架（Chi & Wylie, 2014）的 Interactive 层级——学习者与对话方围绕内容来回推理、互相回应并修改，投入深度高于被动阅读和单向问答。已有公开对照实现 [obsidian-icap-agent](https://github.com/EdwinZhanCN/obsidian-icap-agent)（MIT，2026-11-14 核对 README 与 DESIGN.md）验证了单 agent 追问模式可跑通；该实现将"可见的多 agent 编排"明确列为非目标，Interactive 仅由单个 agent 的针对性追问实现，并采用"无聊天面板、反馈嵌入原笔记"的形态。本试点保留双角色（助教+同伴）设计以覆盖"辨析含错解答"场景，但承认单 agent 追问是更保守的对照方案：若 7.6 验收发现双角色编排收益不足，可收缩为该对照模式，不视为失败。
+
 **产品位置：**与默认一对一学习并列的可选模式，不是产品主形态；默认关闭，用户主动进入，随时结束、暂停或回到单聊。不要求每个章节都开小组，不影响未启用时的正常学习。
 
 **最小试点：**仅文本，1名AI助教、1名AI同伴和用户，围绕首套LLM/Agent课程的一个已审阅易错概念。AI角色是交互分工，不强制每个角色独立进程、独立模型或并行运行。优先验证串行受控流程，不引入新的多Agent框架。
@@ -437,6 +439,7 @@ AI可辅助实现和审查，关键数据迁移、权限、评分/调度由开�
 | [better-vault](https://github.com/better-vault/better-vault) | 资料→生成→编辑→回看、Studio与白板、本地配置体验 | 旧调研许可标注曾不一致，需读实际LICENSE；React与本项目Vue不同，不宣称前端可低成本直接移植，先借交互和信息结构 | 上游产物体验确有缺口时 |
 | [KnowNote](https://github.com/mrsibe/KnowNote) | 本地引用定位、MCP只读导出和最小权限 | 旧调研标GPL-3.0，非当前必需；先做接口/权限设计参考，复制代码另核兼容性和分发义务，不使用“GPL一律不能复用”的结论 | 未来外部工具只读访问需求 |
 | [DeepAgents JS](https://github.com/langchain-ai/deepagentsjs) | 任务运行、工具、上下文与子Agent行为 | Reviva已有依赖；读取与锁定版本匹配的官方文档/代码，先用已有运行器，不再建第二套编排层 | 运行器适配、学习小组P2 |
+| [obsidian-icap-agent](https://github.com/EdwinZhanCN/obsidian-icap-agent) | ICAP框架（Chi & Wylie, 2014）落地形态：单agent针对性追问实现Interactive层级、产物确认后沉淀为普通Markdown、反馈嵌入原笔记而非独立聊天面板 | MIT许可已于2026-11-14核对README/DESIGN.md；仅借设计不复制代码（Obsidian插件，与本项目技术栈无关）；为7.6提供理论出处与"单agent追问"对照方案；其反多agent编排的取舍作为双角色试点的收缩退路 | P2学习小组设计与验收口径 |
 | [OfficeCLI](https://github.com/iOfficeAI/OfficeCLI) | Office文件操作与产物工具 | 作为上游已有集成/构建资源核对来源、许可证、下载和平台支持，不因上游集成就默认Sapere可离线发行 | M0构建及相关产物验收 |
 | [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs)、[sqlite-vec](https://github.com/asg017/sqlite-vec)、[faster-whisper](https://github.com/SYSTRAN/faster-whisper) | 调度、可选SQLite向量检索、可选本地ASR | ts-fsrs许可及运行时边界见17.3；其余沿用旧调研候选状态。新增原生/模型依赖须评估打包、体积、更新和平台测试，不提前全部引入 | 分别按调度、检索、ASR缺口触发 |
 
