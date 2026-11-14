@@ -1,6 +1,7 @@
 // electron/NoteFileService.js — keeps note bodies as Markdown files in {workspace}/notes
 import path from 'node:path'
 import fs from 'node:fs'
+import { writeFileAtomic } from './atomicFile.js'
 
 const DEFAULT_NOTE_TITLE = '新笔记'
 
@@ -353,8 +354,8 @@ export class NoteFileService {
   async writeFileContent(filePath, content) {
     const absolutePath = this.resolveNotePath(filePath)
     if (!absolutePath) return ''
-    await fs.promises.mkdir(path.dirname(absolutePath), { recursive: true })
-    await fs.promises.writeFile(absolutePath, content || '', 'utf-8')
+    // Replace through a temporary file so a forced exit cannot leave a truncated note.
+    await writeFileAtomic(absolutePath, content || '')
     return absolutePath
   }
 
