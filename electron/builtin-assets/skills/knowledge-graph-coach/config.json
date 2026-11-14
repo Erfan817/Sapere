@@ -1,0 +1,21 @@
+{
+  "id": "knowledge-graph-coach",
+  "name": "知识图谱学习路径",
+  "description": "基于本地中小学知识图谱做先修诊断、薄弱点回溯与学习路径规划：查知识点、找前置、排学习顺序、出诊断题、按知识点取练习。数据由用户自备，不随应用分发。",
+  "icon": "ri-node-tree",
+  "color": "#1F2937",
+  "category": "学习",
+  "source": "platform",
+  "allowedTools": [
+    "file_read",
+    "file_write",
+    "exec_command"
+  ],
+  "outputTypes": [
+    "Markdown",
+    "TXT"
+  ],
+  "version": "1.0.0",
+  "author": "Sapere",
+  "license": "MIT"
+}
