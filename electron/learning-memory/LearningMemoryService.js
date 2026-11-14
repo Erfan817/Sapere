@@ -113,7 +113,12 @@ function containsForbiddenProfileLabel(value) {
 }
 
 function containsUnverifiedMasteryClaim(value) {
-  return /(?:已|已经|完全|熟练)(?:掌握|学会|理解)|精通|理解透彻/i.test(String(value || ''))
+  const mastery = /(?:已|已经|完全|熟练)(?:掌握|学会|理解)|精通|理解透彻/i
+  // A negated clause such as "不代表已经掌握" is a conservative exposure note, not a mastery claim.
+  const negation = /(?:不|未|没|尚未|并非|不能)/
+  return String(value || '')
+    .split(/[，。；,.;:：!?！？]/)
+    .some(clause => mastery.test(clause) && !negation.test(clause))
 }
 
 function cleanEvidence(value = {}) {

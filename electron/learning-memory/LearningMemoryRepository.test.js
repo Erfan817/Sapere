@@ -44,6 +44,7 @@ test('learning memory schema initializes with opt-in disabled', () => {
       'learning_concept_states',
       'learning_events',
       'learning_preferences',
+      'learning_run_results',
       'learning_settings',
       'learning_tracks',
     ])

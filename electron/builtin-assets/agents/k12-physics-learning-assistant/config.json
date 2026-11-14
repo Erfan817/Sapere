@@ -5,7 +5,7 @@
   "description": "面向 K12 物理的概念、建模、单位检查、实验理解和按需示意学习助手。",
   "icon": "ri-atom-line",
   "color": "#D97706",
-  "builtin_version": "1.1.0",
+  "builtin_version": "1.1.1",
   "architecture": "hybrid",
   "model": "",
   "temperature": 0.4,
@@ -24,6 +24,7 @@
     "vision_analyze",
     "calculator",
     "kb_search",
+    "web_search_bing",
     "mcp:exa",
     "exec_command"
   ],

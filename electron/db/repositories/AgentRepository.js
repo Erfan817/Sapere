@@ -16,10 +16,17 @@ import {
 } from '../helpers.js'
 import { BaseRepository } from './BaseRepository.js'
 
+function compactArrayOverride(added, removed) {
+  const override = {}
+  if (added.length) override.added = added
+  if (removed.length) override.removed = removed
+  return override
+}
+
 function deriveArrayOverride(values, base) {
   const added = arrayDiff(values, base)
   const removed = arrayDiff(base, values)
-  return { added, removed }
+  return compactArrayOverride(added, removed)
 }
 
 function normalizeArrayOverride(override, base) {
@@ -30,15 +37,15 @@ function normalizeArrayOverride(override, base) {
   const removedSet = new Set(removed)
   const added = uniqueStringArray(raw.added)
     .filter(item => !baseSet.has(item) && !removedSet.has(item))
-  return { added, removed }
+  return compactArrayOverride(added, removed)
 }
 
 function applyArrayOverride(base, override) {
   const normalized = normalizeArrayOverride(override, base)
-  const removed = new Set(normalized.removed)
+  const removed = new Set(normalized.removed || [])
   return uniqueStringArray([
     ...uniqueStringArray(base).filter(item => !removed.has(item)),
-    ...normalized.added,
+    ...(normalized.added || []),
   ])
 }
 

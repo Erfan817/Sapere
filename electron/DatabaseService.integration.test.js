@@ -329,3 +329,32 @@ test('built-in Agent synchronization preserves user overrides across template up
     service.close()
   }
 })
+
+test('built-in Agent overrides record removed official tools without empty arrays', () => {
+  const service = new DatabaseService()
+  try {
+    service.init(':memory:')
+    service.syncBuiltinAgentTemplate({
+      id: 'agent_builtin_remove',
+      name: 'Built-in Remove v1',
+      english_name: 'builtin-remove',
+      tools: ['official_tool_v1', 'official_tool_legacy'],
+      builtin_version: '1.0.0',
+    })
+    service.updateAgent('agent_builtin_remove', { tools: ['official_tool_v1'] })
+
+    const updated = service.syncBuiltinAgentTemplate({
+      id: 'agent_builtin_remove',
+      name: 'Built-in Remove v2',
+      english_name: 'builtin-remove',
+      tools: ['official_tool_v1', 'official_tool_legacy', 'official_tool_v2'],
+      builtin_version: '2.0.0',
+    })
+
+    // A kept removal is stored alone; a vanishing official tool needs no override at all.
+    assert.deepEqual(updated.tools, ['official_tool_v1', 'official_tool_v2'])
+    assert.deepEqual(updated.userOverrides, { tools: { removed: ['official_tool_legacy'] } })
+  } finally {
+    service.close()
+  }
+})

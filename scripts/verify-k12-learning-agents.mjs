@@ -77,6 +77,11 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
 }
 
+// Windows checkouts may use CRLF; contract patterns below are written for LF.
+function readText(filePath) {
+  return fs.readFileSync(filePath, 'utf8').replace(/\r\n/g, '\n')
+}
+
 function assertExists(filePath) {
   assert.ok(fs.existsSync(filePath), 'Missing required file: ' + path.relative(root, filePath))
 }
@@ -98,7 +103,7 @@ function assertSkill(subject, agentConfig) {
   if (subject.requiresMedia) assertExists(mediaReferencePath)
 
   const skillConfig = readJson(skillConfigPath)
-  const skillPrompt = fs.readFileSync(skillPromptPath, 'utf8')
+  const skillPrompt = readText(skillPromptPath)
   const evals = readJson(evalPath)
   const frontmatter = skillPrompt.match(/^---\r?\n([\s\S]*?)\r?\n---/)
 
@@ -186,7 +191,7 @@ function assertAgent(subject) {
   assertExists(promptPath)
 
   const config = readJson(configPath)
-  const prompt = fs.readFileSync(promptPath, 'utf8')
+  const prompt = readText(promptPath)
   assert.equal(config.id, subject.agentId, subject.agentId + ' config id must match its folder')
   assert.ok(String(config.english_name || '').trim(), subject.agentId + ' needs english_name')
   assert.match(String(config.icon || ''), /^ri-[a-z0-9-]+$/, subject.agentId + ' icon must be a Remix icon')
@@ -246,7 +251,7 @@ for (const subject of subjects) {
   }
 }
 
-const agentService = fs.readFileSync(path.join(root, 'electron', 'AgentService.js'), 'utf8')
+const agentService = readText(path.join(root, 'electron', 'AgentService.js'))
 assert.match(agentService, /_learningProfileAllowed\(request = \{\}\)/)
 assert.match(agentService, /request\.permissions\?\.learningProfile !== false/)
 

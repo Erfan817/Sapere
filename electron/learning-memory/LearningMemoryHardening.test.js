@@ -204,6 +204,38 @@ test('concept exposure rejects an unverified mastery claim', () => {
   assert.equal(result.reason, 'unverified_mastery_claim')
 })
 
+test('negated mastery wording stays a conservative exposure note', () => {
+  const messages = [
+    { id: 'user_negated', role: 'user', conversationId: 'conv_negated', content: '懂了继续' },
+    { id: 'assistant_negated', role: 'assistant', conversationId: 'conv_negated', content: '' },
+  ]
+  const service = new LearningMemoryService({
+    dbService: {
+      getLearningMemorySettings: () => ({ enabled: true, allowConversationAnalysis: true }),
+      getMsg: id => messages.find(message => message.id === id),
+      findLearningProfileTargets: () => [],
+    },
+  })
+  const stage = targetMeaning => service.stageAgentOperation({
+    operation: 'observe',
+    dimension: 'concept',
+    eventType: 'concept_exposed',
+    targetLabel: '高中三角函数基础',
+    targetMeaning,
+    evidenceQuote: '懂了继续',
+  }, {
+    runId: `run_negated_${encodeURIComponent(targetMeaning)}`,
+    conversationId: 'conv_negated',
+    userMessageId: 'user_negated',
+    assistantMessageId: 'assistant_negated',
+  })
+
+  // A claim and its negation in the same sentence still counts as a claim.
+  assert.equal(stage('已经掌握基本定义，但还不熟练').reason, 'unverified_mastery_claim')
+  assert.equal(stage('不代表已经掌握').status, 'accepted')
+  assert.equal(stage('已接触基本定义，不代表已经掌握').status, 'accepted')
+})
+
 test('deleting a recent evidence source discards its staged operation', () => {
   const messages = [
     { id: 'user_source_delete', role: 'user', conversationId: 'conv_source_delete', content: '我正在系统学习数据库事务' },

@@ -25,9 +25,8 @@
     "test:wiki": "node --test electron/wiki/__tests__/wiki-core.test.js",
     "test:skills": "node --test electron/SkillService.test.js",
     "test:k12-agents": "node scripts/verify-k12-learning-agents.mjs",
-    "test:themes": "node --test electron/ThemeService.test.js src/config/themes.test.js src/styles/themes/themes.test.js",
-    "test:web-import": "cross-env ELECTRON_RUN_AS_NODE=1 electron --test electron/web-import/__tests__/core.test.js electron/web-import/__tests__/database.test.js electron/web-import/__tests__/job-service.test.js",
-    "release": "powershell -ExecutionPolicy Bypass -File scripts/release-dev-to-main.ps1"
+    "test:themes": "node --test src/styles/themes/themes.test.js",
+    "test:electron": "cross-env ELECTRON_RUN_AS_NODE=1 electron --test electron/DatabaseService.contract.test.js electron/DatabaseService.integration.test.js electron/SkillService.test.js electron/learning-memory/LearningMemoryRepository.test.js electron/learning-memory/LearningMemoryHardening.test.js electron/db/repositories/QuickInputRepository.test.js electron/tools/note/NoteTool.test.js electron/agents/TitleGenerator.test.js electron/agents/runtime/toolSelection.test.js electron/agents/runtime/builtinContentToolBindings.test.js electron/tools/pdf/PdfOcrService.test.js electron/SettingsTransferService.test.js"
   },
   "pnpm": {
     "peerDependencyRules": {

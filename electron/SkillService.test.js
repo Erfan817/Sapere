@@ -33,8 +33,10 @@ test('installs a custom skill with complete config defaults', async (t) => {
   const config = JSON.parse(await fs.promises.readFile(path.join(dir, 'config.json'), 'utf-8'))
   assert.match(markdown, /^---\nname: writing-helper\ndescription: "改进文章结构"/)
   assert.deepEqual(config.allowedTools, [])
-  assert.deepEqual(config.outputTypes, [])
-  assert.equal(config.version, '')
+  // Output type inference falls back to Markdown when the skill text names no format.
+  assert.deepEqual(config.outputTypes, ['Markdown'])
+  // New skills start at the service's declared default version.
+  assert.equal(config.version, '1.0.0')
   assert.equal(config.trustStatus, '')
   assert.equal(config.source, 'custom')
 })

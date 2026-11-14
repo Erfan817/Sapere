@@ -5,7 +5,7 @@
   "description": "面向 K12 数学的概念讲解、解题推理、错因分析与按需可视化学习助手。",
   "icon": "ri-function-line",
   "color": "#2563EB",
-  "builtin_version": "1.2.0",
+  "builtin_version": "1.2.1",
   "architecture": "hybrid",
   "model": "",
   "temperature": 0.45,
@@ -24,6 +24,7 @@
     "vision_analyze",
     "calculator",
     "kb_search",
+    "web_search_bing",
     "mcp:exa",
     "exec_command"
   ],
