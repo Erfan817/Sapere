@@ -4,7 +4,7 @@ Sapere 是面向学习、工作与创作的本地优先 AI 桌面工作台。
 
 ## 项目规划
 
-[桌面项目规划 v2.1](docs-sapere/planning-v2/README.md) 是当前开发基线，涵盖产品范围、Agent、桌面与数据架构、界面、IPC 契约和里程碑。[规划 v1](docs-sapere/planning-v1/README.md) 保留为历史基线。
+[桌面项目规划 v2.1](docs-sapere/planning-v2/README.md) 是当前开发基线，涵盖产品范围、Agent、桌面与数据架构、界面、IPC 契约和里程碑。
 
 ## 开发进度 · 2026-11-19
 

@@ -74,7 +74,6 @@ v2 不把 Sapere 改成参考程序的换皮版本，而是采用下面的组合
 
 ## 5. 版本关系
 
-- `planning-v1` 保留为历史基线，不再作为新开发的首要入口。
 - 本目录取代 v1 中的产品范围、Agent 决策、桌面架构、里程碑和 UI 规划。
 - `docs/adr/ADR-001` 与 `docs/adr/ADR-002` 继续作为已验证技术事实；v2 只在其上扩展，不把 `node:sqlite` 或进程边界改回去。
 - 新增 [ADR-003](../../docs/adr/ADR-003-v2-platform-scope-and-reference-boundaries.md) 与 [ADR-004](../../docs/adr/ADR-004-s0-5-workbench-conventions-and-service-boundaries.md)，分别记录参考规格边界和 S0.5/12 服务决策。
