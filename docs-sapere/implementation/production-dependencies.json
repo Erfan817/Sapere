@@ -1,0 +1,442 @@
+[
+  {
+    "name": "@cfworker/json-schema",
+    "version": "4.1.6",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@cfworker/json-schema/-/json-schema-4.1.6.tgz",
+    "licenseTextSource": "https://raw.githubusercontent.com/cfworker/cfworker/main/LICENSE.md",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/autocomplete",
+    "version": "6.20.4",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/autocomplete/-/autocomplete-6.20.4.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/commands",
+    "version": "6.11.1",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/commands/-/commands-6.11.1.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/lang-css",
+    "version": "6.3.1",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/lang-css/-/lang-css-6.3.1.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/lang-html",
+    "version": "6.4.12",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/lang-html/-/lang-html-6.4.12.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/lang-javascript",
+    "version": "6.2.5",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/lang-javascript/-/lang-javascript-6.2.5.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/lang-markdown",
+    "version": "6.5.2",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/lang-markdown/-/lang-markdown-6.5.2.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/language",
+    "version": "6.13.1",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/language/-/language-6.13.1.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/lint",
+    "version": "6.9.8",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/lint/-/lint-6.9.8.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/search",
+    "version": "6.7.2",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/search/-/search-6.7.2.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/state",
+    "version": "6.7.6",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/state/-/state-6.7.6.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/streamparser",
+    "version": "6.0.0",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/streamparser/-/streamparser-6.0.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@codemirror/view",
+    "version": "6.43.15",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@codemirror/view/-/view-6.43.15.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@langchain/core",
+    "version": "1.4.1",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@langchain/core/-/core-1.4.1.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@langchain/langgraph",
+    "version": "1.7.4",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@langchain/langgraph/-/langgraph-1.7.4.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@langchain/langgraph-checkpoint",
+    "version": "1.2.2",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@langchain/langgraph-checkpoint/-/langgraph-checkpoint-1.2.2.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@langchain/langgraph-sdk",
+    "version": "1.16.0",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@langchain/langgraph-sdk/-/langgraph-sdk-1.16.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@langchain/openai",
+    "version": "1.8.4",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@langchain/openai/-/openai-1.8.4.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@langchain/protocol",
+    "version": "0.0.21",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@langchain/protocol/-/protocol-0.0.21.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@lezer/common",
+    "version": "1.5.5",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@lezer/common/-/common-1.5.5.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@lezer/css",
+    "version": "1.3.9",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@lezer/css/-/css-1.3.9.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@lezer/highlight",
+    "version": "1.2.5",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@lezer/highlight/-/highlight-1.2.5.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@lezer/html",
+    "version": "1.3.13",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@lezer/html/-/html-1.3.13.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@lezer/javascript",
+    "version": "1.5.6",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@lezer/javascript/-/javascript-1.5.6.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@lezer/lr",
+    "version": "1.4.12",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@lezer/lr/-/lr-1.4.12.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@lezer/markdown",
+    "version": "1.8.1",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@lezer/markdown/-/markdown-1.8.1.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@marijn/find-cluster-break",
+    "version": "1.0.4",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@marijn/find-cluster-break/-/find-cluster-break-1.0.4.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@open-spaced-repetition/srs-kit",
+    "version": "1.0.0",
+    "license": "BSD-3-Clause",
+    "source": "https://registry.npmjs.org/@open-spaced-repetition/srs-kit/-/srs-kit-1.0.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@standard-schema/spec",
+    "version": "1.1.0",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@standard-schema/spec/-/spec-1.1.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "@types/json-schema",
+    "version": "7.0.15",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.15.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "base64-js",
+    "version": "1.5.1",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "codemirror",
+    "version": "6.0.2",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/codemirror/-/codemirror-6.0.2.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "crelt",
+    "version": "1.0.7",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/crelt/-/crelt-1.0.7.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "eventemitter3",
+    "version": "5.0.4",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.4.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "eventemitter3",
+    "version": "4.0.7",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/eventemitter3/-/eventemitter3-4.0.7.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "is-network-error",
+    "version": "1.3.2",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/is-network-error/-/is-network-error-1.3.2.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "js-tiktoken",
+    "version": "1.0.21",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/js-tiktoken/-/js-tiktoken-1.0.21.tgz",
+    "licenseTextSource": "https://raw.githubusercontent.com/dqbd/tiktoken/main/LICENSE",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "langchain",
+    "version": "1.6.6",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/langchain/-/langchain-1.6.6.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "langsmith",
+    "version": "0.12.0",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/langsmith/-/langsmith-0.12.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "mustache",
+    "version": "4.2.0",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/mustache/-/mustache-4.2.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "openai",
+    "version": "7.57.0",
+    "license": "Apache-2.0",
+    "source": "https://registry.npmjs.org/openai/-/openai-7.57.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "p-finally",
+    "version": "1.0.0",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/p-finally/-/p-finally-1.0.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "p-queue",
+    "version": "9.3.5",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/p-queue/-/p-queue-9.3.5.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "p-queue",
+    "version": "6.6.2",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/p-queue/-/p-queue-6.6.2.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "p-retry",
+    "version": "7.1.1",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/p-retry/-/p-retry-7.1.1.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "p-timeout",
+    "version": "7.0.2",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/p-timeout/-/p-timeout-7.0.2.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "p-timeout",
+    "version": "3.2.0",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/p-timeout/-/p-timeout-3.2.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "react",
+    "version": "19.3.1",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/react/-/react-19.3.1.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "react-dom",
+    "version": "19.3.1",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/react-dom/-/react-dom-19.3.1.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "scheduler",
+    "version": "0.28.0",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/scheduler/-/scheduler-0.28.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "style-mod",
+    "version": "4.1.4",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/style-mod/-/style-mod-4.1.4.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "ts-fsrs",
+    "version": "6.0.0",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/ts-fsrs/-/ts-fsrs-6.0.0.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "undici",
+    "version": "7.30.2",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/undici/-/undici-7.30.2.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "w3c-keyname",
+    "version": "2.2.8",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/w3c-keyname/-/w3c-keyname-2.2.8.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  },
+  {
+    "name": "zod",
+    "version": "4.6.7",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/zod/-/zod-4.6.7.tgz",
+    "licenseTextSource": "installed package",
+    "rootLicenseIncluded": true
+  }
+]

@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sapere 致知 · 工作台布局原型</title>
+<style>
+:root {
+  color-scheme: light;
+  --canvas: #f5f5f3; --sidebar: #efefed; --paper: #fff; --quiet: #f6f7f8;
+  --ink: #22262c; --muted: #5f6671; --line: #dddfdf;
+  --accent: #24477c; --on-accent: #fff; --selection: #dfe7f3;
+  --review: #2b6349; --review-bg: #e9f2e9; --old: #805142; --old-bg: #f4eae4;
+  --sidebar-width: 260px; --panel-width: 344px; --content-max: 1152px; --reading-max: 720px;
+  --header: 56px; --radius: 6px; --dialog-radius: 12px; --overlay: 50;
+  font-family: "Segoe UI Variable", "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+[data-theme="green"] {
+  --canvas: #f0f3ec; --sidebar: #e7ece3; --paper: #fbfdf9; --quiet: #f1f5ee;
+  --ink: #27332a; --muted: #59695c; --line: #d6dfd3; --accent: #355a43; --selection: #dbe8d7;
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #1d2521; --sidebar: #232e28; --paper: #29352e; --quiet: #2e3a32;
+  --ink: #e8eee7; --muted: #b8c6b9; --line: #46534a; --accent: #b8d2b8; --on-accent: #24382c;
+  --selection: #3d5144;
+  --review: #b1dcbf; --review-bg: #304739; --old: #ebbbab; --old-bg: #493b34;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--canvas); font-size: 14px; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; padding: 0; border: 0; background: transparent; }
+button:disabled { opacity: .48; cursor: default; }
+button:focus-visible, input:focus-visible, select:focus-visible, [role="separator"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+svg { width: 17px; height: 17px; flex: 0 0 auto; vertical-align: middle; }
+.shell { height: 100dvh; display: flex; overflow: hidden; }
+.sidebar { width: var(--sidebar-width); min-width: 0; background: var(--sidebar); display: flex; flex: none; flex-direction: column; padding: 0 14px 12px; }
+.brand { height: var(--header); display: flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 0 7px; font-size: 19px; font-weight: 670; letter-spacing: -.45px; white-space: nowrap; }
+.brand-icon { width: 24px; height: 24px; }
+[data-theme="dark"] .brand-icon { filter: invert(1); }
+.brand small { font-size: 12px; font-weight: 520; color: var(--muted); }
+.search { display: flex; gap: 8px; align-items: center; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); padding: 0 8px; height: 34px; flex: none; color: var(--muted); }
+.search input { min-width: 0; width: 100%; border: none; background: transparent; }
+kbd { font: 11px "Consolas", monospace; white-space: nowrap; color: var(--muted); }
+.workspace-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 14px; padding: 3px; border: 1px solid var(--line); border-radius: var(--radius); }
+.workspace-nav button { min-width: 0; display: flex; align-items: center; justify-content: center; gap: 7px; border-radius: 4px; min-height: 29px; font-size: 13px; color: var(--muted); }
+.workspace-nav button[aria-current="page"] { background: var(--paper); color: var(--accent); font-weight: 650; }
+.workspace-nav button:hover { color: var(--accent); }
+.nav-scroll { min-height: 0; overflow: auto; margin: 21px 0 auto; }
+.nav-heading { margin: 0 9px 8px; color: var(--muted); font-size: 11px; font-weight: 640; }
+.space { margin-bottom: 7px; }
+.space-name, .nav-item { display: flex; align-items: center; gap: 8px; width: 100%; height: 36px; text-align: left; border-radius: var(--radius); padding: 0 9px; }
+.space-name { font-size: 13px; font-weight: 630; color: var(--muted); }
+.space-name svg:last-child { width: 13px; margin-left: auto; transform: rotate(90deg); }
+.space-name[aria-expanded="false"] svg:last-child { transform: none; }
+.nav-item { padding-left: 25px; font-size: 13px; }
+.nav-item span { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.nav-item:hover, .space-name:hover, .icon-button:hover, .secondary:hover { background: var(--selection); }
+.nav-item[aria-current="page"], .section-link[aria-pressed="true"] { background: var(--selection); color: var(--accent); font-weight: 650; }
+.sidebar-bottom { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
+.sidebar-bottom button { padding-left: 8px; }
+.handle { flex: 0 0 6px; position: relative; cursor: col-resize; touch-action: none; background: var(--sidebar); border-right: 1px solid var(--line); }
+.handle:hover, .handle:focus-visible, .handle[data-dragging] { background: var(--accent); }
+.reveal { width: 6px; flex: none; background: var(--sidebar); border-right: 1px solid var(--line); }
+.reveal:hover, .reveal:focus-visible { background: var(--accent); }
+.main { min-width: 0; flex: 1; display: grid; grid-template-rows: var(--header) minmax(0, 1fr) 32px; }
+.top { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 0 22px 0 12px; border-bottom: 1px solid var(--line); background: var(--paper); }
+.crumb, .actions, .button { display: flex; align-items: center; gap: 8px; }
+.crumb { min-width: 0; white-space: nowrap; color: var(--muted); font-size: 13px; }
+.crumb strong { overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
+.actions { flex-shrink: 0; }
+.icon-button { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: var(--radius); color: var(--muted); }
+.icon-button[aria-pressed="true"] { background: var(--selection); color: var(--accent); }
+.button { min-height: 33px; justify-content: center; padding: 0 12px; border-radius: var(--radius); font-size: 13px; font-weight: 600; }
+.primary { color: var(--on-accent); background: var(--accent); }
+.primary:hover { filter: brightness(.9); }
+.secondary { border: 1px solid var(--line); background: var(--paper); }
+.body { display: flex; position: relative; min-height: 0; }
+.page { min-width: 0; flex: 1; height: 100%; background: var(--paper); }
+.scroll { height: 100%; overflow: auto; overscroll-behavior: contain; }
+.content { width: 100%; max-width: var(--content-max); padding: 44px clamp(20px, 5vw, 72px); margin: auto; }
+.reading { max-width: var(--reading-max); margin: auto; }
+h1 { margin: 0 0 12px; font-size: clamp(26px, 2.4vw, 34px); font-weight: 680; letter-spacing: -.04em; }
+.doc-title { padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+.doc-title .meta { margin-bottom: 12px; }
+.doc-title h1 { margin: 0; font-size: clamp(28px, 3vw, 40px); }
+.meta { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: 12px; }
+.document h2 { margin: 27px 0 8px; font-size: 17px; font-weight: 650; }
+.document p, .document li { font-size: 15px; line-height: 1.95; }
+.document p { margin: 0 0 10px; }
+.document ul { padding-left: 1.45em; }
+.document article { margin-top: 26px; }
+.selected-text { border-left: 3px solid var(--line); padding: 7px 12px; background: var(--quiet); }
+.traversals { width: 100%; border-collapse: collapse; margin: 16px 0 22px; font-size: 13px; }
+.traversals th, .traversals td { text-align: left; border-bottom: 1px solid var(--line); padding: 9px 12px; }
+.traversals th { color: var(--muted); font-weight: 600; background: var(--quiet); }
+.panel { width: clamp(304px, var(--panel-width), 440px); flex: none; border-left: 1px solid var(--line); background: var(--canvas); display: flex; flex-direction: column; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; padding: 0 16px; min-height: 48px; border-bottom: 1px solid var(--line); }
+.panel-content { overflow: auto; padding: 18px 16px; }
+.panel-content h2 { font-size: 17px; margin: 4px 0 9px; }
+.panel-content p { color: var(--muted); line-height: 1.65; margin: 0 0 16px; font-size: 13px; }
+.diff { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; margin-bottom: 10px; font-size: 13px; line-height: 1.72; }
+.diff strong { display: block; font-size: 12px; margin-bottom: 4px; }
+.before { color: var(--old); background: var(--old-bg); }
+.after { color: var(--review); background: var(--review-bg); }
+.panel-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+.status { background: var(--canvas); border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 19px; font-size: 12px; color: var(--muted); }
+.chat { display: flex; flex-direction: column; }
+.chat .scroll { flex: 1; height: auto; }
+.chat .content { padding-top: 30px; padding-bottom: 18px; }
+.message { display: flex; gap: 10px; align-items: flex-start; margin-top: 20px; line-height: 1.8; }
+.message h2 { font-size: 13px; margin: 0 0 4px; }
+.message p { margin: 0; }
+.message-author { flex: none; width: 30px; height: 30px; background: var(--selection); color: var(--accent); border-radius: var(--radius); display: grid; place-items: center; }
+.message.user { padding: 12px; border-radius: var(--radius); background: var(--quiet); }
+.run-card { margin: 14px 0 0 40px; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; background: var(--quiet); }
+.run-card div { color: var(--muted); margin: 6px 0 10px; font-size: 13px; }
+.composer { padding: 12px clamp(20px, 5vw, 72px) 16px; border-top: 1px solid var(--line); background: var(--quiet); }
+.composer .reading { display: flex; align-items: center; gap: 10px; }
+.composer input { min-width: 0; flex: 1; padding: 9px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+.settings-grid { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 22px; }
+.section-link { display: block; width: 100%; border-radius: var(--radius); text-align: left; padding: 10px; }
+.section-link:hover { background: var(--selection); }
+.setting-card { border: 1px solid var(--line); border-radius: var(--dialog-radius); overflow: hidden; }
+.setting-card h2 { margin: 0; font-size: 16px; padding: 13px 16px; border-left: 3px solid var(--accent); border-bottom: 1px solid var(--line); }
+.setting-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 15px 16px; }
+.setting-row + .setting-row { border-top: 1px solid var(--line); }
+.setting-row small { display: block; margin-top: 4px; color: var(--muted); }
+select { border: 1px solid var(--line); border-radius: var(--radius); background: var(--quiet); padding: 5px; }
+dialog { width: min(92vw, 680px); max-height: 88vh; padding: 0; border: 1px solid var(--line); border-radius: var(--dialog-radius); color: var(--ink); background: var(--paper); box-shadow: 0 24px 64px #14231a35; }
+dialog::backdrop { background: #18271dd0; }
+.modal-body { padding: 20px; }
+.panel-overlay .panel { position: absolute; z-index: var(--overlay); right: 0; inset-block: 0; max-width: 92%; box-shadow: -12px 0 32px #14231a24; }
+@media (max-width: 900px) {
+  .sidebar { position: absolute; z-index: var(--overlay); inset: var(--header) auto 0 0; max-width: 92vw; border-right: 1px solid var(--line); box-shadow: 12px 0 28px #14231a20; }
+  .brand { height: 44px; margin-bottom: 5px; }
+  .handle { display: none; }
+}
+@media (max-width: 650px) {
+  .top { padding: 0 8px; } .top .button span:last-child { display: none; } .settings-grid { grid-template-columns: 1fr; gap: 12px; }
+  .crumb .trail { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" aria-label="资源导航" id="sidebar">
+    <div class="brand"><img class="brand-icon" src="../../apps/desktop/src/renderer/public/sapere-symbol.svg" alt="">Sapere <small>致知</small></div>
+    <label class="search"><span data-icon="search"></span><input id="search" placeholder="查找文档" aria-label="查找文档"><kbd>Ctrl K</kbd></label>
+    <nav class="workspace-nav" aria-label="工作台视图">
+      <button data-view="document"><span data-icon="file"></span>文档</button>
+      <button data-view="chat"><span data-icon="chat"></span>对话</button>
+    </nav>
+    <nav class="nav-scroll" aria-label="工作空间"><h2 class="nav-heading">工作空间</h2><div id="resources"></div></nav>
+    <div class="sidebar-bottom"><button class="nav-item" data-view="settings"><span data-icon="settings"></span>工作区设置</button></div>
+  </aside>
+  <div class="handle" tabindex="0" role="separator" aria-orientation="vertical" aria-label="调整资源导航宽度" aria-valuemin="180" aria-valuemax="360"></div>
+  <button class="reveal" aria-label="展开资源导航" title="展开资源导航" hidden></button>
+  <main class="main">
+    <header class="top">
+      <div class="crumb"><button class="icon-button" id="nav-toggle" aria-controls="sidebar" aria-label="切换资源导航" title="切换资源导航" data-icon="panelLeft"></button><span class="trail" id="trail"></span><span class="trail" data-icon="chevron"></span><strong id="page-title"></strong></div>
+      <div class="actions">
+        <button class="icon-button" id="focus" aria-label="专注模式" title="专注模式 · Ctrl Shift F" data-icon="eye"></button>
+        <button class="button secondary" id="preview" aria-label="预览文档"><span data-icon="eye"></span><span>预览</span></button>
+        <button class="button primary" id="panel-toggle" aria-controls="panel" aria-label="切换辅助面板"><span data-icon="panelRight"></span><span id="panel-label">审阅</span></button>
+      </div>
+    </header>
+    <div class="body" id="body">
+      <section class="page document" id="document"><div class="scroll"><div class="content"><div class="reading" id="doc-content"></div></div></div></section>
+      <section class="page chat" id="chat" hidden>
+        <div class="scroll"><div class="content"><div class="reading">
+          <h1 id="chat-title"></h1>
+          <div class="meta"><span data-icon="chat"></span><span>示例对话</span></div>
+          <div class="message user"><div class="message-author">你</div><div><h2>你</h2><p id="chat-question"></p></div></div>
+          <div class="message"><div class="message-author" data-icon="sparkles"></div><div><h2>Sapere</h2><p id="chat-answer"></p></div></div>
+          <div class="run-card"><strong>已关联当前文档</strong><div id="chat-source"></div><button class="button secondary" data-view="document">查看文档</button></div>
+        </div></div></div>
+        <div class="composer"><div class="reading"><input aria-label="示例输入框" placeholder="输入区布局示例，仅用于设计预览"><span class="icon-button" data-icon="arrowUp" title="发送按钮位置"></span></div></div>
+      </section>
+      <section class="page" id="settings" hidden><div class="scroll"><div class="content">
+        <h1>工作区设置</h1>
+        <div class="settings-grid">
+          <nav aria-label="设置分区">
+            <button class="section-link" data-section="appearance" aria-pressed="true">外观</button>
+            <button class="section-link" data-section="layout" aria-pressed="false">工作台布局</button>
+          </nav>
+          <section class="setting-card" id="appearance">
+            <h2>外观</h2>
+            <label class="setting-row"><span>主题<small>更改后立即应用到预览。</small></span><select id="theme"><option value="green">苔绿</option><option value="light">浅色</option><option value="dark">深黑</option></select></label>
+          </section>
+          <section class="setting-card" id="layout" hidden>
+            <h2>工作台布局</h2>
+            <label class="setting-row"><span>显示资源导航<small>折叠后可从页头或左侧边缘展开。</small></span><input type="checkbox" id="sidebar-pref"></label>
+            <label class="setting-row"><span>进入文档时显示审阅面板</span><input type="checkbox" id="panel-pref"></label>
+          </section>
+        </div>
+      </div></div></section>
+      <aside class="panel" id="panel" aria-label="辅助面板">
+        <div class="panel-head"><strong id="panel-title"></strong><button class="icon-button" id="panel-close" aria-label="收起辅助面板" data-icon="close"></button></div>
+        <div class="panel-content" id="panel-content"></div>
+      </aside>
+    </div>
+    <footer class="status"><span id="status" role="status">布局原型 · 示例内容</span></footer>
+  </main>
+</div>
+<dialog id="dialog" aria-labelledby="dialog-title">
+  <div class="panel-head"><strong id="dialog-title">文档预览</strong><button class="icon-button" id="dialog-close" aria-label="关闭预览" data-icon="close"></button></div>
+  <div class="modal-body" id="modal-body"></div>
+</dialog>
+<script>
+const icons = {
+  file:'M14 3H5v18h14V8l-5-5Zm0 0v5h5M8 12h8M8 16h6',
+  book:'M4 4h6a3 3 0 0 1 2 3v14a4 4 0 0 0-4-3H3V4h1Zm16 0h-6a3 3 0 0 0-2 3m0 14a4 4 0 0 1 4-3h5V4h-1Z',
+  pen:'m15 5 4 4M4 20l4-1L20 7a2.8 2.8 0 0 0-4-4L4 15l-1 6 1-1Z',
+  briefcase:'M8 6V4h8v2M3 10l9 5 9-5M10 14v3h4v-3M3 7h18v13H3V7Z',
+  chat:'M5 4h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-5 3V6a2 2 0 0 1 2-2Zm3 6h.01M12 10h.01M16 10h.01',
+  search:'M16 16l5 5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z',
+  panelLeft:'M3 4h18v16H3V4Zm5 0v16', panelRight:'M3 4h18v16H3V4Zm13 0v16',
+  eye:'M2 12S6 5 12 5s10 7 10 7-4 7-10 7S2 12 2 12Zm13 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
+  settings:'m9 3-1 3-3 1-2 4 2 2v3l3 2 1 3h6l1-3 3-2v-3l2-2-2-4-3-1-1-3H9Zm6 9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
+  sparkles:'m12 3 2.7 6.3L21 12l-6.3 2.7L12 21l-2.7-6.3L3 12l6.3-2.7L12 3Z',
+  chevron:'m9 5 7 7-7 7', close:'m6 6 12 12M6 18 18 6', arrowUp:'M12 20V4m-7 7 7-7 7 7',
+};
+const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${icons[name]}"/></svg>`;
+document.querySelectorAll('[data-icon]').forEach(element => { element.innerHTML = icon(element.dataset.icon); });
+const contents = [
+  { space:'学习', icon:'book', title:'数据结构笔记', topic:'二叉树的三种遍历', lead:'给定同一棵二叉树，三种遍历的差别在于什么时候记录当前节点。顺序确定后，左右子树按同一规则处理。', heading:'先看根节点的位置', original:'前序是根左右，中序是左根右，后序是左右根。', candidate:'前序先访问根节点，中序在访问完左子树后访问根节点，后序等两棵子树访问完才访问根节点。', next:'用三节点的树自测', items:['设根节点为 A，左子节点为 B，右子节点为 C。','写出三种序列，再用根节点的位置检查答案。'], question:'怎样快速记住二叉树的三种遍历？', answer:'先看根节点什么时候出现。前序把根放在最前，中序把根放在左右子树之间，后序让根最后出现。' },
+  { space:'工作', icon:'briefcase', title:'需求评审记录', topic:'需求评审记录', lead:'本次评审确认了资料导入的首批范围、验收方式和未决事项。', heading:'确认事项', original:'先做常见格式，后面再补更多格式。', candidate:'首批支持 TXT 和 Markdown 导入。PDF 的验收范围将在下次评审前确定。', next:'后续安排', items:['准备包含中文标题的测试文档。','确认重复导入时的提示与处理方式。'], question:'把评审结论拆成两项待办。', answer:'先准备中文标题样本，再确认重复导入的处理规则。两项都可以用同一组测试文档验收。' },
+  { space:'创作', icon:'pen', title:'文章大纲', topic:'如何把读过的内容变成自己的知识', lead:'读完一本书以后，真正留下来的往往只有少数例子和问题。文章从整理一个例子开始。', heading:'开头', original:'很多人读了很多书，却什么也记不住。', candidate:'上周读完的那一本书，你还记得哪个具体例子？从这个例子出发，也许更容易找回自己的理解。', next:'正文思路', items:['挑一个例子，用自己的话重述。','找一个新情境，检验观点还能否成立。'], question:'开头怎样写得更具体？', answer:'把抽象结论改成读者能回答的问题，再用一个亲身经历接住它。' },
+];
+const $ = id => document.getElementById(id);
+const root = document.documentElement;
+const narrow = matchMedia('(max-width: 1239px)');
+const compact = matchMedia('(max-width: 900px)');
+const key = 'sapere-layout-prototype-v2';
+const defaults = { width: 260, sidebar: true, review: false, theme: 'light' };
+let pref = { ...defaults };
+try { pref = { ...defaults, ...JSON.parse(localStorage.getItem(key) || '{}') }; } catch {}
+let view = 'document', current = 0, focused = false, panelOverride, sidebarOverride;
+const collapsed = new Set();
+const decisions = new Map();
+function persist() { try { localStorage.setItem(key, JSON.stringify(pref)); } catch {} }
+function showStatus(message) { $('status').textContent = message; }
+function renderResources() {
+  const query = $('search').value.trim();
+  const showingChats = view === 'chat';
+  const matches = contents.map((data, index) => ({ data, index, label: showingChats ? data.question : data.title }))
+    .filter(({ data, label }) => (data.space + label).includes(query));
+  $('resources').innerHTML = matches.map(({ data, index, label }) =>
+    `<div class="space"><button class="space-name" aria-expanded="${!collapsed.has(index) || !!query}" data-space="${index}">${icon(data.icon)}${data.space}空间${icon('chevron')}</button>
+      <button class="nav-item" data-resource="${index}" ${index === current && view !== 'settings' ? 'aria-current="page"' : ''} ${collapsed.has(index) && !query ? 'hidden' : ''}>${icon(showingChats ? 'chat' : 'file')}<span>${label}</span></button></div>`).join('') || '<p class="nav-heading">没有匹配的内容。</p>';
+}
+function docMarkup(data) {
+  const sequences = data === contents[0] ? `<table class="traversals" aria-label="三种遍历顺序">
+    <thead><tr><th scope="col">遍历</th><th scope="col">访问顺序</th></tr></thead>
+    <tbody><tr><th scope="row">前序</th><td>根 → 左 → 右</td></tr>
+    <tr><th scope="row">中序</th><td>左 → 根 → 右</td></tr>
+    <tr><th scope="row">后序</th><td>左 → 右 → 根</td></tr></tbody></table>` : '';
+  return `<div class="doc-title"><div class="meta">${icon('file')}${data.space}空间 · 文档</div><h1>${data.topic}</h1></div>
+    <article><h2>概览</h2><p>${data.lead}</p>
+    <h2>${data.heading}</h2><p class="selected-text">${decisions.get(current) === 'accept' ? data.candidate : data.original}</p>${sequences}
+    <h2>${data.next}</h2><ul>${data.items.map(item => `<li>${item}</li>`).join('')}</ul></article>`;
+}
+function renderContent() {
+  const data = contents[current];
+  $('trail').textContent = view === 'settings' ? 'Sapere' : data.space + '空间';
+  $('page-title').textContent = { document: data.title, chat: data.space + '助手', settings: '设置' }[view];
+  $('doc-content').innerHTML = docMarkup(data);
+  $('chat-title').textContent = data.space + '助手';
+  $('chat-question').textContent = data.question;
+  $('chat-answer').textContent = data.answer;
+  $('chat-source').textContent = data.title;
+  $('panel-title').textContent = view === 'chat' ? '运行详情' : '修改审阅';
+  $('panel-label').textContent = view === 'chat' ? '运行详情' : '审阅';
+  $('search').placeholder = view === 'chat' ? '查找对话' : '查找文档';
+  $('search').setAttribute('aria-label', $('search').placeholder);
+  const decision = decisions.get(current);
+  $('panel-content').innerHTML = view === 'chat'
+    ? `<h2>参考资料</h2><p>本轮示例对话引用了《${data.title}》。</p><button class="button secondary" data-view="document">查看文档</button>`
+    : decision
+      ? `<h2>${decision === 'accept' ? '已应用候选' : '已保留原文'}</h2><button class="button secondary" data-review="reset">重置示例</button>`
+      : `<h2>段落修改提案</h2><p>比较原文和候选，然后选择是否应用。</p>
+        <div class="diff before"><strong>原文</strong>${data.original}</div>
+        <div class="diff after"><strong>候选</strong>${data.candidate}</div>
+        <div class="panel-actions"><button class="button secondary" data-review="reject">保留原文</button><button class="button primary" data-review="accept">应用候选</button></div>`;
+  for (const id of ['document', 'chat', 'settings']) $(id).hidden = id !== view;
+  $('preview').hidden = view !== 'document';
+  $('panel-toggle').hidden = view === 'settings';
+  document.querySelectorAll('.sidebar [data-view]').forEach(button => {
+    if (button.dataset.view === view) button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  });
+  renderResources();
+}
+function syncLayout() {
+  const sidebar = !focused && (compact.matches ? sidebarOverride ?? false : pref.sidebar);
+  const panel = view !== 'settings' && !focused && (panelOverride ?? (view === 'document' && pref.review && !narrow.matches));
+  $('sidebar').hidden = !sidebar;
+  document.querySelector('.handle').hidden = !sidebar;
+  document.querySelector('.reveal').hidden = sidebar || focused;
+  $('panel').hidden = !panel;
+  $('body').classList.toggle('panel-overlay', narrow.matches || (sidebar && innerWidth - pref.width < 960));
+  $('focus').setAttribute('aria-pressed', focused);
+  $('panel-toggle').setAttribute('aria-pressed', panel);
+  $('nav-toggle').setAttribute('aria-expanded', sidebar);
+  $('sidebar-pref').checked = pref.sidebar;
+  $('panel-pref').checked = pref.review;
+  $('theme').value = pref.theme;
+  root.dataset.theme = pref.theme;
+}
+function changeView(next) {
+  if (view !== next) { panelOverride = undefined; $('search').value = ''; }
+  view = next;
+  sidebarOverride = undefined;
+  renderContent();
+  syncLayout();
+}
+function toggleSidebar() {
+  const open = $('sidebar').hidden;
+  focused = false;
+  if (compact.matches) sidebarOverride = open;
+  else { pref.sidebar = open; persist(); }
+  syncLayout();
+}
+function focusSearch() {
+  if ($('sidebar').hidden) toggleSidebar();
+  $('search').focus();
+}
+function changeWidth(value) {
+  pref.width = Math.max(180, Math.min(360, value));
+  root.style.setProperty('--sidebar-width', pref.width + 'px');
+  document.querySelector('.handle').setAttribute('aria-valuenow', pref.width);
+  syncLayout();
+}
+document.addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (!button) return;
+  if (button.dataset.view) changeView(button.dataset.view);
+  if (button.dataset.resource !== undefined) {
+    current = Number(button.dataset.resource);
+    changeView(view === 'chat' ? 'chat' : 'document');
+    if (compact.matches) $('nav-toggle').focus();
+    else $('resources').querySelector('[aria-current="page"]').focus();
+  }
+  if (button.dataset.space !== undefined) {
+    const index = Number(button.dataset.space);
+    if (collapsed.has(index)) collapsed.delete(index); else collapsed.add(index);
+    renderResources();
+    $('resources').querySelector(`[data-space="${index}"]`).focus();
+  }
+  if (button.dataset.review) {
+    if (button.dataset.review === 'reset') decisions.delete(current);
+    else decisions.set(current, button.dataset.review);
+    renderContent();
+    $('panel-close').focus();
+    showStatus(button.dataset.review === 'accept' ? '已应用到示例文档' : '已保留示例原文');
+  }
+  if (button.dataset.section) {
+    document.querySelectorAll('[data-section]').forEach(link => {
+      const active = link === button;
+      link.setAttribute('aria-pressed', active);
+      $(link.dataset.section).hidden = !active;
+    });
+  }
+});
+$('nav-toggle').onclick = document.querySelector('.reveal').onclick = toggleSidebar;
+$('search').oninput = renderResources;
+$('focus').onclick = () => { focused = !focused; syncLayout(); };
+$('panel-toggle').onclick = () => { panelOverride = $('panel').hidden; focused = false; syncLayout(); };
+$('panel-close').onclick = () => { panelOverride = false; syncLayout(); $('panel-toggle').focus(); };
+$('theme').onchange = event => { pref.theme = event.target.value; persist(); syncLayout(); };
+$('sidebar-pref').onchange = event => { pref.sidebar = event.target.checked; persist(); syncLayout(); };
+$('panel-pref').onchange = event => { pref.review = event.target.checked; persist(); syncLayout(); };
+$('preview').onclick = () => {
+  $('modal-body').innerHTML = `<div class="document reading">${docMarkup(contents[current])}</div>`;
+  $('dialog').showModal();
+};
+$('dialog-close').onclick = () => $('dialog').close();
+$('dialog').onclick = event => { if (event.target === event.currentTarget) $('dialog').close(); };
+addEventListener('keydown', event => {
+  if ($('dialog').open) return;
+  if (event.key === 'Escape') {
+    if (focused) focused = false;
+    else if (narrow.matches && !$('panel').hidden) panelOverride = false;
+    else if (compact.matches) sidebarOverride = false;
+    syncLayout();
+  }
+  if (event.ctrlKey || event.metaKey) {
+    if (event.key.toLowerCase() === 'k') { event.preventDefault(); focusSearch(); }
+    if (event.shiftKey && event.key.toLowerCase() === 'f') { event.preventDefault(); focused = !focused; syncLayout(); }
+  }
+});
+const handle = document.querySelector('.handle');
+handle.onpointerdown = event => {
+  if (event.button !== 0) return;
+  event.preventDefault();
+  const start = event.clientX, width = pref.width;
+  handle.setPointerCapture(event.pointerId);
+  handle.dataset.dragging = '';
+  handle.onpointermove = next => changeWidth(width + next.clientX - start);
+  handle.onlostpointercapture = () => { handle.onpointermove = null; delete handle.dataset.dragging; persist(); };
+};
+handle.onkeydown = event => {
+  const widths = { Home: 180, End: 360, ArrowLeft: pref.width - 16, ArrowRight: pref.width + 16 };
+  if (!Object.hasOwn(widths, event.key)) return;
+  event.preventDefault();
+  changeWidth(widths[event.key]);
+  persist();
+};
+handle.ondblclick = () => { changeWidth(260); persist(); };
+addEventListener('resize', syncLayout);
+narrow.addEventListener('change', () => { panelOverride = undefined; syncLayout(); });
+compact.addEventListener('change', () => { sidebarOverride = undefined; syncLayout(); });
+changeWidth(Number.isFinite(pref.width) ? pref.width : 260);
+changeView('document');
+</script>
+</body>
+</html>

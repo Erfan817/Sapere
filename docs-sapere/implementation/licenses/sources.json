@@ -1,0 +1,16 @@
+[
+  {
+    "name": "cfworker",
+    "repository": "cfworker/cfworker",
+    "source": "https://raw.githubusercontent.com/cfworker/cfworker/main/LICENSE.md",
+    "retrievedAt": "2026-11-17T06:19:50.744Z",
+    "evidence": "Repository root license retrieved; published package declares MIT but omits root text."
+  },
+  {
+    "name": "js-tiktoken",
+    "repository": "dqbd/tiktoken",
+    "source": "https://raw.githubusercontent.com/dqbd/tiktoken/main/LICENSE",
+    "retrievedAt": "2026-11-17T06:19:51.148Z",
+    "evidence": "Repository root license retrieved; published package declares MIT but omits root text."
+  }
+]
